@@ -10,33 +10,20 @@ using System.Diagnostics;
 
 namespace TagManager
 {
-    public class TagManager
+    public static class AssemblyFunctions
     {
-        public IGlobal maxGlobal;
-        public IInterface13 maxInterface;
-
-        public TagManager()
+        public static void AssemblyMain()
         {
-            maxGlobal = Autodesk.Max.GlobalInterface.Instance;
-            maxInterface = maxGlobal.COREInterface13;
+            var g = Autodesk.Max.GlobalInterface.Instance;
+            var i = g.COREInterface13;
+            i.AddClass(new testSub.Descriptor(g));
         }
 
-        public static void Manage()
+        public static void AssemblyShutdown()
         {
-            TagManager _tagManager = new TagManager();
-            IListener _listener = _tagManager.maxGlobal.TheListener;
-            int _nbNodes = _tagManager.maxInterface.SelNodeCount;
-            List<IINode> _nodes = new List<IINode>();
-            for (int i=0; i<_nbNodes; i++)
-            {
-                IINode _node = _tagManager.maxInterface.GetSelNode(i);
-                _nodes.Add(_node);
-                _listener.EditStream.Wputs(_node.Name+ "\n");
-                _listener.EditStream.Flush();
-            }
-            
+
         }
-    }
+    } 
     public class testSub : Autodesk.Max.Plugins.UtilityObj
     {
         public class Descriptor : Autodesk.Max.Plugins.ClassDesc2
