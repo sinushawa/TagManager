@@ -1,5 +1,6 @@
 ﻿using Autodesk.Max;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -22,6 +23,16 @@ namespace TagManager
                 return GlobalInterface.Instance;
             }
         }
+        public static List<IINode> getSelection()
+        {
+            List<IINode> selectedNodes = new List<IINode>();
+            for (int i = 0; i < Interface.SelNodeCount; i++)
+            {
+                selectedNodes.Add(Interface.GetSelNode(i));
+            }
+            return selectedNodes;
+        }
+
         public static void Write(string s, params string[] args)
         {
             MaxPluginUtilities.Write(string.Format(s, args));

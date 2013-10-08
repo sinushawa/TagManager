@@ -30,6 +30,7 @@ namespace TagManager
         {
             protected IGlobal _global;
             internal static IClass_ID _classID;
+            public bool saveIsNeeded = false;
 
             public IGlobal Global
             {
@@ -71,6 +72,23 @@ namespace TagManager
             {
                 get { return SClass_ID.Utility; }
             }
+            public override bool NeedsToSave
+            {
+                get
+                {
+                    return saveIsNeeded;
+                }
+            }
+            public override IOResult Save(IISave isave)
+            {
+                IOResult result = isave.Save("test");
+                return result;
+            }
+            public override IOResult Load(IILoad iload)
+            {
+                string res = iload.LoadObject() as string;
+                return base.Load(iload);
+            }
         } 
         Descriptor _descriptor;
 
@@ -81,12 +99,13 @@ namespace TagManager
 
         public override void BeginEditParams(IInterface ip, IIUtil iu) 
         { 
-            ip.PushPrompt("This is a prompt msg :D"); 
+            ip.PushPrompt("This is a prompt msg :D");
+            _descriptor.saveIsNeeded = true;
         } 
 
         public override void EndEditParams(IInterface ip, IIUtil iu) 
         { 
             ip.PopPrompt(); 
-        } 
+        }
     }
 }

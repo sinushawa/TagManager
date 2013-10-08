@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Autodesk.Max;
+using MaxCustomControls;
 
 namespace TagManager
 {
-    public partial class testForm : Form
+    public partial class testForm : MaxForm
     {
         public TagCenter parent;
 
@@ -22,7 +24,7 @@ namespace TagManager
 
         private void onClick(object sender, EventArgs e)
         {
-            parent.GUP.remember = this.reader_tbx.Text;
+
         }
     }
 }

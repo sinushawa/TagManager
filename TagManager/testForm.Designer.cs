@@ -56,7 +56,9 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.submit_btn);
             this.Controls.Add(this.reader_tbx);
+            this.MaximizeBox = false;
             this.Name = "testForm";
+            this.ShowIcon = false;
             this.Text = "testForm";
             this.ResumeLayout(false);
             this.PerformLayout();
