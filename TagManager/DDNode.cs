@@ -142,16 +142,6 @@ namespace TagManager
             }
             return nodes;
         }
-        public void SelectNodes(bool newSelection)
-        {
-            List<Autodesk.Max.IINode> nodesToSelect = new List<Autodesk.Max.IINode>();
-            if (!newSelection)
-            {
-                nodesToSelect.AddRange(MaxPluginUtilities.Selection);
-            }
-            nodesToSelect.AddRange(GetNodes());
-        }
-
         public override string ToString()
         {
             return Name;

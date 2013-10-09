@@ -174,7 +174,6 @@ namespace TagManager
         {
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             Type callParamType = notifyInfo.CallParam.GetType();
-            MaxPluginUtilities.Interface.SelectNodeTab();
         }
         private void NodeDeleted(IntPtr obj, IntPtr infoHandle)
         {

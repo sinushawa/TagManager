@@ -23,14 +23,48 @@ namespace TagManager
                 return GlobalInterface.Instance;
             }
         }
-        public static List<IINode> getSelection()
+        public static IINodeTab Selection
         {
-            List<IINode> selectedNodes = new List<IINode>();
+            get
+            {
+                return getSelection();
+            }
+            set
+            {
+                setSelection(value);
+            }
+        }
+        private static IINodeTab getSelection()
+        {
+            IINodeTab selectedNodes = Global.NodeTab.Create();
             for (int i = 0; i < Interface.SelNodeCount; i++)
             {
-                selectedNodes.Add(Interface.GetSelNode(i));
+                selectedNodes.AppendNode(Interface.GetSelNode(i), false, 1);
             }
             return selectedNodes;
+        }
+        private static void setSelection(IINodeTab _nodes)
+        {
+            Interface.SelectNodeTab(_nodes, true, true);
+        }
+        public static IINodeTab ToNodeTab(this List<IINode> _nodes)
+        {
+            IINodeTab nodeTab = Global.NodeTab.Create();
+            foreach (IINode _node in _nodes)
+            {
+                nodeTab.AppendNode(_node, false, 1);
+            }
+            return nodeTab;
+        }
+        public static List<IINode> ToListNode(this IINodeTab _nodes)
+        {
+            List<IINode> listNodes = new List<IINode>();
+            for (int i = 0; i < _nodes.Count; i++ )
+            {
+                IntPtr pointer = (IntPtr)i;
+                listNodes.Add(_nodes[pointer]);
+            }
+            return listNodes;
         }
 
         public static void Write(string s, params string[] args)
