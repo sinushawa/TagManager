@@ -113,6 +113,8 @@ namespace TagManager
             get;
             set;
         }
+
+        private testForm _testForm;
         internal testForm MainForm
         {
             get
@@ -124,7 +126,13 @@ namespace TagManager
                 return this._testForm;
             }
         }
-        private testForm _testForm;
+
+        private SortableObservableCollection<IINode> selectedObjects;
+        public SortableObservableCollection<IINode> SelectedObjects
+        {
+            get { return selectedObjects; }
+            set { selectedObjects = value; }
+        }
 
 
         /// <summary>
@@ -172,15 +180,12 @@ namespace TagManager
         }
         private void SelChanged(IntPtr obj, IntPtr infoHandle)
         {
-            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
-            Type callParamType = notifyInfo.CallParam.GetType();
+            SelectedObjects = MaxPluginUtilities.Selection.ToSOC();
         }
         private void NodeDeleted(IntPtr obj, IntPtr infoHandle)
         {
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
-            Type callParamType = notifyInfo.CallParam.GetType();
-            PropertyInfo PI = callParamType.GetProperty("Handle");
-            object resultat = PI.GetValue(notifyInfo.CallParam);
+            IINode _node = notifyInfo.CallParam as IINode;
         }
         internal testForm LaunchDefault()
         {

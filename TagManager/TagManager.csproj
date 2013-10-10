@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Program Files\Autodesk\3ds Max 2014\bin\assemblies\</OutputPath>
+    <OutputPath>..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,6 +44,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Controls.Input.Toolkit">
       <HintPath>..\..\TagPan\TagPan\bin\Debug\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +54,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TreeViewEx">
       <HintPath>..\..\TagPan\TagPan\bin\Debug\TreeViewEx.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UiViewModels">
       <HintPath>bin\Debug\UiViewModels.dll</HintPath>
@@ -60,6 +62,7 @@
     </Reference>
     <Reference Include="WPFToolkit">
       <HintPath>..\..\TagPan\TagPan\bin\Debug\WPFToolkit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

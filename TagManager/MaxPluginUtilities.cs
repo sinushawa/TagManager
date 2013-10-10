@@ -66,6 +66,16 @@ namespace TagManager
             }
             return listNodes;
         }
+        public static SortableObservableCollection<IINode> ToSOC(this IINodeTab _nodes)
+        {
+            SortableObservableCollection<IINode> listNodes = new SortableObservableCollection<IINode>();
+            for (int i = 0; i < _nodes.Count; i++)
+            {
+                IntPtr pointer = (IntPtr)i;
+                listNodes.Add(_nodes[pointer]);
+            }
+            return listNodes;
+        }
 
         public static void Write(string s, params string[] args)
         {
