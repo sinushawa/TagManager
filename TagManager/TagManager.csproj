@@ -31,11 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Max">
-      <HintPath>C:\Program Files\Autodesk\3ds Max 2014\Autodesk.Max.dll</HintPath>
+      <HintPath>bin\Debug\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MaxCustomControls">
-      <HintPath>C:\Program Files\Autodesk\3ds Max 2014\MaxCustomControls.dll</HintPath>
+      <HintPath>bin\Debug\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -55,7 +55,7 @@
       <HintPath>..\..\TagPan\TagPan\bin\Debug\TreeViewEx.dll</HintPath>
     </Reference>
     <Reference Include="UiViewModels">
-      <HintPath>C:\Program Files\Autodesk\3ds Max 2014\UiViewModels.dll</HintPath>
+      <HintPath>bin\Debug\UiViewModels.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="WPFToolkit">
@@ -68,6 +68,7 @@
     <Compile Include="MaxNode.cs" />
     <Compile Include="MaxPluginUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
     <Compile Include="testForm.cs">

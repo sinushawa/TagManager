@@ -13,7 +13,7 @@ namespace TagManager
 
         public DDNode()
         {
-            Children = new ObservableCollection<DDNode>();
+            Children = new SortableObservableCollection<DDNode>();
             Children.CollectionChanged += Children_CollectionChanged;
         }
 
@@ -102,8 +102,8 @@ namespace TagManager
 
         #region Public Properties
 
-        private ObservableCollection<DDNode> children;
-        public ObservableCollection<DDNode> Children 
+        private SortableObservableCollection<DDNode> children;
+        public SortableObservableCollection<DDNode> Children 
         {
             get { return children; }
             set { children = value; }
@@ -123,8 +123,8 @@ namespace TagManager
             set { parent = value; }
         }
 
-        private ObservableCollection<uint> nodes;
-        public ObservableCollection<uint> Nodes
+        private SortableObservableCollection<uint> nodes;
+        public SortableObservableCollection<uint> Nodes
         {
             get { return nodes; }
             set { nodes = value; }

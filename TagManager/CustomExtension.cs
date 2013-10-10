@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -35,27 +36,17 @@ namespace TagManager
             ret.AddRange(node.Nodes.GetNodeList());
             return ret;
         }
-        public static List<SimpleTreeNode<TagNode>> GetNodeList(this SimpleTreeNode<TagNode> dnod)
+        public static SortableObservableCollection<DDNode> GetNodeList(this DDNode dnod)
         {
-            var ret = new List<SimpleTreeNode<TagNode>>();
+            var ret = new SortableObservableCollection<DDNode>();
             ret.Add(dnod);
-            ret.AddRange(dnod.Children.GetNodeList());
+            ret.AddRange(dnod.Children);
             return ret;
         }
-        public static List<SimpleTreeNode<TagNode>> GetNodeList(this SimpleTreeNodeList<TagNode> dnodColl)
+        public static SortableObservableCollection<DDNode> GetNodeList(this SortableObservableCollection<DDNode> dnodColl)
         {
-            var ret = new List<SimpleTreeNode<TagNode>>();
-            foreach (SimpleTreeNode<TagNode> _dnode in dnodColl)
-            {
-                ret.Add(_dnode);
-                ret.AddRange(_dnode.Children.GetNodeList());
-            }
-            return ret;
-        }
-        public static List<SimpleTreeNode<TagNode>> GetNodeList(this List<SimpleTreeNode<TagNode>> dnodColl)
-        {
-            var ret = new List<SimpleTreeNode<TagNode>>();
-            foreach (SimpleTreeNode<TagNode> _dnode in dnodColl)
+            var ret = new SortableObservableCollection<DDNode>();
+            foreach (DDNode _dnode in dnodColl)
             {
                 ret.Add(_dnode);
                 ret.AddRange(_dnode.Children.GetNodeList());
