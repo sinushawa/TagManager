@@ -187,6 +187,37 @@ namespace TagManager
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             IINode _node = notifyInfo.CallParam as IINode;
         }
+        public void CreateWindow()
+        {
+            // Create a new managed window to contain the WPF control
+            System.Windows.Window dialog = new System.Windows.Window();
+
+            // Name the window
+            dialog.Title = "Sample";
+
+            // Example of setup size and location
+            // ...
+            //dialog.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
+            dialog.Width = 220;
+            dialog.Height = 650;
+            dialog.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
+
+            // Assign the window's content to be the WPF control
+            dialog.Content = new FastPan();
+            dialog.ShowInTaskbar = false;
+
+            // Create an interop helper
+            System.Windows.Interop.WindowInteropHelper windowHandle = new System.Windows.Interop.WindowInteropHelper(dialog);
+            // Assign the 3ds Max HWnd handle to the interop helper
+            windowHandle.Owner = ManagedServices.AppSDK.GetMaxHWND();
+
+            // Setup 3ds Max to handle the WPF dialog correctly
+            ManagedServices.AppSDK.ConfigureWindowForMax(dialog);
+
+            // Show the dialog box
+            dialog.Show();
+        }
         internal testForm LaunchDefault()
         {
             IntPtr mAXHWnd = GlobalInterface.Instance.COREInterface.MAXHWnd;

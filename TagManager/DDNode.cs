@@ -122,26 +122,10 @@ namespace TagManager
             get { return parent; }
             set { parent = value; }
         }
-
-        private SortableObservableCollection<uint> nodes;
-        public SortableObservableCollection<uint> Nodes
-        {
-            get { return nodes; }
-            set { nodes = value; }
-        }
         #endregion
 
         #region Public Methods
 
-        public List<Autodesk.Max.IINode> GetNodes()
-        {
-            List<Autodesk.Max.IINode> nodes = new List<Autodesk.Max.IINode>();
-            foreach (uint _nodeHandle in Nodes)
-            {
-                nodes.Add(MaxPluginUtilities.Interface.GetINodeByHandle(_nodeHandle));
-            }
-            return nodes;
-        }
         public override string ToString()
         {
             return Name;
