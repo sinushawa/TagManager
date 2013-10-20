@@ -26,22 +26,45 @@ namespace TagManager
     } 
     public class TagCenter : ReferenceMaker,IPlugin
     {
+        private FastPan _fastPan;
+
+        public FastPan fastPan
+        {
+            get { return _fastPan; }
+            set { _fastPan = value; }
+        }
+
         public class Descriptor : Autodesk.Max.Plugins.ClassDesc2
         {
             protected IGlobal _global;
             internal static IClass_ID _classID;
             public bool saveIsNeeded = true;
 
+            private FastPan _fastPan;
+
+            public FastPan fastPan
+            {
+                get { return _fastPan; }
+                set { _fastPan = value; }
+            }
+
             public IGlobal Global
             {
                 get { return this._global; }
             }
-
+            public Descriptor(IGlobal global, TagCenter _instance)
+            {
+                this._global = global;
+                fastPan = new FastPan();
+                _classID = _global.Class_ID.Create(0x8962d7, 0x285b3ff9);
+            }
             public Descriptor(IGlobal global)
             {
                 this._global = global;
+                fastPan = new FastPan();
                 _classID = _global.Class_ID.Create(0x8962d7, 0x285b3ff9);
             }
+            
 
             public override string Category
             {
@@ -81,12 +104,12 @@ namespace TagManager
             }
             public override IOResult Save(IISave isave)
             {
-                IOResult result = isave.Save("test");
+                IOResult result = isave.Save(fastPan.Root);
                 return result;
             }
             public override IOResult Load(IILoad iload)
             {
-                string res = iload.LoadObject() as string;
+                TagNode res = iload.LoadObject() as TagNode;
                 return base.Load(iload);
             }
         }
@@ -97,6 +120,7 @@ namespace TagManager
         public TagCenter(Descriptor descriptor) 
         { 
             this._descriptor = descriptor;
+            descriptor.fastPan = fastPan;
         }
         public System.ComponentModel.ISynchronizeInvoke Sync
         {
@@ -114,21 +138,8 @@ namespace TagManager
             set;
         }
 
-        private testForm _testForm;
-        internal testForm MainForm
-        {
-            get
-            {
-                if (this._testForm == null)
-                {
-                    this._testForm = new testForm(this);
-                }
-                return this._testForm;
-            }
-        }
-
-        private SortableObservableCollection<IINode> selectedObjects;
-        public SortableObservableCollection<IINode> SelectedObjects
+        private SortableObservableCollection<uint> selectedObjects;
+        public SortableObservableCollection<uint> SelectedObjects
         {
             get { return selectedObjects; }
             set { selectedObjects = value; }
@@ -160,6 +171,7 @@ namespace TagManager
         {
             TagCenter.Instance = this;
             this.Sync = sync;
+            fastPan = new FastPan();
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
@@ -204,7 +216,7 @@ namespace TagManager
             dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
 
             // Assign the window's content to be the WPF control
-            dialog.Content = new FastPan();
+            dialog.Content = fastPan;
             dialog.ShowInTaskbar = false;
 
             // Create an interop helper
@@ -217,51 +229,6 @@ namespace TagManager
 
             // Show the dialog box
             dialog.Show();
-        }
-        internal testForm LaunchDefault()
-        {
-            IntPtr mAXHWnd = GlobalInterface.Instance.COREInterface.MAXHWnd;
-            if (!this.MainForm.InvokeRequired)
-            {
-                return this.LaunchDefaultUnsafe(mAXHWnd);
-            }
-            return this.MainForm.Invoke(new Func<IntPtr, testForm>(this.LaunchDefaultUnsafe), new object[]
-			{
-				mAXHWnd
-			}) as testForm;
-        }
-        private testForm LaunchDefaultUnsafe(IntPtr hwnd)
-        {
-            testForm MainForm = this.LaunchBlankUnsafe(hwnd);
-            if (MainForm == null)
-            {
-                return null;
-            }
-            if (this.InitialLaunch)
-            {
-                this.InitialLaunch = false;
-            }
-            return MainForm;
-        }
-        private testForm LaunchBlankUnsafe(IntPtr hwnd)
-        {
-            if (!this.MainForm.Visible)
-            {
-                    this.MainForm.Show(NativeWindow.FromHandle(hwnd));
-            }
-            EnsureWindowWithinScreenBounds(this.MainForm);
-            return this.MainForm;
-        }
-        public void HideMainFrame()
-        {
-            this.MainForm.Hide();
-        }
-        public static void EnsureWindowWithinScreenBounds(System.Windows.Forms.Control control)
-        {
-            if (control.Bounds.X < 100 || control.Bounds.Y < 100 || control.Bounds.X > SystemInformation.VirtualScreen.Width - 100 || control.Bounds.Y > SystemInformation.VirtualScreen.Height - 100)
-            {
-                control.SetBounds(Math.Min(Math.Max(control.Bounds.X, 100), SystemInformation.VirtualScreen.Width - 100), Math.Min(Math.Max(control.Bounds.Y, 100), SystemInformation.VirtualScreen.Height - 100), -1, -1, BoundsSpecified.Location);
-            }
         }
 
         public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message)

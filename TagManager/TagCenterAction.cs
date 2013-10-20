@@ -39,16 +39,6 @@ namespace TagManager
             try
             {
                 TagCenter.Instance.CreateWindow();
-                /*
-                if (!TagCenter.Instance.MainForm.Visible)
-                {
-                    TagCenter.Instance.LaunchDefault();
-                }
-                else
-                {
-                    TagCenter.Instance.HideMainFrame();
-                }
-                */
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,8 +8,35 @@ using System.Linq;
 
 namespace TagManager
 {
+    [Serializable]
     public class DDNode
     {
+        #region Public Properties
+
+        private SortableObservableCollection<DDNode> children;
+        public SortableObservableCollection<DDNode> Children
+        {
+            get { return children; }
+            set { children = value; }
+        }
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        private DDNode parent;
+        public DDNode Parent
+        {
+            get { return parent; }
+            set { parent = value; }
+        }
+        #endregion
+
+        #region Public Methods
+
         #region Constructors and Destructors
 
         public DDNode()
@@ -99,32 +127,6 @@ namespace TagManager
         }
 
         #endregion
-
-        #region Public Properties
-
-        private SortableObservableCollection<DDNode> children;
-        public SortableObservableCollection<DDNode> Children 
-        {
-            get { return children; }
-            set { children = value; }
-        }
-
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        private DDNode parent;
-        public DDNode Parent
-        {
-            get { return parent; }
-            set { parent = value; }
-        }
-        #endregion
-
-        #region Public Methods
 
         public override string ToString()
         {
