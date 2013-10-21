@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="CustomExtension.cs" />
     <Compile Include="DDNode.cs" />
+    <Compile Include="DepenedencyObjectExtensions.cs" />
     <Compile Include="EditableTextBlock.xaml.cs">
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
@@ -87,17 +88,6 @@
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
     <Compile Include="TagNode.cs" />
-    <Compile Include="testForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="testForm.Designer.cs">
-      <DependentUpon>testForm.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="testForm.resx">
-      <DependentUpon>testForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="EditableTextBlock.xaml">

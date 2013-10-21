@@ -25,6 +25,12 @@ namespace TagManager
             get { return nodes; }
             set { nodes = value; }
         }
+        private bool isInEditMode;
+        public bool IsInEditMode
+        {
+            get { return isInEditMode; }
+            set { isInEditMode = value; }
+        }
 
         public SortableObservableCollection<string> shortcuts;
         public System.Drawing.Color wireColor;

@@ -25,7 +25,7 @@ namespace TagManager
             get { return root; }
             set { root = value; }
         }
-        public Form.Form winParent;
+        //public Form.Form winParent;
 
         public FastPan()
         {
@@ -59,6 +59,17 @@ namespace TagManager
             {
                 var frameworkElem = ((FrameworkElement)e.OriginalSource);
                 DragDrop.DoDragDrop(frameworkElem, new DataObject("Node", frameworkElem.DataContext), DragDropEffects.Move);
+            }
+        }
+
+        private void onAddTag(object sender, RoutedEventArgs e)
+        {
+            if (TV.SelectedItems.Count > 0)
+            {
+                TagNode selectedNode = (TagNode)TV.SelectedItems[0];
+                TagNode newNode = new TagNode("untitled");
+                selectedNode.Children.Add(newNode);
+                newNode.IsInEditMode = true;
             }
         }
     }

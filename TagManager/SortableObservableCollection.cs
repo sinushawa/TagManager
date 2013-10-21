@@ -11,6 +11,7 @@ namespace TagManager
     /// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed and allows sorting.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
+    [Serializable]
     public class SortableObservableCollection<T> : ObservableCollection<T>
     {
         public void AddRange(IEnumerable<T> collection)
