@@ -132,6 +132,19 @@ namespace TagManager
         {
             return Name;
         }
+        public List<DDNode> GetNodeBranch(DDNode _node)
+        {
+            List<DDNode> _hierarchy = new List<DDNode>();
+            _hierarchy.Add(_node);
+            while (_node.Parent != null)
+            {
+                DDNode _parentJoint = _node.Parent;
+                _hierarchy.Add(_parentJoint);
+                _node = _node.Parent;
+            }
+            _hierarchy.Reverse();
+            return _hierarchy;
+        }
 
         #endregion
     }

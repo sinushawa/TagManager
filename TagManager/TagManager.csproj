@@ -81,6 +81,7 @@
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="FastPan.xaml.cs" />
+    <Compile Include="ItemToContextMenuConverter.cs" />
     <Compile Include="MaxNode.cs" />
     <Compile Include="MaxPluginUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

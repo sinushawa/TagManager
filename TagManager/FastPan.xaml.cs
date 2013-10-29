@@ -30,19 +30,20 @@ namespace TagManager
         public FastPan()
         {
             InitializeComponent();
-            
             LoadSource();
         }
         public void LoadSource()
         {
-            root = new TagNode("root");
-            TagNode firstchild = new TagNode("project");
+            root = new TagNode("Root");
+            TagNode firstchild = new TagNode("Project");
             TagNode leafOne = new TagNode("leaf");
             TagNode leafTwo = new TagNode("two");
             firstchild.Children.Add(leafOne);
             firstchild.Children.Add(leafTwo);
             root.Children.Add(firstchild);
             DataContext = root;
+            ItemToContextMenuConverter.StdContextMenu = this.Resources["StdMenu"] as ContextMenu;
+            ItemToContextMenuConverter.RootContextMenu = this.Resources["RootMenu"] as ContextMenu;
         }
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -62,7 +63,27 @@ namespace TagManager
             }
         }
 
-        private void onAddTag(object sender, RoutedEventArgs e)
+        private void onApplyEntity(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onSelectEntity(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onSelectCommonObjects(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onSubstractEntity(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onRemoveObjects(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onAddEntity(object sender, RoutedEventArgs e)
         {
             if (TV.SelectedItems.Count > 0)
             {
@@ -72,5 +93,28 @@ namespace TagManager
                 newNode.IsInEditMode = true;
             }
         }
+        private void onCreateEntityFromName(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onRenameFromEntity(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onDeleteEntity(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void onLoaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void onDataChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+        
     }
 }
