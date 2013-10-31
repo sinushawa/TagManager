@@ -7,8 +7,9 @@
         <ResourceDictionary Source="AlignTreeViewExItem.xaml"/>
         -->
 	</ResourceDictionary.MergedDictionaries>
-	<HierarchicalDataTemplate x:Key="ItemTemplate_Node" ItemsSource="{Binding Children}">
-		<DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+    <local:ItemToContextMenuConverter x:Key="ContextMenuConverter" />
+    <HierarchicalDataTemplate x:Key="ItemTemplate_Node" ItemsSource="{Binding Children}">
+        <DockPanel HorizontalAlignment="Stretch" LastChildFill="True" ContextMenu="{Binding Converter={StaticResource ContextMenuConverter}}" >
             <local:EditableTextBlock HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Text="{Binding Name, Mode=TwoWay}" IsInEditMode="{Binding IsInEditMode, Mode=TwoWay}" DockPanel.Dock="Left"/>
             <!--
             <cp:ColorCanvas DockPanel.Dock="Left" HorizontalAlignment="Right" Width="20" Margin="0,0,4,0"/>

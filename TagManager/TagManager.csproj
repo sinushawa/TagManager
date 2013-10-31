@@ -76,7 +76,7 @@
   <ItemGroup>
     <Compile Include="CustomExtension.cs" />
     <Compile Include="DDNode.cs" />
-    <Compile Include="DepenedencyObjectExtensions.cs" />
+    <Compile Include="DependencyObjExtensions.cs" />
     <Compile Include="EditableTextBlock.xaml.cs">
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>

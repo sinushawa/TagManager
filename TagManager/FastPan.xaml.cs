@@ -65,7 +65,9 @@ namespace TagManager
 
         private void onApplyEntity(object sender, RoutedEventArgs e)
         {
-
+            MenuItem ctrl = sender as MenuItem;
+            TagNode _currentEntity=(TagNode)ctrl.DataContext;
+            _currentEntity.Nodes.AddRange(TagCenter.Instance.SelectedObjects);
         }
         private void onSelectEntity(object sender, RoutedEventArgs e)
         {
