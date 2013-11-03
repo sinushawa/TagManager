@@ -53,6 +53,19 @@ namespace TagManager
             }
             return ret;
         }
+        public static List<TagNode> GetNodeBranch(this TagNode _node)
+        {
+            List<TagNode> _hierarchy = new List<TagNode>();
+            _hierarchy.Add(_node);
+            while (_node.Parent != null)
+            {
+                TagNode _parentTag = _node.Parent as TagNode;
+                _hierarchy.Add(_parentTag);
+                _node = _parentTag;
+            }
+            _hierarchy.Reverse();
+            return _hierarchy;
+        }
         public static IEnumerable<T> IntersectNonEmpty<T>(this IEnumerable<IEnumerable<T>> lists)
         {
             var nonEmptyLists = lists.Where(l => l.Any());

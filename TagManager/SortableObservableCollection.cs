@@ -22,6 +22,17 @@ namespace TagManager
             }
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
         }
+        public void RemoveRange(IEnumerable<T> collection)
+        {
+            foreach (var i in collection)
+            {
+                if (Items.Contains(i))
+                {
+                    Items.Remove(i);
+                }
+            }
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
+        }
         /// <summary>
         /// Sorts the items of the collection in ascending order according to a key.
         /// </summary>
@@ -62,6 +73,12 @@ namespace TagManager
         public static SortableObservableCollection<TSource> ToSortableObservableCollection<TSource>(this IEnumerable<TSource> _collection)
         {
             SortableObservableCollection<TSource> res = new SortableObservableCollection<TSource>();
+            res.AddRange(_collection);
+            return res;
+        }
+        public static List<TSource> ToList<TSource>(this IEnumerable<TSource> _collection)
+        {
+            List<TSource> res = new List<TSource>();
             res.AddRange(_collection);
             return res;
         }

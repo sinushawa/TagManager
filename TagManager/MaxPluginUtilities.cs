@@ -47,16 +47,23 @@ namespace TagManager
         {
             return Interface.GetINodeByHandle(_handle);
         }
-        public static SortableObservableCollection<IINode> getNodeByHandle(IEnumerable<uint> _handles)
+        public static List<IINode> getNodeByHandle(this IEnumerable<uint> _handles)
         {
-            SortableObservableCollection<IINode> nodes = new SortableObservableCollection<IINode>();
+            List<IINode> nodes = new List<IINode>();
             foreach(uint _handle in _handles)
             {
                 nodes.Add(getNodeByHandle(_handle));
             }
             return nodes;
         }
-
+        public static void setSelection(List<uint> _nodesHandles)
+        {
+            Selection = _nodesHandles.getNodeByHandle().ToNodeTab();
+        }
+        private static void setSelection(SortableObservableCollection<IINode> _nodes)
+        {
+            Selection = _nodes.ToList().ToNodeTab();
+        }
         private static void setSelection(IINodeTab _nodes)
         {
             Interface.SelectNodeTab(_nodes, true, true);

@@ -54,8 +54,7 @@ namespace TagManager
             AllowDrop = true;
         }
 
-        #region Serialize
-        
+        #region Serialize     
         protected TagNode(SerializationInfo info, StreamingContext context)
         {
             ID = (Guid)info.GetValue("ID", typeof(Guid));
@@ -65,8 +64,6 @@ namespace TagManager
             shortcuts = (SortableObservableCollection<string>)info.GetValue("shortcuts", typeof(SortableObservableCollection<string>));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
         }
-        #endregion
-
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("ID", ID, typeof(Guid));
@@ -76,5 +73,6 @@ namespace TagManager
             info.AddValue("shortcuts", shortcuts, typeof(SortableObservableCollection<string>));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));
         }
+        #endregion
     }
 }

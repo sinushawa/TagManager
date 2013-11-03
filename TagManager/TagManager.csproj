@@ -59,8 +59,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TreeViewEx">
-      <HintPath>..\..\TagPan\TagPan\bin\Debug\TreeViewEx.dll</HintPath>
+    <Reference Include="TreeViewEx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2e0e4fd5520af127, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\C# ressources\TreeViewEx 1.9\Main\TreeViewEx\bin\Debug\TreeViewEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UiViewModels">
@@ -88,6 +89,7 @@
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
+    <Compile Include="TagMethods.cs" />
     <Compile Include="TagNode.cs" />
   </ItemGroup>
   <ItemGroup>
