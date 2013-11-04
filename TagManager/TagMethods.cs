@@ -15,10 +15,10 @@ namespace TagManager
                 _entity.Nodes.AddRange(_objects);
             }
         }
-        public static void SelectEntities(List<TagNode> _entities)
+        public static void SelectEntities(List<TagNode> _entities, bool _newSelection)
         {
             List<uint> objectsToSelect = _entities.SelectMany(x => x.Nodes).ToList();
-            MaxPluginUtilities.setSelection(objectsToSelect);
+            MaxPluginUtilities.setSelection(objectsToSelect, _newSelection);
         }
         public static SortableObservableCollection<TagNode> GetEntitiesContainingObjects(List<uint> _objects, TagNode _root)
         {

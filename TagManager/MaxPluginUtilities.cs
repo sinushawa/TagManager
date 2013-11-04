@@ -9,6 +9,7 @@ namespace TagManager
 {
     public static class MaxPluginUtilities
     {
+        public static bool additiveSelection = false;
         public static IInterface14 Interface
         {
             get
@@ -43,6 +44,10 @@ namespace TagManager
             }
             return selectedNodes;
         }
+        private static void setSelection(IINodeTab _nodes)
+        {
+            Interface.SelectNodeTab(_nodes, additiveSelection, true);
+        }
         public static IINode getNodeByHandle(uint _handle)
         {
             return Interface.GetINodeByHandle(_handle);
@@ -56,17 +61,15 @@ namespace TagManager
             }
             return nodes;
         }
-        public static void setSelection(List<uint> _nodesHandles)
+        public static void setSelection(List<uint> _nodesHandles, bool _newSelection)
         {
+            additiveSelection = _newSelection;
             Selection = _nodesHandles.getNodeByHandle().ToNodeTab();
+            additiveSelection = false;
         }
         private static void setSelection(SortableObservableCollection<IINode> _nodes)
         {
             Selection = _nodes.ToList().ToNodeTab();
-        }
-        private static void setSelection(IINodeTab _nodes)
-        {
-            Interface.SelectNodeTab(_nodes, true, true);
         }
         public static IINodeTab ToNodeTab(this List<IINode> _nodes)
         {

@@ -27,7 +27,6 @@ namespace TagManager
             get { return root; }
             set { root = value; }
         }
-        //public Form.Form winParent;
 
         public FastPan()
         {
@@ -72,6 +71,7 @@ namespace TagManager
         private void onDrop(object sender, DragEventArgs e)
         {
             stopwatch.Reset();
+            var ctrl = e.Source;
         }
         private void onApplyEntity(object sender, RoutedEventArgs e)
         {
@@ -83,7 +83,7 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
-            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity });
+            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity }, false);
         }
         private void onSelectCommonObjects(object sender, RoutedEventArgs e)
         {
