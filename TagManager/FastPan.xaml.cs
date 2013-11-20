@@ -38,10 +38,6 @@ namespace TagManager
         {
             root = new TagNode("Root");
             TagNode firstchild = new TagNode("Project");
-            TagNode leafOne = new TagNode("leaf");
-            TagNode leafTwo = new TagNode("two");
-            firstchild.Children.Add(leafOne);
-            firstchild.Children.Add(leafTwo);
             root.Children.Add(firstchild);
             DataContext = root;
             ItemToContextMenuConverter.StdContextMenu = this.Resources["StdMenu"] as ContextMenu;
@@ -83,7 +79,7 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
-            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity }, false);
+            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity }, true);
         }
         private void onSelectCommonObjects(object sender, RoutedEventArgs e)
         {

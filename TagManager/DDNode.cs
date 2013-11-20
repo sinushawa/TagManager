@@ -9,7 +9,7 @@ using System.Linq;
 namespace TagManager
 {
     [Serializable]
-    public class DDNode
+    public abstract class DDNode
     {
         #region Public Properties
 
@@ -132,18 +132,33 @@ namespace TagManager
         {
             return Name;
         }
-        public List<DDNode> GetNodeBranch(DDNode _node)
+        public List<DDNode> GetNodeBranch()
         {
+            DDNode _entity = this;
             List<DDNode> _hierarchy = new List<DDNode>();
-            _hierarchy.Add(_node);
-            while (_node.Parent != null)
+            _hierarchy.Add(this);
+            while (_entity.Parent != null)
             {
-                DDNode _parentJoint = _node.Parent;
+                DDNode _parentJoint = _entity.Parent;
                 _hierarchy.Add(_parentJoint);
-                _node = _node.Parent;
+                _entity = _entity.Parent;
             }
             _hierarchy.Reverse();
             return _hierarchy;
+        }
+        public string GetNodeBranchName(string _delimiter)
+        {
+            string result = "";
+            List<DDNode> _entities = GetNodeBranch();
+            foreach (DDNode _entity in _entities)
+            {
+                if (result != "")
+                {
+                    result += _delimiter;
+                }
+                result += _entity;
+            }
+            return result;
         }
 
         #endregion

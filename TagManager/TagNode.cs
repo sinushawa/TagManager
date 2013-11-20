@@ -53,6 +53,7 @@ namespace TagManager
             AllowDrag = true;
             AllowDrop = true;
         }
+        
 
         #region Serialize     
         protected TagNode(SerializationInfo info, StreamingContext context)
