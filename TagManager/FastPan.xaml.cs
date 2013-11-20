@@ -122,7 +122,14 @@ namespace TagManager
         }
         private void onCreateEntityFromName(object sender, RoutedEventArgs e)
         {
+            MenuItem ctrl = sender as MenuItem;
+            TagNode selectedEntity = (TagNode)ctrl.DataContext;
+            List<DDNode> entityBranch = selectedEntity.GetNodeBranch();
+            List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection.ToListNode();
+            foreach (Autodesk.Max.IINode obj in selectedObjects)
+            {
 
+            }
         }
         private void onRenameFromEntity(object sender, RoutedEventArgs e)
         {

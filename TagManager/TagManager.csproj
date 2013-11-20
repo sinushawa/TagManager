@@ -84,6 +84,7 @@
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
+    <Compile Include="TagHelperMethods.cs" />
     <Compile Include="TagMethods.cs" />
     <Compile Include="TagNode.cs" />
   </ItemGroup>
