@@ -10,7 +10,7 @@ using System.IO;
 namespace TagManager
 {
     [Serializable]
-    public class TagNode: DDNode, ISerializable
+    public class TagNode: DDNode<TagNode>, ISerializable
     {
         private Guid _ID;
 
@@ -60,7 +60,7 @@ namespace TagManager
         {
             ID = (Guid)info.GetValue("ID", typeof(Guid));
             Name = (string)info.GetValue("Name", typeof(string));
-            Children = (SortableObservableCollection<DDNode>)info.GetValue("Children", typeof(SortableObservableCollection<DDNode>));
+            Children = (SortableObservableCollection<TagNode>)info.GetValue("Children", typeof(SortableObservableCollection<TagNode>));
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
             shortcuts = (SortableObservableCollection<string>)info.GetValue("shortcuts", typeof(SortableObservableCollection<string>));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
@@ -69,7 +69,7 @@ namespace TagManager
         {
             info.AddValue("ID", ID, typeof(Guid));
             info.AddValue("Name", Name, typeof(string));
-            info.AddValue("Children", Children, typeof(SortableObservableCollection<DDNode>));
+            info.AddValue("Children", Children, typeof(SortableObservableCollection<TagNode>));
             info.AddValue("Nodes", Nodes, typeof(SortableObservableCollection<uint>));
             info.AddValue("shortcuts", shortcuts, typeof(SortableObservableCollection<string>));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));

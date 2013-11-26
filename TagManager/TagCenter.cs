@@ -109,7 +109,7 @@ namespace TagManager
             }
             public override IOResult Load(IILoad iload)
             {
-                TagNode res = iload.LoadObject() as TagNode;
+                TagNode res = (TagNode)iload.LoadObject();
                 return base.Load(iload);
             }
         }

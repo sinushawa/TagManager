@@ -113,8 +113,11 @@ namespace TagManager
             }
             else
             {
+                var dc = DataContext;
                 MenuItem ctrl = sender as MenuItem;
+                var pl = ((ContextMenu)ctrl.Parent).PlacementTarget as DockPanel;
                 TagNode selectedEntity = (TagNode)ctrl.DataContext;
+                var test = Root.GetNodeList();
                 TagNode newNode = new TagNode("untitled");
                 selectedEntity.Children.Add(newNode);
                 newNode.IsInEditMode = true;
@@ -124,7 +127,7 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode selectedEntity = (TagNode)ctrl.DataContext;
-            List<DDNode> entityBranch = selectedEntity.GetNodeBranch();
+            List<TagNode> entityBranch = selectedEntity.GetNodeBranch();
             List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection.ToListNode();
             foreach (Autodesk.Max.IINode obj in selectedObjects)
             {

@@ -9,12 +9,12 @@ using System.Linq;
 namespace TagManager
 {
     [Serializable]
-    public abstract class DDNode
+    public abstract class DDNode<T> where T : DDNode<T>
     {
         #region Public Properties
 
-        private SortableObservableCollection<DDNode> children;
-        public SortableObservableCollection<DDNode> Children
+        private SortableObservableCollection<T> children;
+        public SortableObservableCollection<T> Children
         {
             get { return children; }
             set { children = value; }
@@ -27,8 +27,8 @@ namespace TagManager
             set { name = value; }
         }
 
-        private DDNode parent;
-        public DDNode Parent
+        private T parent;
+        public T Parent
         {
             get { return parent; }
             set { parent = value; }
@@ -41,7 +41,7 @@ namespace TagManager
 
         public DDNode()
         {
-            Children = new SortableObservableCollection<DDNode>();
+            Children = new SortableObservableCollection<T>();
             Children.CollectionChanged += Children_CollectionChanged;
         }
 
@@ -49,9 +49,9 @@ namespace TagManager
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {
-                foreach (DDNode _node in e.NewItems)
+                foreach (T _node in e.NewItems)
                 {
-                    _node.Parent = this;
+                    _node.Parent = (T)this;
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace TagManager
             {
                 foreach (var item in content.Items.Reverse())
                 {
-                    DDNode oldNode = (DDNode)item;
+                    T oldNode = (T)item;
                     if (oldNode != this)
                     {
                         oldNode.Parent.Children.Remove(oldNode);
@@ -106,7 +106,7 @@ namespace TagManager
             {
                 foreach (var item in content.Items.Reverse())
                 {
-                    DDNode oldNode = (DDNode)item;
+                    T oldNode = (T)item;
                     if (oldNode != this)
                     {
                         oldNode.Parent.Children.Remove(oldNode);
@@ -132,14 +132,14 @@ namespace TagManager
         {
             return Name;
         }
-        public List<DDNode> GetNodeBranch()
+        public List<T> GetNodeBranch()
         {
-            DDNode _entity = this;
-            List<DDNode> _hierarchy = new List<DDNode>();
-            _hierarchy.Add(this);
+            T _entity = (T)this;
+            List<T> _hierarchy = new List<T>();
+            _hierarchy.Add((T)this);
             while (_entity.Parent != null)
             {
-                DDNode _parentJoint = _entity.Parent;
+                T _parentJoint = _entity.Parent;
                 _hierarchy.Add(_parentJoint);
                 _entity = _entity.Parent;
             }
@@ -149,8 +149,8 @@ namespace TagManager
         public string GetNodeBranchName(string _delimiter)
         {
             string result = "";
-            List<DDNode> _entities = GetNodeBranch();
-            foreach (DDNode _entity in _entities)
+            List<T> _entities = GetNodeBranch();
+            foreach (T _entity in _entities)
             {
                 if (result != "")
                 {

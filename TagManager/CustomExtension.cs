@@ -9,44 +9,17 @@ namespace TagManager
 {
     public static class CustomExtension
     {
-        public static List<TreeNode> GetNodeList(this TreeNodeCollection nodColl)
+        public static SortableObservableCollection<TagNode> GetNodeList(this TagNode dnod)
         {
-            var ret = new List<TreeNode>();
-            foreach (TreeNode node in nodColl)
-            {
-                ret.Add(node);
-                ret.AddRange(node.Nodes.GetNodeList());
-            }
-            return ret;
-        }
-        public static List<TreeNode> GetNodeList(this List<TreeNode> nodColl)
-        {
-            var ret = new List<TreeNode>();
-            foreach (TreeNode node in nodColl)
-            {
-                ret.Add(node);
-                ret.AddRange(node.Nodes.GetNodeList());
-            }
-            return ret;
-        }
-        public static List<TreeNode> GetNodeList(this TreeNode node)
-        {
-            var ret = new List<TreeNode>();
-            ret.Add(node);
-            ret.AddRange(node.Nodes.GetNodeList());
-            return ret;
-        }
-        public static SortableObservableCollection<DDNode> GetNodeList(this DDNode dnod)
-        {
-            var ret = new SortableObservableCollection<DDNode>();
+            var ret = new SortableObservableCollection<TagNode>();
             ret.Add(dnod);
             ret.AddRange(dnod.Children);
             return ret;
         }
-        public static SortableObservableCollection<DDNode> GetNodeList(this SortableObservableCollection<DDNode> dnodColl)
+        public static SortableObservableCollection<TagNode> GetNodeList(this SortableObservableCollection<TagNode> dnodColl)
         {
-            var ret = new SortableObservableCollection<DDNode>();
-            foreach (DDNode _dnode in dnodColl)
+            var ret = new SortableObservableCollection<TagNode>();
+            foreach (TagNode _dnode in dnodColl)
             {
                 ret.Add(_dnode);
                 ret.AddRange(_dnode.Children.GetNodeList());

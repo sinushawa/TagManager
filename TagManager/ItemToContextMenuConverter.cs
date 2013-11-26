@@ -18,7 +18,7 @@ namespace TagManager
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TagNode item = value as TagNode;
+            TagNode item = (TagNode)value;
             if (item == null) return null;
             if (item.Name == "Root" || item.Name == "Project")
             {
