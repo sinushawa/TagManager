@@ -40,7 +40,6 @@ namespace TagManager
             TagNode firstchild = new TagNode("Project");
             root.Children.Add(firstchild);
             DataContext = root;
-            TV.DataContextChanged += onDataChanged;
             ItemToContextMenuConverter.StdContextMenu = this.Resources["StdMenu"] as ContextMenu;
             ItemToContextMenuConverter.RootContextMenu = this.Resources["RootMenu"] as ContextMenu;
         }
@@ -58,7 +57,8 @@ namespace TagManager
             if (e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance) && stopwatch.ElapsedMilliseconds>500)
             {
                 var frameworkElem = ((FrameworkElement)e.OriginalSource);
-                DragDrop.DoDragDrop(frameworkElem, new DataObject("Node", frameworkElem.DataContext), DragDropEffects.Move);
+                TreeViewExItem treeViewItem = frameworkElem.TryFindParent<TreeViewExItem>();
+                DragDrop.DoDragDrop(treeViewItem, new DataObject(treeViewItem.DataContext), DragDropEffects.Move);
             }
         }
         private void onMouseUp(object sender, MouseButtonEventArgs e)
@@ -68,6 +68,8 @@ namespace TagManager
         private void onDrop(object sender, DragEventArgs e)
         {
             stopwatch.Reset();
+            TagNode sourceEntity = (TagNode)e.Data.GetData(typeof(TagNode));
+            List<TagNode> entityBranch = sourceEntity.GetNodeBranch();
             var ctrl = e.Source;
         }
         private void onApplyEntity(object sender, RoutedEventArgs e)
@@ -114,11 +116,8 @@ namespace TagManager
             }
             else
             {
-                var dc = DataContext;
                 MenuItem ctrl = sender as MenuItem;
-                var pl = ((ContextMenu)ctrl.Parent).PlacementTarget as DockPanel;
                 TagNode selectedEntity = (TagNode)ctrl.DataContext;
-                var test = Root.GetNodeList();
                 TagNode newNode = new TagNode("untitled");
                 selectedEntity.Children.Add(newNode);
                 newNode.IsInEditMode = true;
