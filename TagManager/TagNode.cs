@@ -74,6 +74,14 @@ namespace TagManager
             info.AddValue("shortcuts", shortcuts, typeof(SortableObservableCollection<string>));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));
         }
+        internal void ReParent()
+        {
+            for (int i = 0; i < Children.Count; i++)
+            {
+                Children[i].ReParent();
+                Children[i].Parent = this;
+            }
+        }
         #endregion
     }
 }

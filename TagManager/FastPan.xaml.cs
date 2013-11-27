@@ -40,6 +40,7 @@ namespace TagManager
             TagNode firstchild = new TagNode("Project");
             root.Children.Add(firstchild);
             DataContext = root;
+            TV.DataContextChanged += onDataChanged;
             ItemToContextMenuConverter.StdContextMenu = this.Resources["StdMenu"] as ContextMenu;
             ItemToContextMenuConverter.RootContextMenu = this.Resources["RootMenu"] as ContextMenu;
         }

@@ -52,16 +52,10 @@ namespace TagManager
             {
                 get { return this._global; }
             }
-            public Descriptor(IGlobal global, TagCenter _instance)
-            {
-                this._global = global;
-                fastPan = new FastPan();
-                _classID = _global.Class_ID.Create(0x8962d7, 0x285b3ff9);
-            }
             public Descriptor(IGlobal global)
             {
                 this._global = global;
-                fastPan = new FastPan();
+                fastPan = TagCenter.Instance.fastPan;
                 _classID = _global.Class_ID.Create(0x8962d7, 0x285b3ff9);
             }
             
@@ -110,6 +104,8 @@ namespace TagManager
             public override IOResult Load(IILoad iload)
             {
                 TagNode res = (TagNode)iload.LoadObject();
+                res.ReParent();
+                TagCenter.Instance.fastPan.DataContext = res;
                 return base.Load(iload);
             }
         }
@@ -120,7 +116,6 @@ namespace TagManager
         public TagCenter(Descriptor descriptor) 
         { 
             this._descriptor = descriptor;
-            descriptor.fastPan = fastPan;
         }
         public System.ComponentModel.ISynchronizeInvoke Sync
         {
