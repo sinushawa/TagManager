@@ -6,6 +6,7 @@ using Autodesk.Max;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Windows.Controls.DragNDrop;
 
 namespace TagManager
 {
@@ -53,7 +54,28 @@ namespace TagManager
             AllowDrag = true;
             AllowDrop = true;
         }
-        
+        public override void OnDrop(object obj)
+        {
+            DragContent content = obj as DragContent;
+            if (content != null)
+            {
+                foreach (var item in content.Items.Reverse())
+                {
+                    TagNode oldNode = (TagNode)item;
+                    if (oldNode != this && oldNode.Name != this.Name)
+                    {
+                        oldNode.Parent.Children.Remove(oldNode);
+                        Children.AddRange(new List<TagNode>(){oldNode});
+                        oldNode.Parent = this;
+                    }
+                    if (oldNode.Name == this.Name)
+                    {
+                        //oldNode.Parent.Children.Remove(oldNode);
+                        this.Nodes.AddRange(oldNode.Nodes);
+                    }
+                }
+            }
+        }
 
         #region Serialize     
         protected TagNode(SerializationInfo info, StreamingContext context)
@@ -64,6 +86,8 @@ namespace TagManager
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
             shortcuts = (SortableObservableCollection<string>)info.GetValue("shortcuts", typeof(SortableObservableCollection<string>));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
+            AllowDrag = true;
+            AllowDrop = true;
         }
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {

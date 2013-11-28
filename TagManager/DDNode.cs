@@ -33,6 +33,12 @@ namespace TagManager
             get { return parent; }
             set { parent = value; }
         }
+        private SortableObservableCollection<uint> nodes;
+        public SortableObservableCollection<uint> Nodes
+        {
+            get { return nodes; }
+            set { nodes = value; }
+        }
         #endregion
 
         #region Public Methods
@@ -99,21 +105,30 @@ namespace TagManager
             return AllowDrop;
         }
 
-        public void OnDrop(object obj)
+        public virtual void OnDrop(object obj)
         {
+            /*
             DragContent content = obj as DragContent;
             if (content != null)
             {
                 foreach (var item in content.Items.Reverse())
                 {
                     T oldNode = (T)item;
-                    if (oldNode != this)
+                    if (oldNode != this && oldNode.Name != this.Name)
                     {
                         oldNode.Parent.Children.Remove(oldNode);
+                        oldNode.Parent = null;
                         Children.Add(oldNode);
+                        oldNode.Parent = (T)this;
+                    }
+                    if (oldNode.Name == this.Name)
+                    {
+                        oldNode.Parent.Children.Remove(oldNode);
+                        this.Nodes.AddRange(oldNode.Nodes);
                     }
                 }
             }
+            */
         }
 
         public bool CanDrag()

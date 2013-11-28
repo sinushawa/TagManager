@@ -65,12 +65,10 @@ namespace TagManager
         {
             stopwatch.Reset();
         }
+        // DragNDrop fonctionnality are implemented inside DDNode (treeviewEx way)
         private void onDrop(object sender, DragEventArgs e)
         {
             stopwatch.Reset();
-            TagNode sourceEntity = (TagNode)e.Data.GetData(typeof(TagNode));
-            List<TagNode> entityBranch = sourceEntity.GetNodeBranch();
-            var ctrl = e.Source;
         }
         private void onApplyEntity(object sender, RoutedEventArgs e)
         {
@@ -111,7 +109,7 @@ namespace TagManager
             {
                 TagNode selectedEntity = (TagNode)TV.SelectedItems[0];
                 TagNode newNode = new TagNode("untitled");
-                selectedEntity.Children.Add(newNode);
+                selectedEntity.Children.AddRange(new List<TagNode>(){newNode});
                 newNode.IsInEditMode = true;
             }
             else
@@ -119,7 +117,7 @@ namespace TagManager
                 MenuItem ctrl = sender as MenuItem;
                 TagNode selectedEntity = (TagNode)ctrl.DataContext;
                 TagNode newNode = new TagNode("untitled");
-                selectedEntity.Children.Add(newNode);
+                selectedEntity.Children.AddRange(new List<TagNode>(){newNode});
                 newNode.IsInEditMode = true;
             }
         }

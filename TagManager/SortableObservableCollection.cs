@@ -31,7 +31,7 @@ namespace TagManager
                     Items.Remove(i);
                 }
             }
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, collection.ToList()));
         }
         /// <summary>
         /// Sorts the items of the collection in ascending order according to a key.

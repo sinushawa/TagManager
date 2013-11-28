@@ -97,6 +97,6 @@
                 </DataTemplate>
             </ResourceDictionary>
         </Grid.Resources>
-        <Controls:TreeViewEx HorizontalContentAlignment="Stretch" Name="TV" AutomationProperties.Name="AutomationTV" InsertionMarkerBrush="DarkGray" ItemsSource="{Binding Path=Children}" DragTemplate="{DynamicResource dragTemplate}" ItemTemplate="{DynamicResource ItemTemplate_Node}" MouseUp="onMouseUp" MouseMove="OnMouseMove" Drop="onDrop" MouseDown="OnMouseDown" />
+        <Controls:TreeViewEx HorizontalContentAlignment="Stretch" Name="TV" AutomationProperties.Name="AutomationTV" InsertionMarkerBrush="DarkGray" ItemsSource="{Binding Path=Children}" DragTemplate="{DynamicResource dragTemplate}" ItemTemplate="{DynamicResource ItemTemplate_Node}" MouseMove="OnMouseMove" MouseDown="OnMouseDown" Drop="onDrop" MouseUp="onMouseUp" />
     </Grid>
 </UserControl>

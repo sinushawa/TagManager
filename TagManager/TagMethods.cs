@@ -40,5 +40,10 @@ namespace TagManager
                 _entities[i].Parent.Children.Remove(_entities[i]);
             }
         }
+        public static void MergeEntities(TagNode _toMerge, TagNode _target)
+        {
+            _toMerge.Nodes.AddRange(_target.Nodes);
+            _target.Parent.Children.Remove(_target);
+        }
     }
 }
