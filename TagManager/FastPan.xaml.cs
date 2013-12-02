@@ -18,7 +18,11 @@ namespace TagManager
 {
     public partial class FastPan : System.Windows.Controls.UserControl
     {
-        private TagNode root;
+        public TagNode root;
+        public string delimiter = "_";
+        public bool autoRename = true;
+        public bool childrenAutoSelect = false;
+        public bool newSelection = false;
         private Point dragStartPoint;
         private Stopwatch stopwatch;
 

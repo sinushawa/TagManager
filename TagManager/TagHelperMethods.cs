@@ -13,6 +13,31 @@ namespace TagManager
             List<string> _result = _branchName.Split(new char[] { '_' }).ToList();
             return _result;
         }
+        public static string ConcateneNameFromElements(List<List<string>> _branchElements, string _delimiter)
+        {
+            string result = "";
+            List<string> elems =_branchElements.SelectMany(x=> x).ToList();
+            foreach (string _element in elems)
+            {
+                
+                if (result != "")
+                {
+                    result += _delimiter;
+                }
+                result += _element;
+            }
+            return result;
+        }
+        public static int GetEntityDepth(this TagNode _entity)
+        {
+            int i = 0;
+            while (_entity.Parent != null)
+            {
+                i++;
+                _entity = _entity.Parent;
+            }
+            return i;
+        }
         public static List<TagNode> FindLeavesEntities(TagNode _root)
         {
             SortableObservableCollection<TagNode> allEntities = _root.GetNodeList();

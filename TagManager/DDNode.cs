@@ -161,10 +161,24 @@ namespace TagManager
             _hierarchy.Reverse();
             return _hierarchy;
         }
-        public string GetNodeBranchName(string _delimiter)
+        public List<string> GetNodeBranchElementsNames(List<string> _toRemove)
+        {
+            T _entity = (T)this;
+            List<string> _names = new List<string>();
+            _names.Add(this.Name);
+            while (_entity.Parent != null)
+            {
+                T _parentJoint = _entity.Parent;
+                _names.Add(_parentJoint.Name);
+                _entity = _entity.Parent;
+            }
+            _names.RemoveAll(x => _toRemove.Contains(x));
+            _names.Reverse();
+            return _names;
+        }
+        public string BranchName(List<T> _entities, string _delimiter)
         {
             string result = "";
-            List<T> _entities = GetNodeBranch();
             foreach (T _entity in _entities)
             {
                 if (result != "")
@@ -174,6 +188,18 @@ namespace TagManager
                 result += _entity;
             }
             return result;
+        }
+        public string GetNodeBranchName(string _delimiter)
+        {
+            List<T> _entities = GetNodeBranch();
+            return BranchName(_entities, _delimiter);
+        }
+        public string GetNodeBranchName(string _delimiter, List<string> _toRemove)
+        {
+            string result = "";
+            List<T> _entities = GetNodeBranch();
+            _entities.RemoveAll(x => _toRemove.Contains(x.Name));
+            return BranchName(_entities, _delimiter);
         }
 
         #endregion

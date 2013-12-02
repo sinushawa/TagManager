@@ -105,6 +105,7 @@ namespace TagManager
             {
                 TagNode res = (TagNode)iload.LoadObject();
                 res.ReParent();
+                TagCenter.Instance.fastPan.Root = res;
                 TagCenter.Instance.fastPan.DataContext = res;
                 return base.Load(iload);
             }
@@ -194,13 +195,13 @@ namespace TagManager
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             IINode _node = notifyInfo.CallParam as IINode;
         }
-        public void CreateWindow()
+        public void CreateTagManagerWin()
         {
             // Create a new managed window to contain the WPF control
             System.Windows.Window dialog = new System.Windows.Window();
 
             // Name the window
-            dialog.Title = "Sample";
+            dialog.Title = "Entity Manager";
 
             // Example of setup size and location
             // ...
@@ -225,6 +226,43 @@ namespace TagManager
             // Show the dialog box
             dialog.Show();
         }
+        public void CreateFastTagWin()
+        {
+            // Create a new managed window to contain the WPF control
+            System.Windows.Window dialog = new System.Windows.Window();
+
+            // Name the window
+            dialog.Title = "";
+
+            // Example of setup size and location
+            // ...
+            //dialog.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
+            dialog.Width = 320;
+            dialog.Height = 30;
+            dialog.WindowStyle = System.Windows.WindowStyle.None;
+            dialog.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
+
+            // Assign the window's content to be the WPF control
+            FastWPFTag fastTag = new FastWPFTag();
+            fastTag.CreateAutoCompleteSource(this);
+            fastTag.winParent = dialog;
+            dialog.Content = fastTag;
+            dialog.ShowInTaskbar = false;
+
+            System.Windows.Input.FocusManager.SetFocusedElement(dialog, fastTag);
+            // Create an interop helper
+            System.Windows.Interop.WindowInteropHelper windowHandle = new System.Windows.Interop.WindowInteropHelper(dialog);
+            // Assign the 3ds Max HWnd handle to the interop helper
+            windowHandle.Owner = ManagedServices.AppSDK.GetMaxHWND();
+
+            // Setup 3ds Max to handle the WPF dialog correctly
+            ManagedServices.AppSDK.ConfigureWindowForMax(dialog);
+
+            // Show the dialog box
+            dialog.Show();
+        }
+
 
         public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message)
         {

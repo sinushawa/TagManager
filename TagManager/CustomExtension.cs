@@ -13,7 +13,7 @@ namespace TagManager
         {
             var ret = new SortableObservableCollection<TagNode>();
             ret.Add(dnod);
-            ret.AddRange(dnod.Children);
+            ret.AddRange(dnod.Children.GetNodeList());
             return ret;
         }
         public static SortableObservableCollection<TagNode> GetNodeList(this SortableObservableCollection<TagNode> dnodColl)

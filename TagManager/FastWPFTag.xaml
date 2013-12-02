@@ -1,0 +1,10 @@
+<UserControl x:Class="TagManager.FastWPFTag" Name="MW" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:acb="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+    <Grid>
+        <acb:AutoCompleteBox Name="FastBox" MinimumPrefixLength="2" MinimumPopulateDelay="100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Height="24" Width="280" FilterMode="Contains" PreviewKeyDown="FastBox_PreviewKeyDown" />
+        <Popup Name="FastPop" IsOpen="False" Placement="Right" PlacementTarget="{Binding ElementName=FastBox}">
+            <StackPanel Background="#FFFFFFFF">
+                <TextBlock Name="fastTip" Margin="5" />
+            </StackPanel>
+        </Popup>
+    </Grid>
+</UserControl>

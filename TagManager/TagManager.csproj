@@ -70,13 +70,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleContainerElement.cs" />
+    <Compile Include="ConsoleElement.cs" />
+    <Compile Include="ConsoleStringSelElement.cs" />
     <Compile Include="CustomExtension.cs" />
     <Compile Include="DDNode.cs" />
     <Compile Include="DependencyObjExtensions.cs" />
     <Compile Include="EditableTextBlock.xaml.cs">
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="FastPan.xaml.cs" />
+    <Compile Include="FastWPFTag.xaml.cs" />
+    <Compile Include="IConsoleSelElement.cs" />
     <Compile Include="ItemToContextMenuConverter.cs" />
     <Compile Include="MaxNode.cs" />
     <Compile Include="MaxPluginUtilities.cs" />
@@ -94,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FastPan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FastWPFTag.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

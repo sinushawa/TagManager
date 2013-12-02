@@ -92,15 +92,25 @@ namespace TagManager
             }
             return listNodes;
         }
-        public static SortableObservableCollection<uint> ToSOC(this IINodeTab _nodes)
+        public static List<uint> ToListHandles(this IINodeTab _nodes)
         {
-            SortableObservableCollection<uint> listNodes = new SortableObservableCollection<uint>();
+            List<uint> listHandles = new List<uint>();
             for (int i = 0; i < _nodes.Count; i++)
             {
                 IntPtr pointer = (IntPtr)i;
-                listNodes.Add(_nodes[pointer].Handle);
+                listHandles.Add(_nodes[pointer].Handle);
             }
-            return listNodes;
+            return listHandles;
+        }
+        public static SortableObservableCollection<uint> ToSOC(this IINodeTab _nodes)
+        {
+            SortableObservableCollection<uint> listHandles = new SortableObservableCollection<uint>();
+            for (int i = 0; i < _nodes.Count; i++)
+            {
+                IntPtr pointer = (IntPtr)i;
+                listHandles.Add(_nodes[pointer].Handle);
+            }
+            return listHandles;
         }
 
         public static void Write(string s, params string[] args)
@@ -167,6 +177,15 @@ namespace TagManager
                 }
             }
             return null;
+        }
+        public static string RenameObject(string _namePrefix)
+        {
+            Interface.MakeNameUnique(ref _namePrefix);
+            return _namePrefix;
+        }
+        public static void NotifyNodeChanged()
+        {
+            Interface.ForceCompleteRedraw(false);
         }
     }
 }
