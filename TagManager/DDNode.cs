@@ -13,11 +13,11 @@ namespace TagManager
     {
         #region Public Properties
 
-        private SortableObservableCollection<T> children;
+        //private SortableObservableCollection<T> children;
         public SortableObservableCollection<T> Children
         {
-            get { return children; }
-            set { children = value; }
+            get;
+            set;
         }
 
         private string name;
@@ -51,7 +51,7 @@ namespace TagManager
             Children.CollectionChanged += Children_CollectionChanged;
         }
 
-        private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        public void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {

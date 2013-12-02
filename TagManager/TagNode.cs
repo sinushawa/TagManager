@@ -20,11 +20,10 @@ namespace TagManager
           get { return _ID; }
           set { _ID = value; }
         }
-        private SortableObservableCollection<uint> nodes;
         public SortableObservableCollection<uint> Nodes
         {
-            get { return nodes; }
-            set { nodes = value; }
+            get;
+            set;
         }
         private bool isInEditMode;
         public bool IsInEditMode
@@ -49,8 +48,8 @@ namespace TagManager
         {
             ID = _ID;
             Name = _label;
-            nodes = new SortableObservableCollection<uint>();
-            nodes.AddRange(_objects);
+            Nodes = new SortableObservableCollection<uint>();
+            Nodes.AddRange(_objects);
             AllowDrag = true;
             AllowDrop = true;
         }
@@ -66,11 +65,10 @@ namespace TagManager
                     {
                         oldNode.Parent.Children.Remove(oldNode);
                         Children.AddRange(new List<TagNode>(){oldNode});
-                        oldNode.Parent = this;
                     }
                     if (oldNode.Name == this.Name)
                     {
-                        //oldNode.Parent.Children.Remove(oldNode);
+                        oldNode.Parent.Children.Remove(oldNode);
                         this.Nodes.AddRange(oldNode.Nodes);
                     }
                 }
@@ -82,7 +80,9 @@ namespace TagManager
         {
             ID = (Guid)info.GetValue("ID", typeof(Guid));
             Name = (string)info.GetValue("Name", typeof(string));
+            // there is two ways to do it either create a new Sortable collection and relink collection changed event or make a temporary collection and reset the existing one and add the temporary collection to the original one.
             Children = (SortableObservableCollection<TagNode>)info.GetValue("Children", typeof(SortableObservableCollection<TagNode>));
+            Children.CollectionChanged+= Children_CollectionChanged;
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
             shortcuts = (SortableObservableCollection<string>)info.GetValue("shortcuts", typeof(SortableObservableCollection<string>));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
