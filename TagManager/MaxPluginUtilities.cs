@@ -9,9 +9,6 @@ namespace TagManager
 {
     public static class MaxPluginUtilities
     {
-        public static bool addToSelection = false;
-        public static string delimiter = "_";
-
         public static IInterface14 Interface
         {
             get
@@ -30,14 +27,14 @@ namespace TagManager
         {
             get
             {
-                return getSelection();
+                return GetSelection();
             }
             set
             {
-                setSelection(value);
+                SetSelection(value);
             }
         }
-        private static IINodeTab getSelection()
+        private static IINodeTab GetSelection()
         {
             IINodeTab selectedNodes = Global.NodeTab.Create();
             for (int i = 0; i < Interface.SelNodeCount; i++)
@@ -46,30 +43,17 @@ namespace TagManager
             }
             return selectedNodes;
         }
-        private static void setSelection(IINodeTab _nodes)
+        private static void SetSelection(IINodeTab _nodes)
         {
-            Interface.SelectNodeTab(_nodes, addToSelection, true);
+            Interface.SelectNodeTab(_nodes, TagGlobals.addToSelection, true);
         }
-        public static IINode getNodeByHandle(uint _handle)
+        public static void SetSelection(List<uint> _nodesHandles, bool _newSelection)
         {
-            return Interface.GetINodeByHandle(_handle);
+            TagGlobals.addToSelection = _newSelection;
+            Selection = _nodesHandles.GetNodesByHandles().ToNodeTab();
+            TagGlobals.addToSelection = false;
         }
-        public static List<IINode> getNodeByHandle(this IEnumerable<uint> _handles)
-        {
-            List<IINode> nodes = new List<IINode>();
-            foreach(uint _handle in _handles)
-            {
-                nodes.Add(getNodeByHandle(_handle));
-            }
-            return nodes;
-        }
-        public static void setSelection(List<uint> _nodesHandles, bool _newSelection)
-        {
-            addToSelection = _newSelection;
-            Selection = _nodesHandles.getNodeByHandle().ToNodeTab();
-            addToSelection = false;
-        }
-        private static void setSelection(SortableObservableCollection<IINode> _nodes)
+        private static void SetSelection(SortableObservableCollection<IINode> _nodes)
         {
             Selection = _nodes.ToList().ToNodeTab();
         }
@@ -81,6 +65,19 @@ namespace TagManager
                 nodeTab.AppendNode(_node, false, 1);
             }
             return nodeTab;
+        }
+        public static IINode GetNodeByHandle(uint _handle)
+        {
+            return Interface.GetINodeByHandle(_handle);
+        }
+        public static List<IINode> GetNodesByHandles(this IEnumerable<uint> _handles)
+        {
+            List<IINode> nodes = new List<IINode>();
+            foreach(uint _handle in _handles)
+            {
+                nodes.Add(GetNodeByHandle(_handle));
+            }
+            return nodes;
         }
         public static List<IINode> ToListNode(this IINodeTab _nodes)
         {
@@ -182,10 +179,6 @@ namespace TagManager
         {
             Interface.MakeNameUnique(ref _namePrefix);
             return _namePrefix;
-        }
-        public static void NotifyNodeChanged()
-        {
-            Interface.ForceCompleteRedraw(false);
         }
     }
 }

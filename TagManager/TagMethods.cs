@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
+using Autodesk.Max.Utilities;
 
 namespace TagManager
 {
@@ -19,7 +20,7 @@ namespace TagManager
         public static void SelectEntities(List<TagNode> _entities, bool _newSelection)
         {
             List<uint> objectsToSelect = _entities.SelectMany(x => x.Nodes).ToList();
-            MaxPluginUtilities.setSelection(objectsToSelect, _newSelection);
+            MaxPluginUtilities.SetSelection(objectsToSelect, _newSelection);
         }
         public static SortableObservableCollection<TagNode> GetEntitiesContainingObjects(List<uint> _objects, TagNode _root)
         {
@@ -46,7 +47,7 @@ namespace TagManager
             _toMerge.Nodes.AddRange(_target.Nodes);
             _target.Parent.Children.Remove(_target);
         }
-        public static void RenameUsingStructure(List<uint> _objects, string _delimiter, TagNode _root, List<string> _namesToRemove)
+        public static void RenameUsingStructure(List<uint> _objects, TagNode _root, List<string> _namesToRemove)
         {
             string name = "";
             SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects, _root);
@@ -57,19 +58,23 @@ namespace TagManager
             }
             branchesElementsNames.Sort(x => x.Count);
             List<List<string>> _listBranchElements = branchesElementsNames.Reverse().ToList();
-            string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_listBranchElements, _delimiter);
+            string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_listBranchElements, TagGlobals.delimiter);
             
             foreach (uint _nodeHandle in _objects)
             {
-                string finalName = MaxPluginUtilities.RenameObject(_namePrefix+_delimiter);
-                IINode _object = MaxPluginUtilities.getNodeByHandle(_nodeHandle);
-                MaxPluginUtilities.getNodeByHandle(_nodeHandle).Name = finalName;
+                string finalName = MaxPluginUtilities.RenameObject(_namePrefix+TagGlobals.delimiter);
+                IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                IInterval interval=MaxPluginUtilities.Global.Interval.Create();
+                interval.SetInfinite();
+                UIntPtr partID = (UIntPtr)RefMessage.NodeNamechange;
+                _object.Name = finalName;
+                //SClass_ID[] classes = Autodesk.Max.Utilities.SClass_IDs.AllSuperClassIDs;
+                _object.NotifyDependents(interval, partID, RefMessage.NodeNamechange, SClass_ID.Scene, true, null);
             }
-            MaxPluginUtilities.NotifyNodeChanged();
         }
-        public static void RenameUsingStructure(TagNode _root, string _delimiter, List<string> _namesToRemove)
+        public static void RenameUsingStructure(TagNode _root, List<string> _namesToRemove)
         {
-            RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles(), _delimiter, _root, _namesToRemove);
+            RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles(), _root, _namesToRemove);
         }
     }
 }

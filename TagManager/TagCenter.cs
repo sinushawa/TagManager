@@ -37,25 +37,16 @@ namespace TagManager
         public class Descriptor : Autodesk.Max.Plugins.ClassDesc2
         {
             protected IGlobal _global;
-            internal static IClass_ID _classID;
+            public static IClass_ID _classID;
             public bool saveIsNeeded = true;
-
-            private FastPan _fastPan;
-
-            public FastPan fastPan
-            {
-                get { return _fastPan; }
-                set { _fastPan = value; }
-            }
 
             public IGlobal Global
             {
-                get { return this._global; }
+                get { return _global; }
             }
             public Descriptor(IGlobal global)
             {
-                this._global = global;
-                fastPan = TagCenter.Instance.fastPan;
+                _global = global;
                 _classID = _global.Class_ID.Create(0x8962d7, 0x285b3ff9);
             }
             
@@ -98,19 +89,19 @@ namespace TagManager
             }
             public override IOResult Save(IISave isave)
             {
-                IOResult result = isave.Save(fastPan.Root);
+                IOResult result = isave.Save(TagGlobals.root);
                 return result;
             }
             public override IOResult Load(IILoad iload)
             {
                 TagNode res = (TagNode)iload.LoadObject();
                 res.ReParent();
-                TagCenter.Instance.fastPan.Root = res;
-                TagCenter.Instance.fastPan.DataContext = res;
+                TagGlobals.root = res;
+                TagGlobals.tagCenter.fastPan.DataContext = res;
                 return base.Load(iload);
             }
         }
-        Descriptor _descriptor;
+        public Descriptor _descriptor;
         public TagCenter()
         {
         }
@@ -168,6 +159,9 @@ namespace TagManager
             TagCenter.Instance = this;
             this.Sync = sync;
             fastPan = new FastPan();
+            TagGlobals.tagCenter = this;
+            InitializeTree();
+            TagGlobals.addToSelection = false;
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
@@ -175,6 +169,12 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
+        }
+        public void InitializeTree()
+        {
+            TagGlobals.root = new TagNode("Root");
+            TagNode firstchild = new TagNode("Project");
+            TagGlobals.root.Children.Add(firstchild);
         }
 
         /// <summary>
@@ -194,6 +194,7 @@ namespace TagManager
         {
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             IINode _node = notifyInfo.CallParam as IINode;
+            TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
         }
         public void CreateTagManagerWin()
         {
@@ -245,7 +246,7 @@ namespace TagManager
 
             // Assign the window's content to be the WPF control
             FastWPFTag fastTag = new FastWPFTag();
-            fastTag.CreateAutoCompleteSource(this);
+            fastTag.CreateAutoCompleteSource();
             fastTag.winParent = dialog;
             dialog.Content = fastTag;
             dialog.ShowInTaskbar = false;
@@ -266,7 +267,7 @@ namespace TagManager
 
         public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message)
         {
-            throw new NotImplementedException();
+            return RefResult.Succeed;
         }
     }
 }

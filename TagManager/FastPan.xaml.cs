@@ -18,18 +18,13 @@ namespace TagManager
 {
     public partial class FastPan : System.Windows.Controls.UserControl
     {
-        public TagNode root;
-        public string delimiter = "_";
-        public bool autoRename = true;
-        public bool childrenAutoSelect = false;
-        public bool newSelection = false;
         private Point dragStartPoint;
         private Stopwatch stopwatch;
 
         public TagNode Root
         {
-            get { return root; }
-            set { root = value; }
+            get { return TagGlobals.root; }
+            set { TagGlobals.root = value; }
         }
 
         public FastPan()
@@ -40,10 +35,7 @@ namespace TagManager
         }
         public void LoadSource()
         {
-            root = new TagNode("Root");
-            TagNode firstchild = new TagNode("Project");
-            root.Children.Add(firstchild);
-            DataContext = root;
+            DataContext = Root;
             ItemToContextMenuConverter.StdContextMenu = this.Resources["StdMenu"] as ContextMenu;
             ItemToContextMenuConverter.RootContextMenu = this.Resources["RootMenu"] as ContextMenu;
         }

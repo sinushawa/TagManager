@@ -40,7 +40,7 @@ namespace TagManager
         }
         public static List<TagNode> FindLeavesEntities(TagNode _root)
         {
-            SortableObservableCollection<TagNode> allEntities = _root.GetNodeList();
+            List<TagNode> allEntities = _root.GetNodeList();
             List<TagNode> _leavesEntites = allEntities.Where(x => x.Parent == null).ToList();
             return _leavesEntites;
         }

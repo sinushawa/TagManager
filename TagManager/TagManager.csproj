@@ -34,6 +34,11 @@
       <HintPath>bin\Debug\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Autodesk.Max.StateSets, Version=16.3.253.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\Autodesk.Max.StateSets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ManagedServices">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\ManagedServices.dll</HintPath>
       <Private>False</Private>
@@ -90,6 +95,7 @@
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
+    <Compile Include="TagGlobals.cs" />
     <Compile Include="TagHelperMethods.cs" />
     <Compile Include="TagMethods.cs" />
     <Compile Include="TagNode.cs" />

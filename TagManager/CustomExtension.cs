@@ -9,20 +9,20 @@ namespace TagManager
 {
     public static class CustomExtension
     {
-        public static SortableObservableCollection<TagNode> GetNodeList(this TagNode dnod)
+        public static List<TagNode> GetNodeList(this TagNode dnod)
         {
-            var ret = new SortableObservableCollection<TagNode>();
+            var ret = new List<TagNode>();
             ret.Add(dnod);
-            ret.AddRange(dnod.Children.GetNodeList());
+            ret.AddRange(dnod.Children.ToList().GetNodeList());
             return ret;
         }
-        public static SortableObservableCollection<TagNode> GetNodeList(this SortableObservableCollection<TagNode> dnodColl)
+        public static List<TagNode> GetNodeList(this List<TagNode> dnodColl)
         {
-            var ret = new SortableObservableCollection<TagNode>();
+            var ret = new List<TagNode>();
             foreach (TagNode _dnode in dnodColl)
             {
                 ret.Add(_dnode);
-                ret.AddRange(_dnode.Children.GetNodeList());
+                ret.AddRange(_dnode.Children.ToList().GetNodeList());
             }
             return ret;
         }

@@ -15,7 +15,6 @@ namespace TagManager
 {
     public partial class FastWPFTag : System.Windows.Controls.UserControl, IComponentConnector
 	{
-		private TagCenter tagCenter;
         private List<TagNode> nodesList;
         private List<string> branchNames;
         private TagNode projectEntity;
@@ -29,15 +28,14 @@ namespace TagManager
 		{
 			this.InitializeComponent();
 		}
-		public void CreateAutoCompleteSource(TagCenter _tagCenter)
+		public void CreateAutoCompleteSource()
 		{
-			tagCenter = _tagCenter;
-            projectEntity = tagCenter.fastPan.Root.GetNodeList().First(x => x.Name == "Project");
-            nodesList = projectEntity.Children.GetNodeList().ToList();
+            projectEntity = TagGlobals.root.GetNodeList().First(x => x.Name == "Project");
+            nodesList = projectEntity.Children.ToList().GetNodeList();
             branchNames= new List<string>();
             foreach (TagNode _entity in nodesList)
             {
-                string _branchName = _entity.GetNodeBranchName(tagCenter.fastPan.delimiter, baseNames);
+                string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, baseNames);
                 branchNames.Add(_branchName);
             }
             this.FastBox.ItemsSource = branchNames;
@@ -106,9 +104,9 @@ namespace TagManager
 					{
                         entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
 					}
-					if (tagCenter.fastPan.autoRename)
+					if (TagGlobals.autoRename)
 					{
-                        TagMethods.RenameUsingStructure(tagCenter.fastPan.Root, tagCenter.fastPan.delimiter, baseNames);
+                        TagMethods.RenameUsingStructure(TagGlobals.root, baseNames);
 					}
 				}
 				else
@@ -145,9 +143,9 @@ namespace TagManager
 							}
 						}
 					}
-                    if (tagCenter.fastPan.autoRename)
+                    if (TagGlobals.autoRename)
 					{
-                        TagMethods.RenameUsingStructure(tagCenter.fastPan.Root, tagCenter.fastPan.delimiter, baseNames);
+                        TagMethods.RenameUsingStructure(TagGlobals.root, baseNames);
 					}
 					this.winParent.Close();
 				}
@@ -178,9 +176,9 @@ namespace TagManager
 				{
 					entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
 				}
-                if (tagCenter.fastPan.autoRename)
+                if (TagGlobals.autoRename)
 				{
-                    TagMethods.RenameUsingStructure(tagCenter.fastPan.Root, tagCenter.fastPan.delimiter, baseNames);
+                    TagMethods.RenameUsingStructure(TagGlobals.root, baseNames);
 				}
 				this.winParent.Close();
 			}
@@ -191,9 +189,9 @@ namespace TagManager
 				{
 					List<TagNode> entitiesToSelect = new List<TagNode>();
                     entitiesToSelect.Add(entity);
-					if (tagCenter.fastPan.childrenAutoSelect)
+					if (TagGlobals.childrenAutoSelect)
 					{
-                        entitiesToSelect.AddRange(entity.Children.GetNodeList());
+                        entitiesToSelect.AddRange(entity.Children.ToList().GetNodeList());
 					}
 					if (entity != null)
 					{
@@ -203,7 +201,7 @@ namespace TagManager
                             objectsToSelect.AddRange(_entity.Nodes);
 						}
                         objectsToSelect = objectsToSelect.Distinct().ToList();
-                        MaxPluginUtilities.setSelection(objectsToSelect, tagCenter.fastPan.newSelection);
+                        MaxPluginUtilities.SetSelection(objectsToSelect, TagGlobals.newSelection);
 					}
 				}
 				else
@@ -212,7 +210,7 @@ namespace TagManager
 					{
 						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, entity.Nodes.ToList()));
 					}
-                    MaxPluginUtilities.setSelection(_currentContainer.getCorrespondingSel(), tagCenter.fastPan.newSelection);
+                    MaxPluginUtilities.SetSelection(_currentContainer.getCorrespondingSel(), TagGlobals.newSelection);
 				}
 				this.winParent.Close();
 			}
