@@ -246,12 +246,13 @@ namespace TagManager
 
             // Assign the window's content to be the WPF control
             FastWPFTag fastTag = new FastWPFTag();
+            fastTag.FastBox.Focusable = true;
+            
             fastTag.CreateAutoCompleteSource();
             fastTag.winParent = dialog;
             dialog.Content = fastTag;
             dialog.ShowInTaskbar = false;
 
-            System.Windows.Input.FocusManager.SetFocusedElement(dialog, fastTag);
             // Create an interop helper
             System.Windows.Interop.WindowInteropHelper windowHandle = new System.Windows.Interop.WindowInteropHelper(dialog);
             // Assign the 3ds Max HWnd handle to the interop helper
@@ -262,6 +263,11 @@ namespace TagManager
 
             // Show the dialog box
             dialog.Show();
+            System.Windows.Input.FocusManager.SetFocusedElement(dialog, fastTag.FastBox);
+            System.Windows.Controls.TextBox fastTXT = fastTag.FastBox.Template.FindName("Text", fastTag.FastBox) as System.Windows.Controls.TextBox; 
+            var result = System.Windows.Input.Keyboard.Focus(fastTag.FastBox);
+            fastTXT.Focus();
+
         }
 
 

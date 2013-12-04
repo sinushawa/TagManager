@@ -49,7 +49,6 @@ namespace TagManager
         }
         public static void RenameUsingStructure(List<uint> _objects, TagNode _root, List<string> _namesToRemove)
         {
-            string name = "";
             SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects, _root);
             SortableObservableCollection<List<string>> branchesElementsNames = new SortableObservableCollection<List<string>>();
             foreach (TagNode _entity in entitiesContainingObjects)
@@ -64,12 +63,16 @@ namespace TagManager
             {
                 string finalName = MaxPluginUtilities.RenameObject(_namePrefix+TagGlobals.delimiter);
                 IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                _object.Name = finalName;
+                // this part is only to refresh the node's name in the UI
                 IInterval interval=MaxPluginUtilities.Global.Interval.Create();
                 interval.SetInfinite();
                 UIntPtr partID = (UIntPtr)RefMessage.NodeNamechange;
-                _object.Name = finalName;
-                //SClass_ID[] classes = Autodesk.Max.Utilities.SClass_IDs.AllSuperClassIDs;
-                _object.NotifyDependents(interval, partID, RefMessage.NodeNamechange, SClass_ID.Scene, true, null);
+                SClass_ID[] classes = SClass_IDs.AllSuperClassIDs;
+                for (int i = 0; i < classes.Length; i++)
+                {
+                    _object.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
+                }
             }
         }
         public static void RenameUsingStructure(TagNode _root, List<string> _namesToRemove)
