@@ -78,6 +78,7 @@
     <Compile Include="ConsoleContainerElement.cs" />
     <Compile Include="ConsoleElement.cs" />
     <Compile Include="ConsoleStringSelElement.cs" />
+    <Compile Include="NodesToBoolConverter.cs" />
     <Compile Include="CustomExtension.cs" />
     <Compile Include="DDNode.cs" />
     <Compile Include="DependencyObjExtensions.cs" />

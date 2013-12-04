@@ -175,10 +175,28 @@ namespace TagManager
             }
             return null;
         }
-        public static string RenameObject(string _namePrefix)
+        public static string MakeNameUnique(string _namePrefix)
         {
             Interface.MakeNameUnique(ref _namePrefix);
             return _namePrefix;
+        }
+        public static void RenameNode(this IINode _node, string _newName)
+        {
+            string finalName = MakeNameUnique(_newName+TagGlobals.delimiter);
+            _node.Name = finalName;
+            _node.NotifyNameChanged();
+        }
+        public static void NotifyNameChanged(this IINode _node)
+        {
+            // this part is only to refresh the node's name in the UI
+            IInterval interval = MaxPluginUtilities.Global.Interval.Create();
+            interval.SetInfinite();
+            UIntPtr partID = (UIntPtr)RefMessage.NodeNamechange;
+            SClass_ID[] classes = Autodesk.Max.Utilities.SClass_IDs.AllSuperClassIDs;
+            for (int i = 0; i < classes.Length; i++)
+            {
+                _node.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
+            }
         }
     }
 }

@@ -11,6 +11,9 @@ namespace TagManager
     [Serializable]
     public abstract class DDNode<T> where T : DDNode<T>
     {
+        public event EventHandler ChangedParent;
+        public event EventHandler ChangedName;
+        public event EventHandler ChangedLongName;
         #region Public Properties
 
         //private SortableObservableCollection<T> children;
@@ -26,12 +29,31 @@ namespace TagManager
             get { return name; }
             set { name = value; }
         }
+        private string longName;
+        public string LongName
+        {
+            get { return longName; }
+            set 
+            { 
+                longName = value;
+                ChangedLongName(this, null);
+            }
+        }
 
         private T parent;
         public T Parent
         {
             get { return parent; }
-            set { parent = value; }
+            set 
+            { 
+                parent = value;
+                ChangedParent(this, null);
+            }
+        }
+        protected virtual void OnChangedParent(EventArgs e)
+        {
+            if (ChangedParent != null)
+                ChangedParent(this, e);
         }
         private SortableObservableCollection<uint> nodes;
         public SortableObservableCollection<uint> Nodes
@@ -49,6 +71,31 @@ namespace TagManager
         {
             Children = new SortableObservableCollection<T>();
             Children.CollectionChanged += Children_CollectionChanged;
+            ChangedParent += DDNode_ChangedParent;
+            ChangedName += DDNode_ChangedName;
+            ChangedLongName += DDNode_ChangedLongName;
+        }
+
+        void DDNode_ChangedName(object sender, EventArgs e)
+        {
+            LongName = TagHelperMethods.ConcateneNameFromElements(GetNodeBranchElementsNames(true));
+        }
+
+        void DDNode_ChangedLongName(object sender, EventArgs e)
+        {
+            if (TagGlobals.autoRename)
+            {
+                foreach (uint _nodeHandle in Nodes)
+                {
+                    Autodesk.Max.IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                    _object.RenameNode(LongName);
+                }
+            }
+        }
+
+        public void DDNode_ChangedParent(object sender, EventArgs e)
+        {
+            LongName = TagHelperMethods.ConcateneNameFromElements(GetNodeBranchElementsNames(true));
         }
 
         public void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -161,7 +208,7 @@ namespace TagManager
             _hierarchy.Reverse();
             return _hierarchy;
         }
-        public List<string> GetNodeBranchElementsNames(List<string> _toRemove)
+        public List<string> GetNodeBranchElementsNames(bool _toRemove)
         {
             T _entity = (T)this;
             List<string> _names = new List<string>();
@@ -172,7 +219,10 @@ namespace TagManager
                 _names.Add(_parentJoint.Name);
                 _entity = _entity.Parent;
             }
-            _names.RemoveAll(x => _toRemove.Contains(x));
+            if (_toRemove)
+            {
+                _names.RemoveAll(x => TagGlobals.baseNames.Contains(x));
+            }
             _names.Reverse();
             return _names;
         }
@@ -196,7 +246,6 @@ namespace TagManager
         }
         public string GetNodeBranchName(string _delimiter, List<string> _toRemove)
         {
-            string result = "";
             List<T> _entities = GetNodeBranch();
             _entities.RemoveAll(x => _toRemove.Contains(x.Name));
             return BranchName(_entities, _delimiter);

@@ -18,6 +18,23 @@ namespace TagManager
 {
     public partial class FastPan : System.Windows.Controls.UserControl
     {
+        # region Selection dependency definition
+        public static readonly DependencyProperty selectionProperty = DependencyProperty.Register("Selection", typeof(SortableObservableCollection<uint>), typeof(FastPan), new FrameworkPropertyMetadata(default(SortableObservableCollection<uint>), new PropertyChangedCallback(onCollectionChanged)));
+        public SortableObservableCollection<uint> Selection
+        {
+            get
+            {
+                return (SortableObservableCollection<uint>)GetValue(selectionProperty);
+            }
+            set
+            {
+                SetValue(selectionProperty, value);
+            }
+        }
+        private static void onCollectionChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+        }
+        # endregion
         private Point dragStartPoint;
         private Stopwatch stopwatch;
 
@@ -30,9 +47,11 @@ namespace TagManager
         public FastPan()
         {
             InitializeComponent();
+            Selection = new SortableObservableCollection<uint>();
             stopwatch = new Stopwatch();
             LoadSource();
         }
+
         public void LoadSource()
         {
             DataContext = Root;
@@ -70,7 +89,7 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode _currentEntity=(TagNode)ctrl.DataContext;
-            TagMethods.ApplyEntities(new List<TagNode>() { _currentEntity }, TagCenter.Instance.SelectedObjects.ToList());
+            TagMethods.ApplyEntities(new List<TagNode>() { _currentEntity }, MaxPluginUtilities.Selection.ToListHandles());
         }
         private void onSelectEntity(object sender, RoutedEventArgs e)
         {
@@ -90,13 +109,13 @@ namespace TagManager
         {
             if (TV.SelectedItems.Count > 0)
             {
-                TagMethods.RemoveObjects(TV.SelectedItems.Cast<TagNode>().ToList(), TagCenter.Instance.SelectedObjects.ToList());
+                TagMethods.RemoveObjects(TV.SelectedItems.Cast<TagNode>().ToList(), MaxPluginUtilities.Selection.ToListHandles());
             }
             else
             {
                 MenuItem ctrl = sender as MenuItem;
                 TagNode _currentEntity = (TagNode)ctrl.DataContext;
-                TagMethods.RemoveObjects(new List<TagNode>() { _currentEntity }, TagCenter.Instance.SelectedObjects.ToList());
+                TagMethods.RemoveObjects(new List<TagNode>() { _currentEntity }, MaxPluginUtilities.Selection.ToListHandles());
             }
         }
         private void onAddEntity(object sender, RoutedEventArgs e)

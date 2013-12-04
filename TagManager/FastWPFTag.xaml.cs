@@ -22,7 +22,6 @@ namespace TagManager
 		private ConsoleContainerElement _consoleRoot;
 		private ConsoleContainerElement _currentContainer;
 		public Window winParent;
-        public List<string> baseNames = new List<string>() { "Root", "Project" };
 
 		public FastWPFTag()
 		{
@@ -35,7 +34,7 @@ namespace TagManager
             branchNames= new List<string>();
             foreach (TagNode _entity in nodesList)
             {
-                string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, baseNames);
+                string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames);
                 branchNames.Add(_branchName);
             }
             this.FastBox.ItemsSource = branchNames;
@@ -106,7 +105,7 @@ namespace TagManager
 					}
 					if (TagGlobals.autoRename)
 					{
-                        TagMethods.RenameUsingStructure(TagGlobals.root, baseNames);
+                        TagMethods.RenameUsingStructure(TagGlobals.root);
 					}
 				}
 				else
@@ -145,7 +144,7 @@ namespace TagManager
 					}
                     if (TagGlobals.autoRename)
 					{
-                        TagMethods.RenameUsingStructure(TagGlobals.root, baseNames);
+                        TagMethods.RenameUsingStructure(TagGlobals.root);
 					}
 					this.winParent.Close();
 				}
@@ -178,7 +177,7 @@ namespace TagManager
 				}
                 if (TagGlobals.autoRename)
 				{
-                    TagMethods.RenameUsingStructure(TagGlobals.root, baseNames);
+                    TagMethods.RenameUsingStructure(TagGlobals.root);
 				}
 				this.winParent.Close();
 			}

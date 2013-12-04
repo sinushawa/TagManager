@@ -15,5 +15,6 @@ namespace TagManager
         public static bool newSelection = false;
         public static bool autoRename = true;
         public static bool childrenAutoSelect = false;
+        public static List<string> baseNames = new List<string>() { "Root", "Project" };
     }
 }

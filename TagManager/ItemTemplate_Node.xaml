@@ -7,10 +7,25 @@
         <ResourceDictionary Source="AlignTreeViewExItem.xaml"/>
         -->
 	</ResourceDictionary.MergedDictionaries>
+    <local:NodesToBoolConverter x:Key="NodesToBoolConverter" />
+    <Style x:Key="containsObject" TargetType="DockPanel">
+        <Style.Triggers>
+            <DataTrigger Value="true">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{StaticResource ResourceKey=NodesToBoolConverter}">
+                        <Binding Path="Nodes" Mode="OneWay"/>
+                        <Binding ElementName="FP" Path="Selection" Mode="OneWay"/>
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="Background" Value="YellowGreen" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
     <local:ItemToContextMenuConverter x:Key="ContextMenuConverter" />
     <HierarchicalDataTemplate x:Key="ItemTemplate_Node" ItemsSource="{Binding Children}">
-        <DockPanel HorizontalAlignment="Stretch" LastChildFill="True" ContextMenu="{Binding Converter={StaticResource ContextMenuConverter}}" >
-            <local:EditableTextBlock HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Text="{Binding Name, Mode=TwoWay}" IsInEditMode="{Binding IsInEditMode, Mode=TwoWay}" DockPanel.Dock="Left"/>
+        <DockPanel HorizontalAlignment="Stretch" LastChildFill="True" Style="{StaticResource ResourceKey=containsObject}" ContextMenu="{Binding Converter={StaticResource ContextMenuConverter}}" >
+            <local:EditableTextBlock HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Text="{Binding Name, Mode=TwoWay}" IsInEditMode="{Binding IsInEditMode, Mode=TwoWay}" DockPanel.Dock="Left">
+            </local:EditableTextBlock>
             <!--
             <cp:ColorCanvas DockPanel.Dock="Left" HorizontalAlignment="Right" Width="20" Margin="0,0,4,0"/>
             -->

@@ -47,37 +47,29 @@ namespace TagManager
             _toMerge.Nodes.AddRange(_target.Nodes);
             _target.Parent.Children.Remove(_target);
         }
-        public static void RenameUsingStructure(List<uint> _objects, TagNode _root, List<string> _namesToRemove)
+        public static void RenameUsingStructure(List<uint> _objects, TagNode _root)
         {
             SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects, _root);
             SortableObservableCollection<List<string>> branchesElementsNames = new SortableObservableCollection<List<string>>();
             foreach (TagNode _entity in entitiesContainingObjects)
             {
-                branchesElementsNames.Add(_entity.GetNodeBranchElementsNames(_namesToRemove));
+                branchesElementsNames.Add(_entity.GetNodeBranchElementsNames(true));
             }
             branchesElementsNames.Sort(x => x.Count);
             List<List<string>> _listBranchElements = branchesElementsNames.Reverse().ToList();
-            string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_listBranchElements, TagGlobals.delimiter);
+            string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_listBranchElements.SelectMany(x=> x).ToList());
             
             foreach (uint _nodeHandle in _objects)
             {
-                string finalName = MaxPluginUtilities.RenameObject(_namePrefix+TagGlobals.delimiter);
+                string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix+TagGlobals.delimiter);
                 IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
                 _object.Name = finalName;
-                // this part is only to refresh the node's name in the UI
-                IInterval interval=MaxPluginUtilities.Global.Interval.Create();
-                interval.SetInfinite();
-                UIntPtr partID = (UIntPtr)RefMessage.NodeNamechange;
-                SClass_ID[] classes = SClass_IDs.AllSuperClassIDs;
-                for (int i = 0; i < classes.Length; i++)
-                {
-                    _object.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
-                }
+                _object.NotifyNameChanged();
             }
         }
-        public static void RenameUsingStructure(TagNode _root, List<string> _namesToRemove)
+        public static void RenameUsingStructure(TagNode _root)
         {
-            RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles(), _root, _namesToRemove);
+            RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles(), _root);
         }
     }
 }

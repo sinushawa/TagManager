@@ -13,16 +13,15 @@ namespace TagManager
             List<string> _result = _branchName.Split(new char[] { '_' }).ToList();
             return _result;
         }
-        public static string ConcateneNameFromElements(List<List<string>> _branchElements, string _delimiter)
+        public static string ConcateneNameFromElements(IEnumerable<string> _branchElements)
         {
             string result = "";
-            List<string> elems =_branchElements.SelectMany(x=> x).ToList();
-            foreach (string _element in elems)
+            foreach (string _element in _branchElements)
             {
                 
                 if (result != "")
                 {
-                    result += _delimiter;
+                    result += TagGlobals.delimiter;
                 }
                 result += _element;
             }
@@ -57,20 +56,33 @@ namespace TagManager
             }
             return _identical;
         }
-        public static TagNode FindMatchingEntitiesSequence(TagNode _root, TagNode _entity)
+        public static IEnumerable<string> GetAllBranchNames()
         {
-            List<TagNode> _branchToCompare = _entity.GetNodeBranch();
-            List<TagNode> _leavesEntities = FindLeavesEntities(_root);
-            List<List<TagNode>> _entitiesSequences = new List<List<TagNode>>();
-            List<int> _matchingLength = new List<int>();
-            foreach (TagNode _entityLeaf in _leavesEntities)
+            TagNode projectEntity = TagGlobals.root.GetNodeList().First(x => x.Name == "Project");
+            List<TagNode> nodesList = projectEntity.Children.ToList().GetNodeList();
+            return nodesList.Select(x=> x.LongName);
+        }
+        public static TagNode RetrieveEntityFromTag(string _tag)
+        {
+            List<TagNode> nodeList = TagGlobals.root.GetNodeList();
+            return nodeList.Where(x=> x.LongName== _tag).FirstOrDefault();
+        }
+        public static TagNode GetLonguestMatchingTag(string _tag)
+        {
+            List<string> tagElements = EntityNamesFromBranch(_tag);
+            List<string> matchingList = new List<string>();
+            TagNode matchingEntity = null;
+            foreach (string _element in tagElements)
             {
-                List<TagNode> _branchSolution = _entityLeaf.GetNodeBranch();
-                _matchingLength.Add(CompareBranches(_branchToCompare, _branchSolution));
-                _entitiesSequences.Add(_branchSolution);
+                matchingList.Add(_element);
+                string tagToCheck = ConcateneNameFromElements(matchingList);
+                TagNode retrievedEntity = RetrieveEntityFromTag(tagToCheck);
+                if (retrievedEntity != null)
+                {
+                    matchingEntity = retrievedEntity;
+                }
             }
-            int _longuest = _matchingLength.IndexOf(_matchingLength.Max());
-            return _entitiesSequences[_longuest][_matchingLength.Max()];
+            return matchingEntity;
         }
     }
 }

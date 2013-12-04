@@ -97,7 +97,7 @@ namespace TagManager
                 TagNode res = (TagNode)iload.LoadObject();
                 res.ReParent();
                 TagGlobals.root = res;
-                TagGlobals.tagCenter.fastPan.DataContext = res;
+                TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
                 return base.Load(iload);
             }
         }
@@ -123,13 +123,6 @@ namespace TagManager
         {
             get;
             set;
-        }
-
-        private SortableObservableCollection<uint> selectedObjects;
-        public SortableObservableCollection<uint> SelectedObjects
-        {
-            get { return selectedObjects; }
-            set { selectedObjects = value; }
         }
 
 
@@ -175,6 +168,7 @@ namespace TagManager
             TagGlobals.root = new TagNode("Root");
             TagNode firstchild = new TagNode("Project");
             TagGlobals.root.Children.Add(firstchild);
+            TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
         }
 
         /// <summary>
@@ -188,7 +182,7 @@ namespace TagManager
         }
         private void SelChanged(IntPtr obj, IntPtr infoHandle)
         {
-            SelectedObjects = MaxPluginUtilities.Selection.ToSOC();
+            fastPan.Selection =MaxPluginUtilities.Selection.ToSOC();
         }
         private void NodeDeleted(IntPtr obj, IntPtr infoHandle)
         {
