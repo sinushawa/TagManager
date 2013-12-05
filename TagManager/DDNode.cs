@@ -5,11 +5,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Controls.DragNDrop;
 using System.Linq;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace TagManager
 {
     [Serializable]
-    public abstract class DDNode<T> where T : DDNode<T>
+    public abstract class DDNode<T> where T : DDNode<T>, INotifyPropertyChanged
     {
         public event EventHandler ChangedParent;
         public event EventHandler ChangedName;
@@ -50,11 +52,6 @@ namespace TagManager
                 ChangedParent(this, null);
             }
         }
-        protected virtual void OnChangedParent(EventArgs e)
-        {
-            if (ChangedParent != null)
-                ChangedParent(this, e);
-        }
         private SortableObservableCollection<uint> nodes;
         public SortableObservableCollection<uint> Nodes
         {
@@ -70,7 +67,9 @@ namespace TagManager
         public DDNode()
         {
             Children = new SortableObservableCollection<T>();
+            Nodes = new SortableObservableCollection<uint>();
             Children.CollectionChanged += Children_CollectionChanged;
+            Nodes.CollectionChanged += Nodes_CollectionChanged;
             ChangedParent += DDNode_ChangedParent;
             ChangedName += DDNode_ChangedName;
             ChangedLongName += DDNode_ChangedLongName;
@@ -107,6 +106,11 @@ namespace TagManager
                     _node.Parent = (T)this;
                 }
             }
+            NotifyPropertyChanged("Children");
+        }
+        public void Nodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("Nodes");
         }
 
         public void OnInsert(int index, object obj)
@@ -186,6 +190,18 @@ namespace TagManager
         public object OnDrag()
         {
             return this;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // This method is called by the Set accessor of each property. 
+        // The CallerMemberName attribute that is applied to the optional propertyName 
+        // parameter causes the property name of the caller to be substituted as an argument. 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         #endregion

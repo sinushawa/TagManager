@@ -6,12 +6,13 @@ using Autodesk.Max;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.ComponentModel;
 using System.Windows.Controls.DragNDrop;
 
 namespace TagManager
 {
     [Serializable]
-    public class TagNode: DDNode<TagNode>, ISerializable
+    public class TagNode : DDNode<TagNode>, ISerializable, INotifyPropertyChanged
     {
         private Guid _ID;
 
@@ -19,11 +20,6 @@ namespace TagManager
         {
           get { return _ID; }
           set { _ID = value; }
-        }
-        public SortableObservableCollection<uint> Nodes
-        {
-            get;
-            set;
         }
         private bool isInEditMode;
         public bool IsInEditMode
@@ -48,7 +44,6 @@ namespace TagManager
         {
             ID = _ID;
             Name = _label;
-            Nodes = new SortableObservableCollection<uint>();
             Nodes.AddRange(_objects);
             AllowDrag = true;
             AllowDrop = true;
@@ -84,6 +79,7 @@ namespace TagManager
             Children = (SortableObservableCollection<TagNode>)info.GetValue("Children", typeof(SortableObservableCollection<TagNode>));
             Children.CollectionChanged+= Children_CollectionChanged;
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
+            Nodes.CollectionChanged += Nodes_CollectionChanged;
             shortcuts = (SortableObservableCollection<string>)info.GetValue("shortcuts", typeof(SortableObservableCollection<string>));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
             AllowDrag = true;
