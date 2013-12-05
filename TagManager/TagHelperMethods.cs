@@ -84,5 +84,18 @@ namespace TagManager
             }
             return matchingEntity;
         }
+        public static EntityVisibility GetEntityVisibility(this TagNode _tagNode)
+        {
+            List<bool> nodesHidden = _tagNode.Nodes.Select(x => MaxPluginUtilities.GetNodeHidden(x)).ToList();
+            List<bool> entityHidden = nodesHidden.Distinct().ToList();
+            if (entityHidden.Count < 2)
+            {
+                return entityHidden[0] == true ? EntityVisibility.Hidden : EntityVisibility.Vsible;
+            }
+            else
+            {
+                return EntityVisibility.Mixed;
+            }
+        }
     }
 }

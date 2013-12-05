@@ -52,12 +52,7 @@ namespace TagManager
                 ChangedParent(this, null);
             }
         }
-        private SortableObservableCollection<uint> nodes;
-        public SortableObservableCollection<uint> Nodes
-        {
-            get { return nodes; }
-            set { nodes = value; }
-        }
+        
         #endregion
 
         #region Public Methods
@@ -67,12 +62,12 @@ namespace TagManager
         public DDNode()
         {
             Children = new SortableObservableCollection<T>();
-            Nodes = new SortableObservableCollection<uint>();
+            
             Children.CollectionChanged += Children_CollectionChanged;
-            Nodes.CollectionChanged += Nodes_CollectionChanged;
+            
             ChangedParent += DDNode_ChangedParent;
             ChangedName += DDNode_ChangedName;
-            ChangedLongName += DDNode_ChangedLongName;
+            
         }
 
         void DDNode_ChangedName(object sender, EventArgs e)
@@ -80,17 +75,7 @@ namespace TagManager
             LongName = TagHelperMethods.ConcateneNameFromElements(GetNodeBranchElementsNames(true));
         }
 
-        void DDNode_ChangedLongName(object sender, EventArgs e)
-        {
-            if (TagGlobals.autoRename)
-            {
-                foreach (uint _nodeHandle in Nodes)
-                {
-                    Autodesk.Max.IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
-                    _object.RenameNode(LongName);
-                }
-            }
-        }
+        
 
         public void DDNode_ChangedParent(object sender, EventArgs e)
         {
@@ -108,10 +93,7 @@ namespace TagManager
             }
             NotifyPropertyChanged("Children");
         }
-        public void Nodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            NotifyPropertyChanged("Nodes");
-        }
+        
 
         public void OnInsert(int index, object obj)
         {
@@ -196,7 +178,7 @@ namespace TagManager
         // This method is called by the Set accessor of each property. 
         // The CallerMemberName attribute that is applied to the optional propertyName 
         // parameter causes the property name of the caller to be substituted as an argument. 
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        public void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             if (PropertyChanged != null)
             {

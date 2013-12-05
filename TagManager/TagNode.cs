@@ -27,6 +27,18 @@ namespace TagManager
             get { return isInEditMode; }
             set { isInEditMode = value; }
         }
+        private SortableObservableCollection<uint> nodes;
+        public SortableObservableCollection<uint> Nodes
+        {
+            get { return nodes; }
+            set { nodes = value; }
+        }
+        private EntityVisibility visible;
+        public EntityVisibility Visible
+        {
+            get { return visible; }
+            set { visible = value; }
+        }
 
         public SortableObservableCollection<string> shortcuts;
         public System.Drawing.Color wireColor;
@@ -44,9 +56,27 @@ namespace TagManager
         {
             ID = _ID;
             Name = _label;
+            Nodes = new SortableObservableCollection<uint>();
+            Nodes.CollectionChanged += Nodes_CollectionChanged;
+            ChangedLongName += TagNode_ChangedLongName;
             Nodes.AddRange(_objects);
             AllowDrag = true;
             AllowDrop = true;
+        }
+        public void Nodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("Nodes");
+        }
+        void TagNode_ChangedLongName(object sender, EventArgs e)
+        {
+            if (TagGlobals.autoRename)
+            {
+                foreach (uint _nodeHandle in Nodes)
+                {
+                    Autodesk.Max.IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                    _object.RenameNode(LongName);
+                }
+            }
         }
         public override void OnDrop(object obj)
         {

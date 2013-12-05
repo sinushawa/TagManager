@@ -175,6 +175,10 @@ namespace TagManager
             }
             return null;
         }
+        public static bool GetNodeHidden(uint _nodeHandle)
+        {
+            return GetNodeByHandle(_nodeHandle).IsHidden(NodeHideFlags.All, false);
+        }
         public static string MakeNameUnique(string _namePrefix)
         {
             Interface.MakeNameUnique(ref _namePrefix);
