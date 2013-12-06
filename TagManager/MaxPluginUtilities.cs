@@ -45,13 +45,15 @@ namespace TagManager
         }
         private static void SetSelection(IINodeTab _nodes)
         {
-            Interface.SelectNodeTab(_nodes, TagGlobals.addToSelection, true);
+            Interface.SelectNodeTab(_nodes, true, true);
         }
-        public static void SetSelection(List<uint> _nodesHandles, bool _newSelection)
+        public static void SetSelection(List<uint> _nodesHandles)
         {
-            TagGlobals.addToSelection = _newSelection;
+            if (!TagGlobals.addToSelection)
+            {
+                Interface.ClearNodeSelection(false);
+            }
             Selection = _nodesHandles.GetNodesByHandles().ToNodeTab();
-            TagGlobals.addToSelection = false;
         }
         private static void SetSelection(SortableObservableCollection<IINode> _nodes)
         {

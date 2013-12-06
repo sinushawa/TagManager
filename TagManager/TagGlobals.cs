@@ -12,7 +12,6 @@ namespace TagManager
         public static TagNode root;
         public static string delimiter = "_";
         public static bool addToSelection = false;
-        public static bool newSelection = false;
         public static bool autoRename = true;
         public static bool childrenAutoSelect = false;
         public static List<string> baseNames = new List<string>() { "Root", "Project" };

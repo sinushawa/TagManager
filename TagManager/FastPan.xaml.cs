@@ -95,7 +95,7 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
-            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity }, true);
+            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity });
         }
         private void onSelectCommonObjects(object sender, RoutedEventArgs e)
         {

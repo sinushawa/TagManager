@@ -200,7 +200,7 @@ namespace TagManager
                             objectsToSelect.AddRange(_entity.Nodes);
 						}
                         objectsToSelect = objectsToSelect.Distinct().ToList();
-                        MaxPluginUtilities.SetSelection(objectsToSelect, TagGlobals.newSelection);
+                        MaxPluginUtilities.SetSelection(objectsToSelect);
 					}
 				}
 				else
@@ -209,7 +209,7 @@ namespace TagManager
 					{
 						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, entity.Nodes.ToList()));
 					}
-                    MaxPluginUtilities.SetSelection(_currentContainer.getCorrespondingSel(), TagGlobals.newSelection);
+                    MaxPluginUtilities.SetSelection(_currentContainer.getCorrespondingSel());
 				}
 				this.winParent.Close();
 			}
