@@ -214,10 +214,10 @@ namespace TagManager
             System.Windows.Interop.WindowInteropHelper windowHandle = new System.Windows.Interop.WindowInteropHelper(dialog);
             // Assign the 3ds Max HWnd handle to the interop helper
             windowHandle.Owner = ManagedServices.AppSDK.GetMaxHWND();
-
+            IconHelper.RemoveIcon(windowHandle);
             // Setup 3ds Max to handle the WPF dialog correctly
             ManagedServices.AppSDK.ConfigureWindowForMax(dialog);
-
+            
             // Show the dialog box
             dialog.Show();
         }

@@ -79,6 +79,7 @@
     <Compile Include="ConsoleElement.cs" />
     <Compile Include="ConsoleStringSelElement.cs" />
     <Compile Include="EntityVisibility.cs" />
+    <Compile Include="IconHelper.cs" />
     <Compile Include="NodesToBoolConverter.cs" />
     <Compile Include="CustomExtension.cs" />
     <Compile Include="DDNode.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
+    <Compile Include="TagClosestMatch.cs" />
     <Compile Include="TagGlobals.cs" />
     <Compile Include="TagHelperMethods.cs" />
     <Compile Include="TagMethods.cs" />
@@ -125,7 +127,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx 1.9\Main\TreeViewEx\TreeViewEx.csproj">
+    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx\TreeViewEx.csproj">
       <Project>{2854814f-ea3c-41d4-aa94-460c4694f430}</Project>
       <Name>TreeViewEx</Name>
     </ProjectReference>

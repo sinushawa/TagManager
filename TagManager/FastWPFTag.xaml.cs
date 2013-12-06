@@ -168,13 +168,9 @@ namespace TagManager
                 TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
                 if (entity == null)
 				{
-                    entity = new TagNode(autoCompleteBox.Text, MaxPluginUtilities.Selection.ToListHandles());
-                    projectEntity.Children.Add(entity);
+                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true);
 				}
-				else
-				{
-					entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
-				}
+				entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
                 if (TagGlobals.autoRename)
 				{
                     TagMethods.RenameUsingStructure(TagGlobals.root);

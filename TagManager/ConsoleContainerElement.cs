@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace TagManager
 {
-    public class ConsoleContainerElement :ConsoleElement
+    [Serializable]
+    public class ConsoleContainerElement :ConsoleElement, ISerializable
     {
+        // only used during the creation of the container in FastWPFTag
         public ConsoleContainerElement parent;
         public List<ConsoleElement> content = new List<ConsoleElement>();
         public List<concat> ops = new List<concat>();
@@ -100,6 +105,17 @@ namespace TagManager
                 return result;
             }
             return result;
+        }
+
+        protected ConsoleContainerElement(SerializationInfo info, StreamingContext context)
+        {
+            content = (List<ConsoleElement>)info.GetValue("content", typeof(List<ConsoleElement>));
+            ops = (List<concat>)info.GetValue("ops", typeof(List<concat>));
+        }
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("content", content, typeof(List<ConsoleElement>));
+            info.AddValue("ops", ops, typeof(List<concat>));
         }
     }
 }

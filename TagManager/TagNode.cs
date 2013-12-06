@@ -39,8 +39,24 @@ namespace TagManager
             get { return visible; }
             set { visible = value; }
         }
-
-        public SortableObservableCollection<string> shortcuts;
+        private bool isShortcut;
+        public bool IsShortcut
+        {
+            get { return isShortcut; }
+            set { isShortcut = value; }
+        }
+        private ConsoleContainerElement shortcut;
+        public ConsoleContainerElement Shortcut
+        {
+            get
+            {
+                return shortcut;
+            }
+            set
+            {
+                shortcut = value;
+            }
+        }
         public System.Drawing.Color wireColor;
 
         public TagNode()
@@ -110,7 +126,8 @@ namespace TagManager
             Children.CollectionChanged+= Children_CollectionChanged;
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
             Nodes.CollectionChanged += Nodes_CollectionChanged;
-            shortcuts = (SortableObservableCollection<string>)info.GetValue("shortcuts", typeof(SortableObservableCollection<string>));
+            IsShortcut = (bool)info.GetValue("IsShortcut", typeof(bool));
+            Shortcut = (ConsoleContainerElement)info.GetValue("Shortcut", typeof(ConsoleContainerElement));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
             AllowDrag = true;
             AllowDrop = true;
@@ -121,7 +138,8 @@ namespace TagManager
             info.AddValue("Name", Name, typeof(string));
             info.AddValue("Children", Children, typeof(SortableObservableCollection<TagNode>));
             info.AddValue("Nodes", Nodes, typeof(SortableObservableCollection<uint>));
-            info.AddValue("shortcuts", shortcuts, typeof(SortableObservableCollection<string>));
+            info.AddValue("IsShortcut", IsShortcut, typeof(bool));
+            info.AddValue("Shortcut", Shortcut, typeof(ConsoleContainerElement));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));
         }
         internal void ReParent()

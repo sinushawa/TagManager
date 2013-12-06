@@ -67,19 +67,39 @@ namespace TagManager
             List<TagNode> nodeList = TagGlobals.root.GetNodeList();
             return nodeList.Where(x=> x.LongName== _tag).FirstOrDefault();
         }
-        public static TagNode GetLonguestMatchingTag(string _tag)
+        public static TagNode GetLonguestMatchingTag(string _tag, bool _appendMissingTags)
         {
             List<string> tagElements = EntityNamesFromBranch(_tag);
+            Queue<string> queuedElements = new Queue<string>(tagElements);
             List<string> matchingList = new List<string>();
             TagNode matchingEntity = null;
-            foreach (string _element in tagElements)
+            bool unexisting = false;
+            while (queuedElements.Count > 0 && unexisting==false)
             {
-                matchingList.Add(_element);
+                matchingList.Add(queuedElements.Peek());
                 string tagToCheck = ConcateneNameFromElements(matchingList);
                 TagNode retrievedEntity = RetrieveEntityFromTag(tagToCheck);
                 if (retrievedEntity != null)
                 {
                     matchingEntity = retrievedEntity;
+                    queuedElements.Dequeue();
+                }
+                else
+                {
+                    unexisting = true;
+                }
+            }
+            if (matchingEntity == null)
+            {
+                matchingEntity = TagGlobals.root.GetNodeList().First(x => x.Name == "Project");
+            }
+            if (_appendMissingTags)
+            {
+                for (int i = 0; i < queuedElements.Count; i++)
+                {
+                    TagNode _newlyCreated = new TagNode(queuedElements.Dequeue());
+                    matchingEntity.Children.Add(_newlyCreated);
+                    matchingEntity = _newlyCreated;
                 }
             }
             return matchingEntity;
