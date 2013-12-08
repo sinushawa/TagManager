@@ -101,7 +101,9 @@ namespace TagManager
 					}
 					else
 					{
-                        entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
+                        //either of the possibilities work
+                        //TagMethods.ApplyEntities(new List<TagNode>() { entity }, MaxPluginUtilities.Selection.ToListHandles());
+                        entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles(), true);
 					}
 					if (TagGlobals.autoRename)
 					{

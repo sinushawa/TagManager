@@ -22,6 +22,24 @@ namespace TagManager
             }
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
         }
+        public void AddRange(IEnumerable<T> collection, bool _unique)
+        {
+            IEnumerable<T> uniqueColl;
+            if (_unique)
+            {
+                uniqueColl = collection.Distinct();
+                uniqueColl = uniqueColl.Except(uniqueColl.Intersect(Items));
+            }
+            else
+            {
+                uniqueColl = collection;
+            }
+            foreach (var i in uniqueColl)
+            {
+                Items.Add(i);
+            }
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
+        }
         public void RemoveRange(IEnumerable<T> collection)
         {
             foreach (var i in collection)

@@ -12,10 +12,13 @@ namespace TagManager
     {
         public static void ApplyEntities(List<TagNode> _entities, List<uint> _objects)
         {
+            
             foreach (TagNode _entity in _entities)
             {
-                _entity.Nodes.AddRange(_objects);
+                // Check to make sure there is no double.
+                _entity.Nodes.AddRange(_objects, true);  
             }
+            
         }
         public static void SelectEntities(List<TagNode> _entities)
         {

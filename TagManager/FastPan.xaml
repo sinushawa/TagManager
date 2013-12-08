@@ -15,19 +15,105 @@
 				<ResourceDictionary Source="PathsAndGradients.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
             <ContextMenu x:Key="StdMenu">
-                <MenuItem Header="Apply Entity" ToolTip="Make the current selection\n part of the the current entity" Click="onApplyEntity" />
-                <MenuItem Header="Select Entity" ToolTip="Select all the objects\n contained in the entity" Click="onSelectEntity" />
-                <MenuItem Header="Select Common" ToolTip="Select objects in common\n in the selected enities\n or the current selection" Click="onSelectCommonObjects" />
-                <MenuItem Header="Substract Entity" ToolTip="Substract entity from selection" Click="onSubstractEntity" />
-                <MenuItem Header="Remove Objects" ToolTip="Remove selected objects\n from the selected entities" Click="onRemoveObjects" />
+                <MenuItem Header="Apply Entity" Click="onApplyEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Make the current selection
+                            <LineBreak/>
+                            part of the the current entity
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Select Entity" Click="onSelectEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Select all the objects
+                            <LineBreak/>
+                            contained in the entity
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Select Common" Click="onSelectCommonObjects" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Select objects in common
+                            <LineBreak/>
+                            in the selected enities
+                            <LineBreak/>
+                            or the current selection
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Substract Entity" Click="onSubstractEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Substract entity from selection
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Remove Objects" Click="onRemoveObjects" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Remove selected objects
+                            <LineBreak/>
+                            from the selected entities
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
                 <Separator/>
-                <MenuItem Header="Add Entity" ToolTip="Create a new entity,\n the current selection will\n automatically be part\n of the new entity" Click="onAddEntity" />
-                <MenuItem Header="Create from Name" ToolTip="Create a new entity,\n from the name of the current selection" Click="onCreateEntityFromName" />
-                <MenuItem Header="Rename from Entity" ToolTip="Rename the objects part of the entity" Click="onRenameFromEntity" />
-                <MenuItem Header="Delete Entity" ToolTip="Delete all the selected entities\n and their childrens" Click="onDeleteEntity" />
+                <MenuItem Header="Add Entity" Click="onAddEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Create a new entity,
+                            <LineBreak/>
+                            the current selection will
+                            <LineBreak/>
+                            automatically be part
+                            <LineBreak/>
+                            of the new entity
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Create from Name" Click="onCreateEntityFromName">
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                                Create a new entity,
+                                <LineBreak/>
+                                from the name of the current selection
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Rename from Entity" Click="onRenameFromEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                                Rename the objects part of the entity
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Delete Entity" Click="onDeleteEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                                Delete all the selected entities
+                                <LineBreak/>
+                                and their childrens
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
             </ContextMenu>
             <ContextMenu x:Key="RootMenu">
-                <MenuItem Header="Add Entity" ToolTip="Create a new entity,\n the current selection will\n automatically be part\n of the new entity" Click="onAddEntity" />
+                <MenuItem Header="Add Entity" Click="onAddEntity" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Create a new entity,
+                            <LineBreak/>
+                            the current selection will
+                            <LineBreak/>
+                            automatically be part
+                            <LineBreak/>
+                            of the new entity
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
                 <Separator/>
             </ContextMenu>
         </ResourceDictionary>
