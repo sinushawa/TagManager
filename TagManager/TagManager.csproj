@@ -92,13 +92,11 @@
     <Compile Include="FastWPFTag.xaml.cs" />
     <Compile Include="IConsoleSelElement.cs" />
     <Compile Include="ItemToContextMenuConverter.cs" />
-    <Compile Include="MaxNode.cs" />
     <Compile Include="MaxPluginUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
-    <Compile Include="TagClosestMatch.cs" />
     <Compile Include="TagGlobals.cs" />
     <Compile Include="TagHelperMethods.cs" />
     <Compile Include="TagMethods.cs" />
@@ -127,7 +125,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx\TreeViewEx.csproj">
+    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx 1.9\Main\TreeViewEx\TreeViewEx.csproj">
       <Project>{2854814f-ea3c-41d4-aa94-460c4694f430}</Project>
       <Name>TreeViewEx</Name>
     </ProjectReference>

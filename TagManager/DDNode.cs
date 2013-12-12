@@ -38,7 +38,10 @@ namespace TagManager
             set 
             { 
                 longName = value;
-                ChangedLongName(this, null);
+                if (ChangedLongName != null)
+                {
+                    ChangedLongName(this, null);
+                }
             }
         }
 

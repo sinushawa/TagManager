@@ -191,6 +191,7 @@ namespace TagManager
 						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
 					}
                     MaxPluginUtilities.SetSelection(_currentContainer.getCorrespondingSel());
+                    autoCompleteBox.FontStyle = FontStyles.Normal;
 				}
 				this.winParent.Close();
 			}
@@ -249,6 +250,7 @@ namespace TagManager
                 {
                     _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
                     shortcutMode = true;
+                    autoCompleteBox.FontStyle = FontStyles.Italic;
                 }
                 autoCompleteBox.Text = "";
                 e.Handled = true;
