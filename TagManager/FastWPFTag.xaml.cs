@@ -19,6 +19,7 @@ namespace TagManager
         private List<string> branchNames;
         private TagNode projectEntity;
 		private bool consoleMode = false;
+        private bool shortcutMode = false;
 		private ConsoleContainerElement _consoleRoot;
 		private ConsoleContainerElement _currentContainer;
 		public Window winParent;
@@ -41,31 +42,7 @@ namespace TagManager
 			_consoleRoot = new ConsoleContainerElement();
 			_currentContainer = _consoleRoot;
 		}
-		private TagNode RetrieveEntityFromTag(string _tag)
-		{
-            if (branchNames.Contains(_tag))
-            {
-                int index = branchNames.IndexOf(_tag);
-                TagNode result = nodesList[index];
-                return result;
-            }
-            else
-            {
-                return null;
-            }
-		}
-		private List<TagNode> RetrieveEntitiesContainsTag(string _tag)
-		{
-            List<TagNode> result = new List<TagNode>();
-            for (int i = 0; i < branchNames.Count; i++ )
-            {
-                if (branchNames[i].Contains(_tag))
-                {
-                    result.Add(nodesList[i]);
-                }
-            }
-            return result;
-		}
+		
 		private void FastBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
 			AutoCompleteBox autoCompleteBox = (AutoCompleteBox)sender;
@@ -80,10 +57,10 @@ namespace TagManager
 			}
 			if (e.Key == Key.Oem6)
 			{
-				TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+				TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
 				if (entity != null)
 				{
-					_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, entity.Nodes.ToList()));
+					_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
 				}
                 autoCompleteBox.Text = "";
 				this._currentContainer = this._currentContainer.parent;
@@ -91,7 +68,7 @@ namespace TagManager
 			}
 			if (e.Key == Key.Add)
 			{
-                TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
 				if (!this.consoleMode)
 				{
 					if (entity == null)
@@ -114,7 +91,7 @@ namespace TagManager
 				{
 					if (entity != null)
 					{
-                        this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, MaxPluginUtilities.Selection.ToListHandles()));
+                        this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
 						this._currentContainer.ops.Add(concat.addition);
 					}
 					else
@@ -127,7 +104,7 @@ namespace TagManager
 			}
 			if (e.Key == Key.Subtract)
 			{
-                TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
 				if (!this.consoleMode)
 				{
                     if (entity != null)
@@ -152,9 +129,9 @@ namespace TagManager
 				}
 				else
 				{
-                    if (entity != null)
+                    if (entity != null && autoCompleteBox.Text != "")
 					{
-						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, entity.Nodes.ToList()));
+						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
 						this._currentContainer.ops.Add(concat.substraction);
 					}
 					else
@@ -167,7 +144,7 @@ namespace TagManager
 			}
 			if (e.Key == Key.Oem2)
 			{
-                TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
                 if (entity == null)
 				{
                     entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true);
@@ -181,7 +158,7 @@ namespace TagManager
 			}
 			if (e.Key == Key.Return)
 			{
-                TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
 				if (!this.consoleMode)
 				{
 					List<TagNode> entitiesToSelect = new List<TagNode>();
@@ -203,9 +180,15 @@ namespace TagManager
 				}
 				else
 				{
+                    if (shortcutMode)
+                    {
+                        entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true);
+                        TagNode _shortcut = new TagNode(autoCompleteBox.Text, _consoleRoot);
+                        entity.Children.Add(_shortcut);
+                    }
 					if (entity != null)
 					{
-						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, entity.Nodes.ToList()));
+						this._currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
 					}
                     MaxPluginUtilities.SetSelection(_currentContainer.getCorrespondingSel());
 				}
@@ -213,12 +196,12 @@ namespace TagManager
 			}
 			if (e.Key == Key.Multiply)
 			{
-                TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
 				if (this.consoleMode)
 				{
 					if (entity != null)
 					{
-						_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, entity.Nodes.ToList()));
+						_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
 						_currentContainer.ops.Add(concat.intersection);
 					}
 					else
@@ -233,8 +216,7 @@ namespace TagManager
 			{
 				if (this.consoleMode)
 				{
-                    List<uint> objects = RetrieveEntitiesContainsTag(autoCompleteBox.Text).SelectMany((TagNode x) => x.Nodes).ToList<uint>();
-					_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text + "%", objects));
+					_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Containing));
 				}
 				autoCompleteBox.Text="";
 				e.Handled = true;
@@ -243,25 +225,34 @@ namespace TagManager
 			{
 				if (this.consoleMode)
 				{
-					this._currentContainer.content.Add(new ConsoleStringSelElement("$", MaxPluginUtilities.Selection.ToListHandles()));
+					this._currentContainer.content.Add(new ConsoleStringSelElement("$", ConsoleElementModifier.Selection));
 				}
 				autoCompleteBox.Text="";
 				e.Handled = true;
 			}
 			if (e.Key == Key.D3 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
 			{
-                TagNode entity = RetrieveEntityFromTag(autoCompleteBox.Text);
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
 				if (this.consoleMode)
 				{
 					if (entity != null)
 					{
-						List<uint> objects2 = entity.GetNodeList().SelectMany((TagNode x) => x.Nodes).ToList<uint>();
-						_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text + "#", objects2));
+						_currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Children));
 					}
 				}
 				autoCompleteBox.Text="";
 				e.Handled = true;
 			}
+            if (e.Key == Key.OemPlus )
+            {
+                if (consoleMode)
+                {
+                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
+                    shortcutMode = true;
+                }
+                autoCompleteBox.Text = "";
+                e.Handled = true;
+            }
 			if (e.Key == Key.Back)
 			{
 				if (consoleMode && autoCompleteBox.Text == "")

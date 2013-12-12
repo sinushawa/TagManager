@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace TagManager
 {
@@ -17,7 +20,8 @@ namespace TagManager
         intersection
     }
 
-    public abstract class ConsoleElement :IConsoleSelElement
+    [Serializable]
+    public abstract class ConsoleElement : IConsoleSelElement, ISerializable
     {
 
         public ConsoleElement()
@@ -70,6 +74,10 @@ namespace TagManager
             List<uint> result = new List<uint>();
             result.AddRange(c1.Intersect(c2.getCorrespondingSel()));
             return result;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
         }
     }
 }

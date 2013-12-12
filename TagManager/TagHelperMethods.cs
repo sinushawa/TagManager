@@ -67,6 +67,13 @@ namespace TagManager
             List<TagNode> nodeList = TagGlobals.root.GetNodeList();
             return nodeList.Where(x=> x.LongName== _tag).FirstOrDefault();
         }
+        public static List<TagNode> RetrieveEntitiesContainsTag(string _tag)
+        {
+            TagNode projectEntity = TagGlobals.root.GetNodeList().First(x => x.Name == "Project");
+            List<TagNode> nodesList = projectEntity.Children.ToList().GetNodeList();
+            List<TagNode> result = nodesList.Where(x => x.Name.Contains(_tag)).ToList();
+            return result;
+        }
         public static TagNode GetLonguestMatchingTag(string _tag, bool _appendMissingTags)
         {
             List<string> tagElements = EntityNamesFromBranch(_tag);
@@ -95,7 +102,7 @@ namespace TagManager
             }
             if (_appendMissingTags)
             {
-                for (int i = 0; i < queuedElements.Count; i++)
+                while (queuedElements.Count > 0)
                 {
                     TagNode _newlyCreated = new TagNode(queuedElements.Dequeue());
                     matchingEntity.Children.Add(_newlyCreated);

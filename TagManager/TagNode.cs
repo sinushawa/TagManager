@@ -62,13 +62,16 @@ namespace TagManager
         public TagNode()
         {
         }
-        public TagNode(string _label) : this(Guid.NewGuid(), _label, new List<uint>())
+        public TagNode(string _label) : this(Guid.NewGuid(), _label, new List<uint>(), false, new ConsoleContainerElement())
         {
         }
-        public TagNode(string _label, List<uint> _objects) : this(Guid.NewGuid(), _label, _objects)
+        public TagNode(string _label, List<uint> _objects) : this(Guid.NewGuid(), _label, _objects, false, new ConsoleContainerElement())
         {
         }
-        public TagNode(Guid _ID, string _label, List<uint> _objects)
+        public TagNode(string _label, ConsoleContainerElement _shortcut) : this(Guid.NewGuid(), _label, new List<uint>(), true, _shortcut)
+        {
+        }
+        public TagNode(Guid _ID, string _label, List<uint> _objects, bool _isShortcut, ConsoleContainerElement _shortcut)
         {
             ID = _ID;
             Name = _label;
@@ -76,6 +79,8 @@ namespace TagManager
             Nodes.CollectionChanged += Nodes_CollectionChanged;
             ChangedLongName += TagNode_ChangedLongName;
             Nodes.AddRange(_objects);
+            IsShortcut = _isShortcut;
+            Shortcut = _shortcut;
             AllowDrag = true;
             AllowDrop = true;
         }
