@@ -125,7 +125,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx 1.9\Main\TreeViewEx\TreeViewEx.csproj">
+    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx 2.9\TreeViewEx\TreeViewEx.csproj">
       <Project>{2854814f-ea3c-41d4-aa94-460c4694f430}</Project>
       <Name>TreeViewEx</Name>
     </ProjectReference>

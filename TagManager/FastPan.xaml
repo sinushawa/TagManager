@@ -130,36 +130,16 @@
                                     <Binding ElementName="FP" Path="Selection" Mode="OneWay"/>
                                 </MultiBinding>
                             </DataTrigger.Binding>
-                            <Setter Property="BackgroundInactive">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFD6FFA6" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="BackgroundHovered">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFB8CD9F" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="BackgroundSelected">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFBDFF6F" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFD6FFA6" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="BorderBrush">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFD6FFA6" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="BackgroundFocused">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFD6FFA6" />
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="IsInfoDisplay" Value="True"/>
+                        </DataTrigger>
+                        <DataTrigger Value="False">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource ResourceKey=NodesToBoolConverter}">
+                                    <Binding Path="Nodes" Mode="OneWay"/>
+                                    <Binding ElementName="FP" Path="Selection" Mode="OneWay"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="IsInfoDisplay" Value="False"/>
                         </DataTrigger>
                     </Style.Triggers>
                     <Setter Property="CanDrop" Value="{Controls:MethodBinding CanDrop}" />
