@@ -130,7 +130,7 @@
                                     <Binding ElementName="FP" Path="Selection" Mode="OneWay"/>
                                 </MultiBinding>
                             </DataTrigger.Binding>
-                            <Setter Property="IsInfoDisplay" Value="True"/>
+                            <Setter Property="IsHighlighted"  Value="True"/>
                         </DataTrigger>
                         <DataTrigger Value="False">
                             <DataTrigger.Binding>
@@ -139,9 +139,11 @@
                                     <Binding ElementName="FP" Path="Selection" Mode="OneWay"/>
                                 </MultiBinding>
                             </DataTrigger.Binding>
-                            <Setter Property="IsInfoDisplay" Value="False"/>
+                            <Setter Property="IsHighlighted" Value="False"/>
                         </DataTrigger>
                     </Style.Triggers>
+                    <Setter Property="BorderHighlight" Value="Red"/>
+                    <Setter Property="BackgroundHighlight" Value="LightSalmon"/>
                     <Setter Property="CanDrop" Value="{Controls:MethodBinding CanDrop}" />
                     <Setter Property="CanDropFormat" Value="{Controls:MethodBinding CanDropFormat}" />
                     <Setter Property="DropAction" Value="{Controls:MethodBinding OnDrop}" />
