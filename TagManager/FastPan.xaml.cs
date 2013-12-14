@@ -95,7 +95,14 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
-            TagMethods.SelectEntities(new List<TagNode>() { _currentEntity });
+            if (_currentEntity.IsShortcut)
+            {
+                MaxPluginUtilities.SetSelection(_currentEntity.Shortcut.getCorrespondingSel());
+            }
+            else
+            {
+                TagMethods.SelectEntities(new List<TagNode>() { _currentEntity });
+            }
         }
         private void onSelectCommonObjects(object sender, RoutedEventArgs e)
         {

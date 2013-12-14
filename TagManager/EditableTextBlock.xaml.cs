@@ -63,6 +63,7 @@ namespace TagManager
             set
             { SetValue(IsInEditModeProperty, value); }
         }
+
         public static readonly DependencyProperty IsInEditModeProperty = DependencyProperty.Register( "IsInEditMode", typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(false));
 
         public string TextFormat
@@ -74,6 +75,7 @@ namespace TagManager
                 SetValue(TextFormatProperty, value);
             }
         }
+
         public static readonly DependencyProperty TextFormatProperty = DependencyProperty.Register( "TextFormat", typeof(string), typeof(EditableTextBlock), new PropertyMetadata("{0}"));
 
         public string FormattedText
@@ -81,6 +83,16 @@ namespace TagManager
             get { return String.Format(TextFormat, Text); }
         }
 
+        public new static readonly DependencyProperty IsShortcutProperty = DependencyProperty.Register("IsShortcut", typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(false));
+
+        public bool IsShortcut
+        {
+            get { return (bool)GetValue(FontStyleProperty); }
+            set
+            {
+                SetValue(FontStyleProperty, value);
+            }
+        }
         #endregion Properties
 
         #region Event Handlers

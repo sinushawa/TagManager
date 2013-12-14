@@ -8,10 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300" Name="EditableTextBlockControl">
     <UserControl.Resources>
         <DataTemplate x:Key="EditModeTemplate">
-            <TextBox KeyDown="TextBox_KeyDown" Loaded="TextBox_Loaded" LostFocus="TextBox_LostFocus" Text="{Binding ElementName=EditableTextBlockControl, Path=Text, UpdateSourceTrigger=PropertyChanged}" Margin="0" BorderThickness="1" />
+            <TextBox KeyDown="TextBox_KeyDown" Loaded="TextBox_Loaded" LostFocus="TextBox_LostFocus" Text="{Binding ElementName=EditableTextBlockControl, Path=Text, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding ElementName=EditableTextBlockControl,Path=FontStyle}" Margin="0" BorderThickness="1" />
         </DataTemplate>
         <DataTemplate x:Key="DisplayModeTemplate">
-            <TextBlock Text="{Binding ElementName=EditableTextBlockControl, Path=FormattedText}" Margin="5,3,5,3" />
+            <TextBlock Text="{Binding ElementName=EditableTextBlockControl, Path=FormattedText}" FontStyle="{Binding ElementName=EditableTextBlockControl,Path=FontStyle}" Margin="5,3,5,3" />
         </DataTemplate>
 
         <Style TargetType="{x:Type local:EditableTextBlock}">
@@ -21,6 +21,12 @@
                 </Trigger>
                 <Trigger Property="IsInEditMode" Value="False">
                     <Setter Property="ContentTemplate" Value="{StaticResource DisplayModeTemplate}" />
+                </Trigger>
+                <Trigger Property="IsShortcut" Value="True">
+                    <Setter Property="FontStyle" Value="Italic" />
+                </Trigger>
+                <Trigger Property="IsShortcut" Value="False">
+                    <Setter Property="FontStyle" Value="Normal" />
                 </Trigger>
             </Style.Triggers>
         </Style>
