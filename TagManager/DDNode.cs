@@ -29,7 +29,14 @@ namespace TagManager
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set 
+            {
+                name = value;
+                if (ChangedName != null)
+                {
+                    ChangedName(this, null);
+                }
+            }
         }
         private string longName;
         public string LongName

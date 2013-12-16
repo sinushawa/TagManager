@@ -35,7 +35,14 @@ namespace TagManager
             if(modifier == ConsoleElementModifier.None)
             {
                 TagNode _entity = TagHelperMethods.RetrieveEntityFromTag(name);
-                sel = _entity.Nodes.ToList();
+                if (!_entity.IsShortcut)
+                {
+                    sel = _entity.Nodes.ToList();
+                }
+                else
+                {
+                    sel = _entity.Shortcut.getCorrespondingSel();
+                }
             }
             if(modifier == ConsoleElementModifier.Selection)
             {
