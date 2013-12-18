@@ -64,7 +64,7 @@ namespace TagManager
         }
         public static TagNode RetrieveEntityFromTag(string _tag)
         {
-            List<TagNode> nodeList = TagGlobals.root.GetNodeList();
+            List<TagNode> nodeList = TagGlobals.root.GetNodeList().Where(x=> !TagGlobals.baseNames.Contains(x.Name)).ToList();
             return nodeList.Where(x=> x.LongName== _tag).FirstOrDefault();
         }
         public static List<TagNode> RetrieveEntitiesContainsTag(string _tag)

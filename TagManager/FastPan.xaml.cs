@@ -151,7 +151,10 @@ namespace TagManager
             List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection.ToListNode();
             foreach (Autodesk.Max.IINode obj in selectedObjects)
             {
-
+                string _name = obj.Name;
+                _name = _name.Remove(_name.Length - 4);
+                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, true);
+                entity.Nodes.Add(obj.Handle);
             }
         }
         private void onRenameFromEntity(object sender, RoutedEventArgs e)

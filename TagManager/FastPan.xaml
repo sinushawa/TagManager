@@ -115,6 +115,15 @@
                     </MenuItem.ToolTip>
                 </MenuItem>
                 <Separator/>
+                <MenuItem Header="Create from Name" Click="onCreateEntityFromName">
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                                Create a new entity,
+                                <LineBreak/>
+                                from the name of the current selection
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
             </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>

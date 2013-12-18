@@ -94,11 +94,18 @@ namespace TagManager
             }
             public override IOResult Load(IILoad iload)
             {
-                TagNode res = (TagNode)iload.LoadObject();
-                res.ReParent();
-                TagGlobals.root = res;
-                TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
-                return base.Load(iload);
+                if (!TagGlobals.isMerging)
+                {
+                    TagNode res = (TagNode)iload.LoadObject();
+                    res.ReParent();
+                    TagGlobals.root = res;
+                    TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
+                    return base.Load(iload);
+                }
+                else
+                {
+                    return IOResult.Ok;
+                }
             }
         }
         public Descriptor _descriptor;
@@ -162,6 +169,9 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.PostMergeProcess);
         }
         public void InitializeTree()
         {
@@ -183,6 +193,15 @@ namespace TagManager
         private void SelChanged(IntPtr obj, IntPtr infoHandle)
         {
             fastPan.Selection =MaxPluginUtilities.Selection.ToSOC();
+        }
+        private void FileMerging(IntPtr obj, IntPtr infoHandle)
+        {
+            TagGlobals.isMerging = true;
+        }
+        private void FileMerged(IntPtr obj, IntPtr infoHandle)
+        {
+            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
+            TagGlobals.isMerging = false;
         }
         private void NodeDeleted(IntPtr obj, IntPtr infoHandle)
         {

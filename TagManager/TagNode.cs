@@ -151,8 +151,8 @@ namespace TagManager
         {
             for (int i = 0; i < Children.Count; i++)
             {
-                Children[i].ReParent();
                 Children[i].Parent = this;
+                Children[i].ReParent();
             }
         }
         #endregion
