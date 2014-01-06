@@ -7,6 +7,7 @@ using Autodesk.Max;
 using Autodesk.Max.Plugins;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace TagManager
 {
@@ -236,9 +237,23 @@ namespace TagManager
             IconHelper.RemoveIcon(windowHandle);
             // Setup 3ds Max to handle the WPF dialog correctly
             ManagedServices.AppSDK.ConfigureWindowForMax(dialog);
-            
+            dialog.Closing += dialog_Closing;
             // Show the dialog box
             dialog.Show();
+        }
+
+        // function to save window size and position before closing
+        void dialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string path = MaxPluginUtilities.Global.IPathConfigMgr.PathConfigMgr.GetDir(MaxDirectory.Plugcfg);
+            using (XmlWriter writer = XmlWriter.Create(path+"\\Entities_ini.xml"))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("display"); // <-- Important root element
+                writer.WriteEndElement();              // <-- Closes it
+                writer.WriteEndDocument();
+            }
+            e.Cancel = false;
         }
         public void CreateFastTagWin()
         {
