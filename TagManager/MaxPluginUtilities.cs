@@ -34,6 +34,11 @@ namespace TagManager
                 SetSelection(value);
             }
         }
+        public static string GetMaxDir(MaxDirectory dir)
+        {
+            string path = Global.IPathConfigMgr.PathConfigMgr.GetDir(dir);
+            return path;
+        }
         private static IINodeTab GetSelection()
         {
             IINodeTab selectedNodes = Global.NodeTab.Create();

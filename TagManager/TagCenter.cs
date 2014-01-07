@@ -8,6 +8,8 @@ using Autodesk.Max.Plugins;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
+using System.IO;
 
 namespace TagManager
 {
@@ -24,7 +26,7 @@ namespace TagManager
         {
 
         }
-    } 
+    }
     public class TagCenter : ReferenceMaker,IPlugin
     {
         private FastPan _fastPan;
@@ -166,7 +168,7 @@ namespace TagManager
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeCreated);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCreated)), null, SystemNotificationCode.NodeCreated);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
@@ -193,7 +195,13 @@ namespace TagManager
         }
         private void SelChanged(IntPtr obj, IntPtr infoHandle)
         {
-            fastPan.Selection =MaxPluginUtilities.Selection.ToSOC();
+            fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
+        }
+        private void NodeCreated(IntPtr obj, IntPtr infoHandle)
+        {
+            fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
+            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
+            IINode _node = notifyInfo.CallParam as IINode;
         }
         private void FileMerging(IntPtr obj, IntPtr infoHandle)
         {
@@ -224,7 +232,7 @@ namespace TagManager
             dialog.Width = 220;
             dialog.Height = 650;
             dialog.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
-            dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
+            dialog.ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip;
 
             // Assign the window's content to be the WPF control
             dialog.Content = fastPan;
@@ -233,23 +241,69 @@ namespace TagManager
             // Create an interop helper
             System.Windows.Interop.WindowInteropHelper windowHandle = new System.Windows.Interop.WindowInteropHelper(dialog);
             // Assign the 3ds Max HWnd handle to the interop helper
-            windowHandle.Owner = ManagedServices.AppSDK.GetMaxHWND();
-            IconHelper.RemoveIcon(windowHandle);
+            windowHandle.Owner = ManagedServices.AppSDK.GetMaxHWND(); 
+            
             // Setup 3ds Max to handle the WPF dialog correctly
             ManagedServices.AppSDK.ConfigureWindowForMax(dialog);
+            
+            dialog.Loaded += dialog_Loaded;
             dialog.Closing += dialog_Closing;
             // Show the dialog box
             dialog.Show();
         }
 
-        // function to save window size and position before closing
-        void dialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        void dialog_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            string path = MaxPluginUtilities.Global.IPathConfigMgr.PathConfigMgr.GetDir(MaxDirectory.Plugcfg);
-            using (XmlWriter writer = XmlWriter.Create(path+"\\Entities_ini.xml"))
+            System.Windows.Window dialog = (System.Windows.Window)sender;
+            string path = MaxPluginUtilities.GetMaxDir(MaxDirectory.Plugcfg);
+            if (File.Exists(path + "\\Entities_ini.xml"))
             {
+                try
+                {
+                    XElement documentBase = XElement.Load(path + "\\Entities_ini.xml");
+                    XElement documentSize = documentBase.Element("size");
+
+                    int width = Int32.Parse(documentSize.Element("width").Value);
+                    int height = Int32.Parse(documentSize.Element("height").Value);
+
+                    XElement documentPosition = documentBase.Element("position");
+                    int X = Int32.Parse(documentPosition.Element("X").Value);
+                    int Y = Int32.Parse(documentPosition.Element("Y").Value);
+
+                    dialog.Width = width;
+                    dialog.Height = height;
+                    dialog.Left = X;
+                    dialog.Top = Y;
+                }
+                catch (System.Exception ex)
+                {
+                    throw new System.InvalidOperationException(ex.Message);
+                }
+            }
+            System.Windows.Interop.WindowInteropHelper windowHandle = new System.Windows.Interop.WindowInteropHelper(dialog);
+            WindowExtensions.HideMinimizeAndMaximizeButtons(windowHandle);
+            WindowExtensions.RemoveIcon(windowHandle);
+        }
+
+        // function to save window size and position before closing
+        private void dialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        { 
+            System.Windows.Window dialog = (System.Windows.Window)sender;
+            string path = MaxPluginUtilities.GetMaxDir(MaxDirectory.Plugcfg);
+            using (XmlTextWriter writer = new XmlTextWriter(path + "\\Entities_ini.xml", Encoding.UTF8))
+            {
+                writer.Formatting = Formatting.Indented;
+                writer.Indentation = 4;
                 writer.WriteStartDocument();
                 writer.WriteStartElement("display"); // <-- Important root element
+                writer.WriteStartElement("size");
+                writer.WriteElementString("width", dialog.Width.ToString());
+                writer.WriteElementString("height", dialog.Height.ToString());
+                writer.WriteEndElement();
+                writer.WriteStartElement("position");
+                writer.WriteElementString("X", dialog.Left.ToString());
+                writer.WriteElementString("Y", dialog.Top.ToString());
+                writer.WriteEndElement();
                 writer.WriteEndElement();              // <-- Closes it
                 writer.WriteEndDocument();
             }
