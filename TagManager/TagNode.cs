@@ -107,15 +107,18 @@ namespace TagManager
                 foreach (var item in content.Items.Reverse())
                 {
                     TagNode oldNode = (TagNode)item;
-                    if (oldNode != this && oldNode.Name != this.Name)
+                    if (!this.GetNodeBranch().Contains(oldNode))
                     {
-                        oldNode.Parent.Children.Remove(oldNode);
-                        Children.AddRange(new List<TagNode>(){oldNode});
-                    }
-                    if (oldNode.Name == this.Name)
-                    {
-                        oldNode.Parent.Children.Remove(oldNode);
-                        this.Nodes.AddRange(oldNode.Nodes);
+                        if (oldNode != this && oldNode.Name != this.Name)
+                        {
+                            oldNode.Parent.Children.Remove(oldNode);
+                            Children.AddRange(new List<TagNode>() { oldNode });
+                        }
+                        if (oldNode != this && oldNode.Name == Name)
+                        {
+                            oldNode.Parent.Children.Remove(oldNode);
+                            this.Nodes.AddRange(oldNode.Nodes);
+                        }
                     }
                 }
             }
