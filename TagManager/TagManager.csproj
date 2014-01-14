@@ -39,6 +39,10 @@
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\Autodesk.Max.StateSets.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Autodesk.Max.Wrappers, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\Autodesk.Max.Wrappers.dll</HintPath>
+    </Reference>
     <Reference Include="ManagedServices">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\ManagedServices.dll</HintPath>
       <Private>False</Private>
@@ -125,7 +129,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\C# ressources\TreeViewEx 2.9\TreeViewEx\TreeViewEx.csproj">
+    <ProjectReference Include="..\..\TreeViewEx\TreeViewEx.csproj">
       <Project>{2854814f-ea3c-41d4-aa94-460c4694f430}</Project>
       <Name>TreeViewEx</Name>
     </ProjectReference>

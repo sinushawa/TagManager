@@ -63,7 +63,13 @@ namespace TagManager
             stopwatch.Start();
             dragStartPoint = e.GetPosition(null);
         }
-
+        private void OnRightMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var frameworkElem = ((FrameworkElement)e.OriginalSource);
+            TreeViewExItem treeViewItem = frameworkElem.TryFindParent<TreeViewExItem>();
+            TV.SelectedItems.Clear();
+            TV.SelectedItems.Add(treeViewItem);
+        }
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
             Point mousePos = e.GetPosition(null);
@@ -143,6 +149,12 @@ namespace TagManager
                 newNode.IsInEditMode = true;
             }
         }
+        private void onRenameEntity(object sender, RoutedEventArgs e)
+        {
+            MenuItem ctrl = sender as MenuItem;
+            TagNode selectedEntity = (TagNode)ctrl.DataContext;
+            selectedEntity.IsInEditMode = true;
+        }
         private void onCreateEntityFromName(object sender, RoutedEventArgs e)
         {
             MenuItem ctrl = sender as MenuItem;
@@ -159,7 +171,7 @@ namespace TagManager
         }
         private void onRenameFromEntity(object sender, RoutedEventArgs e)
         {
-
+            
         }
         private void onDeleteEntity(object sender, RoutedEventArgs e)
         {
@@ -177,6 +189,8 @@ namespace TagManager
         {
             
         }
+
+        
 
         
     }

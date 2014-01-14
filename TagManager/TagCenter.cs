@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
+using System.Diagnostics;
 
 namespace TagManager
 {
@@ -27,6 +28,7 @@ namespace TagManager
 
         }
     }
+
     public class TagCenter : ReferenceMaker,IPlugin
     {
         private FastPan _fastPan;
@@ -99,9 +101,9 @@ namespace TagManager
             {
                 if (!TagGlobals.isMerging)
                 {
-                    TagNode res = (TagNode)iload.LoadObject();
-                    res.ReParent();
-                    TagGlobals.root = res;
+                    TagNode openingRoot = (TagNode)iload.LoadObject();
+                    openingRoot.ReParent();
+                    TagGlobals.root = openingRoot;
                     TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
                     return base.Load(iload);
                 }
@@ -175,6 +177,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.PostMergeProcess);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
         }
         public void InitializeTree()
         {
@@ -202,14 +205,26 @@ namespace TagManager
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             IINode _node = notifyInfo.CallParam as IINode;
+            Debug.WriteLine(_node.Name);
+            Debug.WriteLine(_node.Handle);
+        }
+        private void SceneAddedNode(IntPtr obj, IntPtr infoHandle)
+        {
+            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
+            IINode _node = notifyInfo.CallParam as IINode;
+            if (_node != null)
+            {
+                Debug.WriteLine(_node.Name);
+                Debug.WriteLine(_node.Handle);
+            }
         }
         private void FileMerging(IntPtr obj, IntPtr infoHandle)
         {
             TagGlobals.isMerging = true;
+             
         }
         private void FileMerged(IntPtr obj, IntPtr infoHandle)
         {
-            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             TagGlobals.isMerging = false;
         }
         private void NodeDeleted(IntPtr obj, IntPtr infoHandle)

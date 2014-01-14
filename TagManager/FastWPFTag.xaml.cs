@@ -105,10 +105,13 @@ namespace TagManager
                 {
                     entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true);
                 }
-                entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
-                if (TagGlobals.autoRename)
+                if (!entity.IsShortcut)
                 {
-                    TagMethods.RenameUsingStructure(TagGlobals.root);
+                    entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
+                    if (TagGlobals.autoRename)
+                    {
+                        TagMethods.RenameUsingStructure(TagGlobals.root);
+                    }
                 }
                 winParent.Close();
             }
