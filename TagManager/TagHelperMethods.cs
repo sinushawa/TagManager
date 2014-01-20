@@ -74,7 +74,7 @@ namespace TagManager
             List<TagNode> result = nodesList.Where(x => x.Name.Contains(_tag)).ToList();
             return result;
         }
-        public static TagNode GetLonguestMatchingTag(string _tag, bool _appendMissingTags)
+        public static TagNode GetLonguestMatchingTag(string _tag, bool _appendMissingTags, bool? _nameable)
         {
             List<string> tagElements = EntityNamesFromBranch(_tag);
             Queue<string> queuedElements = new Queue<string>(tagElements);
@@ -104,7 +104,16 @@ namespace TagManager
             {
                 while (queuedElements.Count > 0)
                 {
-                    TagNode _newlyCreated = new TagNode(queuedElements.Dequeue());
+                    TagNode _newlyCreated;
+                    if (_nameable != null)
+                    {
+                        bool _nameableNN = _nameable ?? default(bool);
+                        _newlyCreated = new TagNode(queuedElements.Dequeue(), _nameableNN);
+                    }
+                    else
+                    {
+                        _newlyCreated = new TagNode(queuedElements.Dequeue(), matchingEntity.IsNameable);
+                    }
                     matchingEntity.Children.Add(_newlyCreated);
                     matchingEntity = _newlyCreated;
                 }
@@ -123,6 +132,41 @@ namespace TagManager
             {
                 return EntityVisibility.Mixed;
             }
+        }
+        public static void MergeEntities(TagNode _toMerge, TagNode _target)
+        {
+            if (_toMerge != _target && _toMerge.Name == _target.Name)
+            {
+                _target.Nodes.AddRange(_toMerge.Nodes);
+                if (_target.IsNameable)
+                {
+                    foreach (uint _nodeHandle in _toMerge.Nodes)
+                    {
+                        Autodesk.Max.IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                        _object.RenameNode(_target.LongName);
+                    }
+                }
+                List<List<TagNode>> _matchToMerge = new List<List<TagNode>>();
+                foreach (TagNode _potentialMerge in _toMerge.Children)
+                {
+                    TagNode _potentialTarget = _target.Children.Where(x => x.Name == _potentialMerge.Name).FirstOrDefault();
+                    if (_potentialTarget != null)
+                    {
+                        _matchToMerge.Add(new List<TagNode>() { _potentialMerge, _potentialTarget });
+                        
+                    }
+                }
+                // needed to be able to delete nodes children without disturbing the loop
+                foreach (List<TagNode> _match in _matchToMerge)
+                {
+                    MergeEntities(_match[0], _match[1]);
+                }
+            }
+            if (_toMerge.Children.Count > 0)
+            {
+                _target.Children.AddRange(_toMerge.Children);
+            }
+            _toMerge.Parent.Children.Remove(_toMerge);
         }
     }
 }

@@ -103,15 +103,29 @@ namespace TagManager
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
                 if (entity == null)
                 {
-                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true);
+                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true, null);
                 }
                 if (!entity.IsShortcut)
                 {
                     entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
-                    if (TagGlobals.autoRename)
+                    if (TagGlobals.autoRename && entity.IsNameable)
                     {
                         TagMethods.RenameUsingStructure(TagGlobals.root);
                     }
+                }
+                winParent.Close();
+            }
+            if (e.Key == Key.Oem5)
+            {
+                FastPop.IsOpen = true;
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
+                if (entity == null)
+                {
+                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true, false);
+                }
+                if (!entity.IsShortcut)
+                {
+                    entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
                 }
                 winParent.Close();
             }
@@ -120,7 +134,7 @@ namespace TagManager
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
                 if (shortcutMode)
                 {
-                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, false);
+                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, false, null);
                     TagNode _shortcut = new TagNode(autoCompleteBox.Text, _consoleRoot);
                     entity.Children.Add(_shortcut);
                 }

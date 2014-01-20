@@ -165,7 +165,7 @@ namespace TagManager
             {
                 string _name = obj.Name;
                 _name = _name.Remove(_name.Length - 4);
-                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, true);
+                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, true, null);
                 entity.Nodes.Add(obj.Handle);
             }
         }
@@ -179,19 +179,11 @@ namespace TagManager
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
             TagMethods.DeleteEntities(new List<TagNode>() { _currentEntity });
         }
-
-        private void onLoaded(object sender, RoutedEventArgs e)
+        private void onNameableChanged(object sender, RoutedEventArgs e)
         {
-            
+            MenuItem ctrl = sender as MenuItem;
+            TagNode _currentEntity = (TagNode)ctrl.DataContext;
+            _currentEntity.IsNameable = !ctrl.IsChecked;
         }
-
-        private void onDataChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
-
-        
-
-        
     }
 }

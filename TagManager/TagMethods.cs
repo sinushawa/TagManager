@@ -53,21 +53,28 @@ namespace TagManager
         public static void RenameUsingStructure(List<uint> _objects, TagNode _root)
         {
             SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects, _root);
+            SortableObservableCollection<TagNode> nameableEntitiesContainingObjects = entitiesContainingObjects.Where(x => x.IsNameable == true).ToSortableObservableCollection();
             SortableObservableCollection<List<string>> branchesElementsNames = new SortableObservableCollection<List<string>>();
-            foreach (TagNode _entity in entitiesContainingObjects)
+            foreach (TagNode _entity in nameableEntitiesContainingObjects)
             {
                 branchesElementsNames.Add(_entity.GetNodeBranchElementsNames(true));
             }
             branchesElementsNames.Sort(x => x.Count);
             List<List<string>> _listBranchElements = branchesElementsNames.Reverse().ToList();
             string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_listBranchElements.SelectMany(x=> x).ToList());
-            
-            foreach (uint _nodeHandle in _objects)
+            if (_namePrefix != "")
             {
-                string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix+TagGlobals.delimiter);
-                IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
-                _object.Name = finalName;
-                _object.NotifyNameChanged();
+                foreach (uint _nodeHandle in _objects)
+                {
+                    IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                    string _objectPrefix = _object.Name.Substring(0, _object.Name.Length - 4);
+                    if (_objectPrefix != _namePrefix)
+                    {
+                        string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix + TagGlobals.delimiter);
+                        _object.Name = finalName;
+                        _object.NotifyNameChanged();
+                    }
+                }
             }
         }
         public static void RenameUsingStructure(TagNode _root)

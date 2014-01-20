@@ -39,6 +39,12 @@ namespace TagManager
             get { return visible; }
             set { visible = value; }
         }
+        private bool isNameable;
+        public bool IsNameable
+        {
+            get { return isNameable; }
+            set { isNameable = value; }
+        }
         private bool isShortcut;
         public bool IsShortcut
         {
@@ -48,14 +54,8 @@ namespace TagManager
         private ConsoleContainerElement shortcut;
         public ConsoleContainerElement Shortcut
         {
-            get
-            {
-                return shortcut;
-            }
-            set
-            {
-                shortcut = value;
-            }
+            get { return shortcut; }
+            set { shortcut = value; }
         }
         public System.Drawing.Color wireColor;
 
@@ -65,13 +65,31 @@ namespace TagManager
         public TagNode(string _label) : this(Guid.NewGuid(), _label, new List<uint>(), false, new ConsoleContainerElement())
         {
         }
+        public TagNode(string _label, bool _nameable) : this(Guid.NewGuid(), _label, new List<uint>(), _nameable, false, new ConsoleContainerElement())
+        {
+        }
         public TagNode(string _label, List<uint> _objects) : this(Guid.NewGuid(), _label, _objects, false, new ConsoleContainerElement())
         {
         }
-        public TagNode(string _label, ConsoleContainerElement _shortcut) : this(Guid.NewGuid(), _label, new List<uint>(), true, _shortcut)
+        public TagNode(string _label, ConsoleContainerElement _shortcut) : this(Guid.NewGuid(), _label, new List<uint>(), false, true, _shortcut)
         {
         }
         public TagNode(Guid _ID, string _label, List<uint> _objects, bool _isShortcut, ConsoleContainerElement _shortcut)
+        {
+            if (Parent != null)
+            {
+                Initialize(_ID, _label, _objects, Parent.IsNameable, _isShortcut, _shortcut);
+            }
+            else
+            {
+                Initialize(_ID, _label, _objects, true, _isShortcut, _shortcut);
+            }
+        }
+        public TagNode(Guid _ID, string _label, List<uint> _objects, bool _isNameable, bool _isShortcut, ConsoleContainerElement _shortcut)
+        {
+            Initialize(_ID, _label, _objects, _isNameable, _isShortcut, _shortcut);
+        }
+        private void Initialize(Guid _ID, string _label, List<uint> _objects, bool _isNameable, bool _isShortcut, ConsoleContainerElement _shortcut)
         {
             ID = _ID;
             Name = _label;
@@ -79,6 +97,7 @@ namespace TagManager
             Nodes.CollectionChanged += Nodes_CollectionChanged;
             ChangedLongName += TagNode_ChangedLongName;
             Nodes.AddRange(_objects);
+            IsNameable = _isNameable;
             IsShortcut = _isShortcut;
             Shortcut = _shortcut;
             AllowDrag = true;
@@ -90,7 +109,7 @@ namespace TagManager
         }
         void TagNode_ChangedLongName(object sender, EventArgs e)
         {
-            if (TagGlobals.autoRename)
+            if (TagGlobals.autoRename && IsNameable)
             {
                 foreach (uint _nodeHandle in Nodes)
                 {
@@ -116,8 +135,7 @@ namespace TagManager
                         }
                         if (oldNode != this && oldNode.Name == Name)
                         {
-                            oldNode.Parent.Children.Remove(oldNode);
-                            this.Nodes.AddRange(oldNode.Nodes);
+                            TagHelperMethods.MergeEntities(oldNode, this);
                         }
                     }
                 }
@@ -134,6 +152,15 @@ namespace TagManager
             Children.CollectionChanged+= Children_CollectionChanged;
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
             Nodes.CollectionChanged += Nodes_CollectionChanged;
+            // sort of versioning control not really graceful
+            try
+            {
+                IsNameable = (bool)info.GetValue("IsNameable", typeof(bool));
+            }
+            catch
+            {
+                IsNameable = true;
+            }
             IsShortcut = (bool)info.GetValue("IsShortcut", typeof(bool));
             Shortcut = (ConsoleContainerElement)info.GetValue("Shortcut", typeof(ConsoleContainerElement));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
@@ -146,6 +173,7 @@ namespace TagManager
             info.AddValue("Name", Name, typeof(string));
             info.AddValue("Children", Children, typeof(SortableObservableCollection<TagNode>));
             info.AddValue("Nodes", Nodes, typeof(SortableObservableCollection<uint>));
+            info.AddValue("IsNameable", IsNameable, typeof(bool));
             info.AddValue("IsShortcut", IsShortcut, typeof(bool));
             info.AddValue("Shortcut", Shortcut, typeof(ConsoleContainerElement));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));
