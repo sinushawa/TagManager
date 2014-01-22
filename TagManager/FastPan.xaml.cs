@@ -122,7 +122,7 @@ namespace TagManager
         {
             if (TV.SelectedItems.Count > 0)
             {
-                TagMethods.RemoveObjects(TV.SelectedItems.Cast<TagNode>().ToList(), MaxPluginUtilities.Selection.ToListHandles());
+                TagMethods.RemoveObjects(TV.SelectedItems.Cast<TreeViewExItem>().Select(x=> x.DataContext).Cast<TagNode>().ToList(), MaxPluginUtilities.Selection.ToListHandles());
             }
             else
             {
