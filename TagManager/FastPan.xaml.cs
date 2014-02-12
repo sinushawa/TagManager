@@ -160,13 +160,31 @@ namespace TagManager
             MenuItem ctrl = sender as MenuItem;
             TagNode selectedEntity = (TagNode)ctrl.DataContext;
             List<TagNode> entityBranch = selectedEntity.GetNodeBranch();
-            List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection.ToListNode();
+            List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection;
             foreach (Autodesk.Max.IINode obj in selectedObjects)
             {
                 string _name = obj.Name;
                 _name = _name.Remove(_name.Length - 4);
                 TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, true, null);
                 entity.Nodes.Add(obj.Handle);
+            }
+        }
+        private void onCreateEntityFromSelSet(object sender, RoutedEventArgs e)
+        {
+
+            Autodesk.Max.IINamedSelectionSetManager selSetManager = MaxPluginUtilities.Global.INamedSelectionSetManager.Instance;
+            int nbSelSet = selSetManager.NumNamedSelSets;
+            for (int i = 0; i < nbSelSet; i++)
+            {
+                int sel_ObjectsCount = selSetManager.GetNamedSelSetItemCount(i);
+                string selSetName = selSetManager.GetNamedSelSetName(i);
+                List<Autodesk.Max.IINode>  _nodes = new List<Autodesk.Max.IINode>();
+                for(int j=0; j< sel_ObjectsCount; j++)
+                {
+                    _nodes.Add(selSetManager.GetNamedSelSetItem(i, j));
+                }
+                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(selSetName, true, null);
+                entity.Nodes.AddRange(_nodes.Select(x => x.Handle));
             }
         }
         private void onRenameFromEntity(object sender, RoutedEventArgs e)

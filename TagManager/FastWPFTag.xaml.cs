@@ -110,7 +110,7 @@ namespace TagManager
                     entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
                     if (TagGlobals.autoRename && entity.IsNameable)
                     {
-                        TagMethods.RenameUsingStructure(TagGlobals.root);
+                        TagMethods.RenameUsingStructure();
                     }
                 }
                 winParent.Close();

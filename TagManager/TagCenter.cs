@@ -18,7 +18,7 @@ namespace TagManager
     {
         public static void AssemblyMain()
         {
-            IGlobal _global = Autodesk.Max.GlobalInterface.Instance;
+            Autodesk.Max.IGlobal _global = Autodesk.Max.GlobalInterface.Instance;
             IInterface14 _interface = _global.COREInterface14;
             _interface.AddClass(new TagCenter.Descriptor(_global));
         }
@@ -104,6 +104,12 @@ namespace TagManager
                     TagNode openingRoot = (TagNode)iload.LoadObject();
                     openingRoot.ReParent();
                     TagGlobals.root = openingRoot;
+                    if (TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault() == null)
+                    {
+                        TagGlobals.root = new TagNode("Root");
+                        TagNode firstchild = new TagNode("Project");
+                        TagGlobals.root.Children.Add(firstchild);
+                    }
                     TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
                     return base.Load(iload);
                 }

@@ -25,10 +25,10 @@ namespace TagManager
             List<uint> objectsToSelect = _entities.SelectMany(x => x.Nodes).ToList();
             MaxPluginUtilities.SetSelection(objectsToSelect);
         }
-        public static SortableObservableCollection<TagNode> GetEntitiesContainingObjects(List<uint> _objects, TagNode _root)
+        public static SortableObservableCollection<TagNode> GetEntitiesContainingObjects(List<uint> _objects)
         {
             SortableObservableCollection<TagNode> nodes = new SortableObservableCollection<TagNode>();
-            nodes.AddRange(_root.GetNodeList().Where(x => x.Nodes.Intersect(_objects).ToList().Count>0));
+            nodes.AddRange(TagGlobals.root.GetNodeList().Where(x => x.Nodes.Intersect(_objects).ToList().Count>0));
             return nodes;
         }
         public static void RemoveObjects(List<TagNode> _entities, List<uint> _objects)
@@ -50,9 +50,9 @@ namespace TagManager
             _toMerge.Nodes.AddRange(_target.Nodes);
             _target.Parent.Children.Remove(_target);
         }
-        public static void RenameUsingStructure(List<uint> _objects, TagNode _root)
+        public static void RenameUsingStructure(List<uint> _objects)
         {
-            SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects, _root);
+            SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects);
             SortableObservableCollection<TagNode> nameableEntitiesContainingObjects = entitiesContainingObjects.Where(x => x.IsNameable == true).ToSortableObservableCollection();
             SortableObservableCollection<List<string>> branchesElementsNames = new SortableObservableCollection<List<string>>();
             foreach (TagNode _entity in nameableEntitiesContainingObjects)
@@ -67,19 +67,39 @@ namespace TagManager
                 foreach (uint _nodeHandle in _objects)
                 {
                     IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
-                    string _objectPrefix = _object.Name.Substring(0, _object.Name.Length - 4);
-                    if (_objectPrefix != _namePrefix)
+                    if (_object.Name.Length > 4)
                     {
-                        string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix + TagGlobals.delimiter);
-                        _object.Name = finalName;
-                        _object.NotifyNameChanged();
+                        string _objectPrefix = _object.Name.Substring(0, _object.Name.Length - 4);
+                        if (_objectPrefix != _namePrefix)
+                        {
+                            string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix + TagGlobals.delimiter);
+                            _object.Name = finalName;
+                            _object.NotifyNameChanged();
+                        }
                     }
                 }
             }
         }
-        public static void RenameUsingStructure(TagNode _root)
+        public static void RenameUsingStructure()
         {
-            RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles(), _root);
+            RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles());
+        }
+        public static void SelectEntityHoldingObject()
+        {
+            SelectEntityHoldingObject(MaxPluginUtilities.Selection.ToListHandles());
+        }
+        public static void SelectEntityHoldingObject(List<uint> _nodeHandles)
+        {
+            SelectEntities(GetEntitiesContainingObjects(_nodeHandles).ToList());
+        }
+        public static void SelectParentEntityHoldingObject()
+        {
+            SelectParentEntityHoldingObject(MaxPluginUtilities.Selection.ToListHandles());
+        }
+        public static void SelectParentEntityHoldingObject(List<uint> _nodeHandles)
+        {
+            List<TagNode> _parentNodeList = GetEntitiesContainingObjects(_nodeHandles).ToList().SelectMany(x => x.Parent.GetNodeList()).ToList();
+            SelectEntities(_parentNodeList);
         }
     }
 }

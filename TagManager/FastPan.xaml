@@ -140,6 +140,15 @@
                         </TextBlock>
                     </MenuItem.ToolTip>
                 </MenuItem>
+                <MenuItem Header="Create from SelectionSets" Click="onCreateEntityFromSelSet">
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                                Create a new entities,
+                                <LineBreak/>
+                                from selection sets
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
             </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>

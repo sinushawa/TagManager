@@ -23,7 +23,7 @@ namespace TagManager
                 return GlobalInterface.Instance;
             }
         }
-        public static IINodeTab Selection
+        public static List<IINode> Selection
         {
             get
             {
@@ -39,18 +39,27 @@ namespace TagManager
             string path = Global.IPathConfigMgr.PathConfigMgr.GetDir(dir);
             return path;
         }
-        private static IINodeTab GetSelection()
+        private static List<IINode> GetSelection()
         {
-            IINodeTab selectedNodes = Global.NodeTab.Create();
+            List<IINode> selectedNodes = new List<IINode>();
             for (int i = 0; i < Interface.SelNodeCount; i++)
             {
-                selectedNodes.AppendNode(Interface.GetSelNode(i), false, 1);
+                selectedNodes.Add(Interface.GetSelNode(i));
             }
             return selectedNodes;
         }
-        private static void SetSelection(IINodeTab _nodes)
+        private static void SetSelection(List<IINode> _nodes)
         {
-            Interface.SelectNodeTab(_nodes, true, true);
+            try
+            {
+                foreach (IINode _node in _nodes)
+                {
+                    Interface.SelectNode(_node, false);
+                }
+            }
+            catch
+            {
+            }
         }
         public static void SetSelection(List<uint> _nodesHandles)
         {
@@ -58,11 +67,11 @@ namespace TagManager
             {
                 Interface.ClearNodeSelection(false);
             }
-            Selection = _nodesHandles.GetNodesByHandles().ToNodeTab();
+            Selection = _nodesHandles.GetNodesByHandles();
         }
         private static void SetSelection(SortableObservableCollection<IINode> _nodes)
         {
-            Selection = _nodes.ToList().ToNodeTab();
+            Selection = _nodes.ToList();
         }
         public static IINodeTab ToNodeTab(this List<IINode> _nodes)
         {
@@ -70,6 +79,7 @@ namespace TagManager
             foreach (IINode _node in _nodes)
             {
                 nodeTab.AppendNode(_node, false, 1);
+                Interface.SelectNode(_node, false);
             }
             return nodeTab;
         }
@@ -96,23 +106,21 @@ namespace TagManager
             }
             return listNodes;
         }
-        public static List<uint> ToListHandles(this IINodeTab _nodes)
+        public static List<uint> ToListHandles(this List<IINode> _nodes)
         {
             List<uint> listHandles = new List<uint>();
-            for (int i = 0; i < _nodes.Count; i++)
+            foreach (IINode _node in _nodes)
             {
-                IntPtr pointer = (IntPtr)i;
-                listHandles.Add(_nodes[pointer].Handle);
+                listHandles.Add(_node.Handle);
             }
             return listHandles;
         }
-        public static SortableObservableCollection<uint> ToSOC(this IINodeTab _nodes)
+        public static SortableObservableCollection<uint> ToSOC(this List<IINode> _nodes)
         {
             SortableObservableCollection<uint> listHandles = new SortableObservableCollection<uint>();
-            for (int i = 0; i < _nodes.Count; i++)
+            foreach (IINode _node in _nodes)
             {
-                IntPtr pointer = (IntPtr)i;
-                listHandles.Add(_nodes[pointer].Handle);
+                listHandles.Add(_node.Handle);
             }
             return listHandles;
         }
