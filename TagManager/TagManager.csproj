@@ -34,23 +34,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Max">
-      <HintPath>bin\Debug\Autodesk.Max.dll</HintPath>
+      <HintPath>max_2014_dlls\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Autodesk.Max.StateSets, Version=16.3.253.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\Autodesk.Max.StateSets.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Autodesk.Max.Wrappers, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\Autodesk.Max.Wrappers.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ManagedServices">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\ManagedServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MaxCustomControls">
-      <HintPath>bin\Debug\MaxCustomControls.dll</HintPath>
+      <HintPath>max_2014_dlls\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -60,12 +62,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO">
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\net40\System.IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime">
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\net40\System.Runtime.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Controls.Input.Toolkit">
       <HintPath>..\..\TagPan\TagPan\bin\Debug\System.Windows.Controls.Input.Toolkit.dll</HintPath>
@@ -79,7 +84,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UiViewModels">
-      <HintPath>bin\Debug\UiViewModels.dll</HintPath>
+      <HintPath>max_2014_dlls\UiViewModels.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />
