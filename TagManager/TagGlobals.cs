@@ -10,6 +10,7 @@ namespace TagManager
     {
         public static TagCenter tagCenter;
         public static TagNode root;
+        public static TagNode mergedRoot;
         public static bool isMerging = false;
         public static string delimiter = "_";
         public static bool addToSelection = false;

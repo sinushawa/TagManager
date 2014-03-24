@@ -107,7 +107,7 @@ namespace TagManager
                 }
                 if (!entity.IsShortcut)
                 {
-                    entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
+                    TagMethods.ApplyEntities(new List<TagNode>() { entity }, MaxPluginUtilities.Selection.ToListHandles());
                     if (TagGlobals.autoRename && entity.IsNameable)
                     {
                         TagMethods.RenameUsingStructure();
@@ -125,7 +125,7 @@ namespace TagManager
                 }
                 if (!entity.IsShortcut)
                 {
-                    entity.Nodes.AddRange(MaxPluginUtilities.Selection.ToListHandles());
+                    TagMethods.ApplyEntities(new List<TagNode>() { entity }, MaxPluginUtilities.Selection.ToListHandles());
                 }
                 winParent.Close();
             }

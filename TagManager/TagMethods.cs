@@ -16,7 +16,7 @@ namespace TagManager
             foreach (TagNode _entity in _entities)
             {
                 // Check to make sure there is no double.
-                _entity.Nodes.AddRange(_objects, true);  
+                _entity.Nodes.AddRange(_objects, true);
             }
             
         }

@@ -29,8 +29,11 @@ namespace TagManager
         }
     }
 
+    
+
     public class TagCenter : ReferenceMaker,IPlugin
     {
+        
         private FastPan _fastPan;
 
         public FastPan fastPan
@@ -41,6 +44,47 @@ namespace TagManager
 
         public class Descriptor : Autodesk.Max.Plugins.ClassDesc2
         {
+            internal class PostLoadCallback : Autodesk.Max.Plugins.PostLoadCallback
+            {
+                public PostLoadCallback()
+                {
+                }
+                public override int Priority
+                {
+                    get
+                    {
+                        return 1;
+                    }
+                }
+                public override void Proc(IILoad iload)
+                {
+                    for (int i = 0; i < iload.RootNode.NumChildren; i++)
+                    {
+                        IINode _node = iload.RootNode.GetChildNode(i);
+                        string name = _node.Name;
+                        uint handle = _node.Handle;
+                        IAppDataChunk chunk = _node.GetAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
+                        if (chunk.Data != null)
+                        {
+                            ObjectDataChunk odc = ObjectDataChunk.ByteArrayToObjectDataChunk(chunk.Data);
+                            foreach (Guid ID in odc.entitiesIDs)
+                            {
+                                TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID == ID);
+                                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter), true, _nodeMerged.IsNameable);
+                                TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                            }
+                        }
+                        /*
+                        if (!_node.IsTarget)
+                        {
+                            TagGlobals.tagCenter.SetReference(i, _node);
+                            _node.RefAdded(TagGlobals.tagCenter);
+                            //List<TagNode> _nodes = TagMethods.GetEntitiesContainingObjects(new List<uint>() { handle }).ToList();
+                        }
+                         * */
+                    }
+                }
+            }
             protected IGlobal _global;
             public static IClass_ID _classID;
             public bool saveIsNeeded = true;
@@ -51,6 +95,7 @@ namespace TagManager
             }
             public Descriptor(IGlobal global)
             {
+                TagGlobals.tagCenter._descriptor = this;
                 _global = global;
                 _classID = _global.Class_ID.Create(0x8962d7, 0x285b3ff9);
             }
@@ -102,7 +147,7 @@ namespace TagManager
                 if (!TagGlobals.isMerging)
                 {
                     TagNode openingRoot = (TagNode)iload.LoadObject();
-                    openingRoot.ReParent();
+                    openingRoot.ReParent(false);
                     TagGlobals.root = openingRoot;
                     if (TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault() == null)
                     {
@@ -115,6 +160,11 @@ namespace TagManager
                 }
                 else
                 {
+                    Descriptor.PostLoadCallback cb = new Descriptor.PostLoadCallback();
+                    TagNode openingRoot = (TagNode)iload.LoadObject();
+                    openingRoot.ReParent(true);
+                    TagGlobals.mergedRoot = openingRoot;
+                    iload.RegisterPostLoadCallback(cb);
                     return IOResult.Ok;
                 }
             }
@@ -125,7 +175,7 @@ namespace TagManager
         }
         public TagCenter(Descriptor descriptor) 
         { 
-            this._descriptor = descriptor;
+            _descriptor = descriptor;
         }
         public System.ComponentModel.ISynchronizeInvoke Sync
         {
@@ -180,6 +230,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaving)), null, SystemNotificationCode.FilePreSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.PostMergeProcess);
@@ -191,6 +242,8 @@ namespace TagManager
             TagNode firstchild = new TagNode("Project");
             TagGlobals.root.Children.Add(firstchild);
             TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
+
+            
         }
 
         /// <summary>
@@ -211,8 +264,6 @@ namespace TagManager
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             IINode _node = notifyInfo.CallParam as IINode;
-            Debug.WriteLine(_node.Name);
-            Debug.WriteLine(_node.Handle);
         }
         private void SceneAddedNode(IntPtr obj, IntPtr infoHandle)
         {
@@ -224,8 +275,18 @@ namespace TagManager
                 Debug.WriteLine(_node.Handle);
             }
         }
+        private void FileSaving(IntPtr obj, IntPtr infoHandle)
+        {
+            var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
+            foreach (KeyValuePair<uint,List<Guid>> truc in _nodes)
+            {
+                ObjectDataChunk odc = new ObjectDataChunk(truc.Value);
+                MaxPluginUtilities.GetNodeByHandle(truc.Key).AddAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0, odc.ToByteArray());
+            }
+        }
         private void FileMerging(IntPtr obj, IntPtr infoHandle)
         {
+            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             TagGlobals.isMerging = true;
              
         }
@@ -372,7 +433,6 @@ namespace TagManager
             fastTXT.Focus();
 
         }
-
 
         public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message)
         {

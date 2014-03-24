@@ -178,12 +178,16 @@ namespace TagManager
             info.AddValue("Shortcut", Shortcut, typeof(ConsoleContainerElement));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));
         }
-        internal void ReParent()
+        internal void ReParent(bool clearObjects)
         {
             for (int i = 0; i < Children.Count; i++)
             {
+                if (clearObjects)
+                {
+                    Children[i].nodes.Clear();
+                }
                 Children[i].Parent = this;
-                Children[i].ReParent();
+                Children[i].ReParent(clearObjects);
             }
         }
         #endregion

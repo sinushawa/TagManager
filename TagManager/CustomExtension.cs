@@ -31,5 +31,10 @@ namespace TagManager
             var nonEmptyLists = lists.Where(l => l.Any());
             return nonEmptyLists.Aggregate((l1, l2) => l1.Intersect(l2));
         }
+        public static Dictionary<TKey, List<TValue>> ToDictionary<TKey, TValue>(this IEnumerable<IGrouping<TKey, TValue>> groupings)
+        {
+            return groupings.ToDictionary(group => group.Key, group => group.ToList());
+        }
+        
     }
 }
