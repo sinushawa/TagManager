@@ -403,7 +403,7 @@ namespace TagManager
 
             // Name the window
             dialog.Title = "";
-
+            dialog.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 64, 64));
             // Example of setup size and location
             // ...
             //dialog.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;

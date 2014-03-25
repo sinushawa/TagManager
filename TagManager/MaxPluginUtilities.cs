@@ -1,5 +1,6 @@
 ﻿using Autodesk.Max;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -52,10 +53,18 @@ namespace TagManager
         {
             try
             {
+                _nodes = _nodes.Distinct().ToList();
+                IINodeTab selectedNodes = Global.NodeTab.Create();
+                selectedNodes.Resize(_nodes.Count);
                 foreach (IINode _node in _nodes)
                 {
-                    Interface.SelectNode(_node, false);
+                    if (_node != null)
+                    {
+                        selectedNodes.AppendNode(_node, false, 1);
+                    }
+                    //Interface.SelectNode(_node, false);
                 }
+                Interface.SelectNodeTab(selectedNodes, true, true);
             }
             catch
             {

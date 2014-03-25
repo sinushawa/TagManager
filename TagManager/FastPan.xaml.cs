@@ -135,7 +135,7 @@ namespace TagManager
         {
             if (TV.SelectedItems.Count > 0)
             {
-                TagNode selectedEntity = (TagNode)TV.SelectedItems[0];
+                TagNode selectedEntity = TV.SelectedItems.Cast<TreeViewExItem>().Select(x => x.DataContext).Cast<TagNode>().FirstOrDefault();
                 TagNode newNode = new TagNode("untitled");
                 selectedEntity.Children.AddRange(new List<TagNode>(){newNode});
                 newNode.IsInEditMode = true;
