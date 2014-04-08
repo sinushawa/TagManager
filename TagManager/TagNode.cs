@@ -25,7 +25,11 @@ namespace TagManager
         public bool IsInEditMode
         {
             get { return isInEditMode; }
-            set { isInEditMode = value; }
+            set 
+            { 
+                isInEditMode = value;
+                NotifyPropertyChanged("Nodes");
+            }
         }
         private SortableObservableCollection<uint> nodes;
         public SortableObservableCollection<uint> Nodes
@@ -97,6 +101,7 @@ namespace TagManager
             Nodes.CollectionChanged += Nodes_CollectionChanged;
             ChangedLongName += TagNode_ChangedLongName;
             Nodes.AddRange(_objects);
+            IsInEditMode = false;
             IsNameable = _isNameable;
             IsShortcut = _isShortcut;
             Shortcut = _shortcut;
@@ -114,7 +119,10 @@ namespace TagManager
                 foreach (uint _nodeHandle in Nodes)
                 {
                     Autodesk.Max.IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
-                    _object.RenameNode(LongName);
+                    if (_object != null)
+                    {
+                        _object.RenameNode(LongName);
+                    }
                 }
             }
         }
@@ -152,6 +160,7 @@ namespace TagManager
             Children.CollectionChanged+= Children_CollectionChanged;
             Nodes = (SortableObservableCollection<uint>)info.GetValue("Nodes", typeof(SortableObservableCollection<uint>));
             Nodes.CollectionChanged += Nodes_CollectionChanged;
+            ChangedLongName += TagNode_ChangedLongName;
             // sort of versioning control not really graceful
             try
             {
@@ -164,6 +173,7 @@ namespace TagManager
             IsShortcut = (bool)info.GetValue("IsShortcut", typeof(bool));
             Shortcut = (ConsoleContainerElement)info.GetValue("Shortcut", typeof(ConsoleContainerElement));
             wireColor = (System.Drawing.Color)info.GetValue("wireColor", typeof(System.Drawing.Color));
+            IsInEditMode = false;
             AllowDrag = true;
             AllowDrop = true;
         }

@@ -61,7 +61,6 @@ namespace TagManager
                     for (int i = 0; i < iload.RootNode.NumChildren; i++)
                     {
                         IINode _node = iload.RootNode.GetChildNode(i);
-                        string name = _node.Name;
                         uint handle = _node.Handle;
                         IAppDataChunk chunk = _node.GetAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
                         if (chunk != null)
@@ -74,14 +73,6 @@ namespace TagManager
                                 TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
                             }
                         }
-                        /*
-                        if (!_node.IsTarget)
-                        {
-                            TagGlobals.tagCenter.SetReference(i, _node);
-                            _node.RefAdded(TagGlobals.tagCenter);
-                            //List<TagNode> _nodes = TagMethods.GetEntitiesContainingObjects(new List<uint>() { handle }).ToList();
-                        }
-                         * */
                     }
                 }
             }
@@ -232,6 +223,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPreReset);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaving)), null, SystemNotificationCode.FilePreSave);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaved)), null, SystemNotificationCode.FilePostSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.PostMergeProcess);
@@ -289,9 +281,21 @@ namespace TagManager
                 MaxPluginUtilities.GetNodeByHandle(truc.Key).AddAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0, odc.ToByteArray());
             }
         }
+        private void FileSaved(IntPtr obj, IntPtr infoHandle)
+        {
+            var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
+            foreach (KeyValuePair<uint, List<Guid>> truc in _nodes)
+            {
+                MaxPluginUtilities.GetNodeByHandle(truc.Key).ClearAllAppData();
+            }
+        }
         private void FileMerging(IntPtr obj, IntPtr infoHandle)
         {
-            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
+            var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
+            foreach (KeyValuePair<uint, List<Guid>> truc in _nodes)
+            {
+                MaxPluginUtilities.GetNodeByHandle(truc.Key).ClearAllAppData();
+            }
             TagGlobals.isMerging = true;
              
         }
