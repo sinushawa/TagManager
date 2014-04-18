@@ -66,11 +66,14 @@ namespace TagManager
                         if (chunk != null)
                         {
                             ObjectDataChunk odc = ObjectDataChunk.ByteArrayToObjectDataChunk(chunk.Data);
-                            foreach (Guid ID in odc.entitiesIDs)
+                            foreach (string ID in odc.entitiesIDs)
                             {
-                                TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID == ID);
-                                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
-                                TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID.ToString() == ID);
+                                if (_nodeMerged != null)
+                                {
+                                    TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
+                                    TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                }
                             }
                         }
                     }
@@ -275,26 +278,38 @@ namespace TagManager
         private void FileSaving(IntPtr obj, IntPtr infoHandle)
         {
             var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
-            foreach (KeyValuePair<uint,List<Guid>> truc in _nodes)
+            foreach (KeyValuePair<uint,List<Guid>> _nodeHandle in _nodes)
             {
-                ObjectDataChunk odc = new ObjectDataChunk(truc.Value);
-                MaxPluginUtilities.GetNodeByHandle(truc.Key).AddAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0, odc.ToByteArray());
+                IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
+                if (_node != null)
+                {
+                    ObjectDataChunk odc = new ObjectDataChunk(_nodeHandle.Value);
+                    _node.AddAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0, odc.ToByteArray());
+                }
             }
         }
         private void FileSaved(IntPtr obj, IntPtr infoHandle)
         {
             var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
-            foreach (KeyValuePair<uint, List<Guid>> truc in _nodes)
+            foreach (KeyValuePair<uint, List<Guid>> _nodeHandle in _nodes)
             {
-                MaxPluginUtilities.GetNodeByHandle(truc.Key).ClearAllAppData();
+                IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
+                if (_node != null)
+                {
+                    _node.ClearAllAppData();
+                }
             }
         }
         private void FileMerging(IntPtr obj, IntPtr infoHandle)
         {
             var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
-            foreach (KeyValuePair<uint, List<Guid>> truc in _nodes)
+            foreach (KeyValuePair<uint, List<Guid>> _nodeHandle in _nodes)
             {
-                MaxPluginUtilities.GetNodeByHandle(truc.Key).ClearAllAppData();
+                IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
+                if(_node != null)
+                {
+                    _node.ClearAllAppData();
+                }
             }
             TagGlobals.isMerging = true;
              

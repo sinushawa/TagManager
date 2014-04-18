@@ -10,20 +10,21 @@ namespace TagManager
     [Serializable]
     public class ObjectDataChunk
     {
-        public List<Guid> entitiesIDs;
+        public List<string> entitiesIDs;
 
         public ObjectDataChunk(List<TagNode> _entities)
         {
-            entitiesIDs = new List<Guid>();
+            entitiesIDs = new List<string>();
             foreach (TagNode _entity in _entities)
             {
-                entitiesIDs.Add(_entity.ID);
+                entitiesIDs.Add(_entity.ID.ToString());
             }
         }
 
         public ObjectDataChunk(List<Guid> list)
         {
-            entitiesIDs = list;
+            List<string> _hold = list.Select(x=> x.ToString()).ToList();
+            entitiesIDs = _hold;
         }
         
         public static ObjectDataChunk ByteArrayToObjectDataChunk(byte[] arrBytes)
