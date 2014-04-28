@@ -151,9 +151,14 @@ namespace TagManager
         }
         private void onRenameEntity(object sender, RoutedEventArgs e)
         {
+            /*
             MenuItem ctrl = sender as MenuItem;
             TagNode selectedEntity = (TagNode)ctrl.DataContext;
             selectedEntity.IsInEditMode = true;
+             */
+            EditableTextBlock textblock = ((TreeViewExItem)TV.SelectedItems[0]).FindChild<EditableTextBlock>();
+            Keyboard.Focus(textblock);
+            textblock.IsInEditMode = true;
         }
         private void onCreateEntityFromName(object sender, RoutedEventArgs e)
         {
