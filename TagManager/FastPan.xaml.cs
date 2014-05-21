@@ -62,6 +62,11 @@ namespace TagManager
         {
             stopwatch.Start();
             dragStartPoint = e.GetPosition(null);
+            var frameworkElem = ((FrameworkElement)e.OriginalSource);
+            TreeViewExItem treeViewItem = frameworkElem.TryFindParent<TreeViewExItem>();
+            TagNode _entity = (TagNode)treeViewItem.DataContext;
+            List<Autodesk.Max.IINode> _nodes = _entity.Nodes.GetNodesByHandles();
+            foreach(Autodesk.Max.IINode _node in _nodes
         }
         private void OnRightMouseDown(object sender, MouseButtonEventArgs e)
         {
