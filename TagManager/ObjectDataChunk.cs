@@ -33,7 +33,15 @@ namespace TagManager
             BinaryFormatter binForm = new BinaryFormatter();
             memStream.Write(arrBytes, 0, arrBytes.Length);
             memStream.Seek(0, SeekOrigin.Begin);
-            ObjectDataChunk _data = (ObjectDataChunk)binForm.Deserialize(memStream);
+            ObjectDataChunk _data;
+            try
+            {
+                _data = (ObjectDataChunk)binForm.Deserialize(memStream);
+            }
+            catch
+            {
+                _data = null;
+            }
             return _data;
         }
     }

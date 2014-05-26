@@ -156,7 +156,10 @@ namespace TagManager
                 {
                     Descriptor.PostLoadCallback cb = new Descriptor.PostLoadCallback();
                     TagNode openingRoot = (TagNode)iload.LoadObject();
+                    bool actualValue = TagGlobals.autoRename;
+                    TagGlobals.autoRename = false;
                     openingRoot.ReParent(true);
+                    TagGlobals.autoRename = actualValue;
                     TagGlobals.mergedRoot = openingRoot;
                     iload.RegisterPostLoadCallback(cb);
                     return IOResult.Ok;
