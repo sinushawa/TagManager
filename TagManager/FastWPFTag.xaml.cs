@@ -10,7 +10,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Markup;
-using Aviad.WPF.Controls;
+using dragonz.actb.core;
+using dragonz.actb.provider;
 
 namespace TagManager
 {
@@ -28,6 +29,7 @@ namespace TagManager
         public FastWPFTag()
         {
             this.InitializeComponent();
+            
         }
 
 
@@ -41,21 +43,15 @@ namespace TagManager
                 string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames);
                 branchNames.Add(_branchName);
             }
-            this.FastBox.ItemsSource = branchNames;
-            this.FastBox.Filter = (arg1, arg2) =>{
-                if ((arg1 as string).Contains(arg2) && arg2!="") 
-                {
-                    return true;
-                }
-                return false;
-            };
+            actbFastBox.AutoCompleteManager.DataProvider = new DataProviderContains(branchNames);
+            actbFastBox.AutoCompleteManager.AutoAppend = false;
             _consoleRoot = new ConsoleContainerElement();
             _currentContainer = _consoleRoot;
         }
 
         private void FastBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            Aviad.WPF.Controls.AutoCompleteTextBox autoCompleteBox = (Aviad.WPF.Controls.AutoCompleteTextBox)sender;
+            dragonz.actb.control.AutoCompleteTextBox autoCompleteBox = (dragonz.actb.control.AutoCompleteTextBox)sender;
             if (e.Key == Key.Oem4)
             {
                 FastPop.IsOpen = true;

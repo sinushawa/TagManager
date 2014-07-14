@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
-using Autodesk.Max.Utilities;
 
 namespace TagManager
 {

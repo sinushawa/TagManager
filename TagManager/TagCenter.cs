@@ -33,7 +33,7 @@ namespace TagManager
 
     public class TagCenter : ReferenceMaker,IPlugin
     {
-        
+
         private FastPan _fastPan;
 
         public FastPan fastPan
@@ -214,6 +214,10 @@ namespace TagManager
 
         public void Initialize(IGlobal global, System.ComponentModel.ISynchronizeInvoke sync)
         {
+            if (null == System.Windows.Application.Current)
+            {
+                new System.Windows.Application();
+            }
             TagCenter.Instance = this;
             this.Sync = sync;
             fastPan = new FastPan();
@@ -437,7 +441,7 @@ namespace TagManager
 
             // Assign the window's content to be the WPF control
             FastWPFTag fastTag = new FastWPFTag();
-            fastTag.FastBox.Focusable = true;
+            fastTag.actbFastBox.Focusable = true;
             
             fastTag.CreateAutoCompleteSource();
             fastTag.winParent = dialog;
@@ -454,13 +458,13 @@ namespace TagManager
 
             // Show the dialog box
             dialog.Show();
-            System.Windows.Input.FocusManager.SetFocusedElement(dialog, fastTag.FastBox);
-            var result = System.Windows.Input.Keyboard.Focus(fastTag.FastBox);
-            fastTag.FastBox.Focus();
+            System.Windows.Input.FocusManager.SetFocusedElement(dialog, fastTag.actbFastBox);
+            var result = System.Windows.Input.Keyboard.Focus(fastTag.actbFastBox);
+            fastTag.actbFastBox.Focus();
 
         }
 
-        public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message)
+        public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message, bool propagate)
         {
             return RefResult.Succeed;
         }
