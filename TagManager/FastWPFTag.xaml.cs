@@ -43,7 +43,7 @@ namespace TagManager
             }
             this.FastBox.ItemsSource = branchNames;
             this.FastBox.Filter = (arg1, arg2) =>{
-                if ((arg1 as string).Contains(arg2)) 
+                if ((arg1 as string).Contains(arg2) && arg2!="") 
                 {
                     return true;
                 }
@@ -56,7 +56,6 @@ namespace TagManager
         private void FastBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             Aviad.WPF.Controls.AutoCompleteTextBox autoCompleteBox = (Aviad.WPF.Controls.AutoCompleteTextBox)sender;
-            //AutoCompleteBox autoCompleteBox = (AutoCompleteBox)sender;
             if (e.Key == Key.Oem4)
             {
                 FastPop.IsOpen = true;
