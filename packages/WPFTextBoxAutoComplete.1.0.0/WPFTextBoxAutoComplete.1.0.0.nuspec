@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>WPFTextBoxAutoComplete</id>
+    <version>1.0.0</version>
+    <title>WPF TextBox AutoComplete</title>
+    <authors>Nimgoble</authors>
+    <owners>Nimgoble</owners>
+    <licenseUrl>https://github.com/Nimgoble/WPFTextBoxAutoComplete/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/Nimgoble/WPFTextBoxAutoComplete/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>An attached behavior for WPF's TextBox control that provides auto-completion suggestions from a given collection</description>
+    <summary>A short, permissive software license. Basically, you can do whatever you want as long as you include the original copyright and license.</summary>
+    <language />
+    <tags>WPF auto-complete autocomplete TextBox</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" targetFramework="" />
+      <frameworkAssembly assemblyName="PresentationFramework" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Xaml" targetFramework="" />
+      <frameworkAssembly assemblyName="WindowsBase" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

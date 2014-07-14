@@ -10,6 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Markup;
+using Aviad.WPF.Controls;
 
 namespace TagManager
 {
@@ -28,6 +29,8 @@ namespace TagManager
         {
             this.InitializeComponent();
         }
+
+
         public void CreateAutoCompleteSource()
         {
             projectEntity = TagGlobals.root.GetNodeList().First(x => x.Name == "Project");
@@ -39,13 +42,21 @@ namespace TagManager
                 branchNames.Add(_branchName);
             }
             this.FastBox.ItemsSource = branchNames;
+            this.FastBox.Filter = (arg1, arg2) =>{
+                if ((arg1 as string).Contains(arg2)) 
+                {
+                    return true;
+                }
+                return false;
+            };
             _consoleRoot = new ConsoleContainerElement();
             _currentContainer = _consoleRoot;
         }
 
         private void FastBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            AutoCompleteBox autoCompleteBox = (AutoCompleteBox)sender;
+            Aviad.WPF.Controls.AutoCompleteTextBox autoCompleteBox = (Aviad.WPF.Controls.AutoCompleteTextBox)sender;
+            //AutoCompleteBox autoCompleteBox = (AutoCompleteBox)sender;
             if (e.Key == Key.Oem4)
             {
                 FastPop.IsOpen = true;

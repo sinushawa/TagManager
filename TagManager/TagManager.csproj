@@ -47,6 +47,9 @@
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\Autodesk.Max.Wrappers.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Aviad.WPF.Controls">
+      <HintPath>bin\Debug\Aviad.WPF.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="ManagedServices">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\ManagedServices.dll</HintPath>
       <Private>False</Private>
@@ -89,8 +92,7 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WPFToolkit">
-      <HintPath>..\..\TagPan\TagPan\bin\Debug\WPFToolkit.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>bin\Debug\WPFToolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -455,9 +455,11 @@ namespace TagManager
             // Show the dialog box
             dialog.Show();
             System.Windows.Input.FocusManager.SetFocusedElement(dialog, fastTag.FastBox);
-            System.Windows.Controls.TextBox fastTXT = fastTag.FastBox.Template.FindName("Text", fastTag.FastBox) as System.Windows.Controls.TextBox; 
+            //Aviad.WPF.Controls.AutoCompleteTextBox fastTXT = fastTag.FastBox.Template.FindName("Text", fastTag.FastBox) as Aviad.WPF.Controls.AutoCompleteTextBox;
+            //System.Windows.Controls.TextBox fastTXT = fastTag.FastBox.Template.FindName("Text", fastTag.FastBox) as System.Windows.Controls.TextBox; 
             var result = System.Windows.Input.Keyboard.Focus(fastTag.FastBox);
-            fastTXT.Focus();
+            fastTag.FastBox.Focus();
+            //fastTXT.Focus();
 
         }
 

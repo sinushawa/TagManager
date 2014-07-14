@@ -1,6 +1,6 @@
-<UserControl x:Class="TagManager.FastWPFTag" Name="MW" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:acb="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+<UserControl x:Class="TagManager.FastWPFTag" Name="MW" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:acb="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" xmlns:actb="clr-namespace:Aviad.WPF.Controls;assembly=Aviad.WPF.Controls">
     <Grid>
-        <acb:AutoCompleteBox Name="FastBox" MinimumPrefixLength="2" MinimumPopulateDelay="100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Height="24" Width="280" FilterMode="Contains" PreviewKeyDown="FastBox_PreviewKeyDown" Background="#FF404040" Foreground="White" />
+        <actb:AutoCompleteTextBox Name="FastBox" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Height="24" Width="280" PreviewKeyDown="FastBox_PreviewKeyDown" Background="#FF404040" Foreground="White" />
         <Popup Name="FastPop" IsOpen="False" Placement="Right" PlacementTarget="{Binding ElementName=FastBox}">
             <StackPanel Background="#FF404040">
                 <TextBlock Name="fastTip" Margin="5" Foreground="White" />
