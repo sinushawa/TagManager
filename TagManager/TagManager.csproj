@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Program Files\Autodesk\3ds Max 2015\bin\assemblies\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\bin\assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,28 +34,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Max">
-      <HintPath>max_2015_dlls\Autodesk.Max.dll</HintPath>
+      <HintPath>max_2014_dlls\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Autodesk.Max.StateSets, Version=16.3.253.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2015_dlls\Autodesk.Max.StateSets.dll</HintPath>
+    <Reference Include="Autodesk.Max.StateSets">
+      <HintPath>max_2014_dlls\Autodesk.Max.StateSets.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Autodesk.Max.Wrappers, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2015_dlls\Autodesk.Max.Wrappers.dll</HintPath>
+    <Reference Include="Autodesk.Max.Wrappers">
+      <HintPath>max_2014_dlls\Autodesk.Max.Wrappers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="dragonz.actb">
-      <HintPath>max_2015_dlls\dragonz.actb.dll</HintPath>
+      <HintPath>max_2014_dlls\dragonz.actb.dll</HintPath>
     </Reference>
     <Reference Include="ManagedServices">
-      <HintPath>max_2015_dlls\ManagedServices.dll</HintPath>
+      <HintPath>max_2014_dlls\ManagedServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MaxCustomControls">
-      <HintPath>max_2015_dlls\MaxCustomControls.dll</HintPath>
+      <HintPath>max_2014_dlls\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -87,14 +85,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UiViewModels">
-      <HintPath>max_2015_dlls\UiViewModels.dll</HintPath>
+      <HintPath>max_2014_dlls\UiViewModels.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="WPFToolkit">
-      <HintPath>max_2015_dlls\WPFToolkit.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleContainerElement.cs" />

@@ -223,7 +223,7 @@ namespace TagManager
             SClass_ID[] classes = Autodesk.Max.Utilities.SClass_IDs.AllSuperClassIDs;
             for (int i = 0; i < classes.Length; i++)
             {
-                _node.NotifyDependents_(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
+                _node.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
                 //_node.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
             }
         }
