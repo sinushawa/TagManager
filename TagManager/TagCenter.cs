@@ -228,7 +228,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCreated)), null, SystemNotificationCode.NodeCreated);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeCloned);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCloned)), null, SystemNotificationCode.NodeCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPreReset);
@@ -260,6 +260,18 @@ namespace TagManager
         }
         private void SelChanged(IntPtr obj, IntPtr infoHandle)
         {
+            fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
+        }
+        private void NodeCloned(IntPtr obj, IntPtr infoHandle)
+        {
+            List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection;
+            foreach (Autodesk.Max.IINode nod in selectedObjects)
+            {
+                string _name = nod.Name;
+                _name = _name.Remove(_name.Length - 4);
+                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, true, null);
+                entity.Nodes.Add(nod.Handle);
+            }
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
         }
         private void NodeCreated(IntPtr obj, IntPtr infoHandle)
