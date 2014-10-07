@@ -269,7 +269,7 @@ namespace TagManager
             {
                 string _name = nod.Name;
                 _name = _name.Remove(_name.Length - 4);
-                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, true, null);
+                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, false, null);
                 entity.Nodes.Add(nod.Handle);
             }
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
