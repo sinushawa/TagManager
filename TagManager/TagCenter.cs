@@ -483,7 +483,7 @@ namespace TagManager
 
         }
 
-        public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message)
+        public override RefResult NotifyRefChanged(IInterval changeInt, IReferenceTarget hTarget, ref UIntPtr partID, RefMessage message, bool propagate)
         {
             return RefResult.Succeed;
         }
