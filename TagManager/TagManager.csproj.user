@@ -4,6 +4,6 @@
     <StartWorkingDirectory>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014</StartWorkingDirectory>
     <StartAction>Program</StartAction>
     <StartProgram>..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2014\3dsmax.exe</StartProgram>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>

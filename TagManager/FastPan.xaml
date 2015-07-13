@@ -149,6 +149,16 @@
                         </TextBlock>
                     </MenuItem.ToolTip>
                 </MenuItem>
+                <MenuItem Header="Remove Objects" Click="onRemoveObjects" >
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                            Remove selected objects
+                            <LineBreak/>
+                            from the selected entities
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <Separator/>
             </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>

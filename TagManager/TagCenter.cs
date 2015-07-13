@@ -72,7 +72,10 @@ namespace TagManager
                                 if (_nodeMerged != null)
                                 {
                                     TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
-                                    TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                    if (entity.Name != "Project")
+                                    {
+                                        TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                    }
                                 }
                             }
                         }
@@ -148,6 +151,11 @@ namespace TagManager
                         TagGlobals.root = new TagNode("Root");
                         TagNode firstchild = new TagNode("Project");
                         TagGlobals.root.Children.Add(firstchild);
+                    }
+                        // created to remove objects getting tagged with projects because of merging longuest match returns project in case of null
+                    else
+                    {
+                        TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault().Nodes= new SortableObservableCollection<uint>();
                     }
                     TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
                     return base.Load(iload);
@@ -270,7 +278,11 @@ namespace TagManager
                 string _name = nod.Name;
                 _name = _name.Remove(_name.Length - 4);
                 TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, false, null);
-                entity.Nodes.Add(nod.Handle);
+                if(entity.Name != "Project")
+                {
+                    entity.Nodes.AddRange(new List<uint>() { nod.Handle }, true);
+                }
+                
             }
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
         }
@@ -284,11 +296,6 @@ namespace TagManager
         {
             INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
             IINode _node = notifyInfo.CallParam as IINode;
-            if (_node != null)
-            {
-                Debug.WriteLine(_node.Name);
-                Debug.WriteLine(_node.Handle);
-            }
         }
         private void FileReset(IntPtr obj, IntPtr infoHandle)
         {
