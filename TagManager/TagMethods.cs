@@ -35,6 +35,10 @@ namespace TagManager
             foreach (TagNode _entity in _entities)
             {
                 _entity.Nodes.RemoveRange(_objects);
+                if (TagGlobals.autoRename && _entity.IsNameable)
+                {
+                    RenameUsingStructure(_objects);
+                }
             }
         }
         public static void DeleteEntities(List<TagNode> _entities)
