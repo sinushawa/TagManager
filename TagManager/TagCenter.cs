@@ -58,23 +58,29 @@ namespace TagManager
                 }
                 public override void Proc(IILoad iload)
                 {
-                    for (int i = 0; i < iload.RootNode.NumChildren; i++)
+                    if (iload != null)
                     {
-                        IINode _node = iload.RootNode.GetChildNode(i);
-                        uint handle = _node.Handle;
-                        IAppDataChunk chunk = _node.GetAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
-                        if (chunk != null)
+                        for (int i = 0; i < iload.RootNode.NumChildren; i++)
                         {
-                            ObjectDataChunk odc = ObjectDataChunk.ByteArrayToObjectDataChunk(chunk.Data);
-                            foreach (string ID in odc.entitiesIDs)
+                            IINode _node = iload.RootNode.GetChildNode(i);
+                            uint handle = _node.Handle;
+                            IAppDataChunk chunk = _node.GetAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
+                            if (chunk != null)
                             {
-                                TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID.ToString() == ID);
-                                if (_nodeMerged != null)
+                                ObjectDataChunk odc = ObjectDataChunk.ByteArrayToObjectDataChunk(chunk.Data);
+                                foreach (string ID in odc.entitiesIDs)
                                 {
-                                    TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
-                                    if (entity.Name != "Project")
+                                    if (TagGlobals.mergedRoot != null)
                                     {
-                                        TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                        TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID.ToString() == ID);
+                                        if (_nodeMerged != null)
+                                        {
+                                            TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
+                                            if (entity.Name != "Project")
+                                            {
+                                                TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                            }
+                                        }
                                     }
                                 }
                             }

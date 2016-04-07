@@ -43,9 +43,15 @@ namespace TagManager
         }
         public static void DeleteEntities(List<TagNode> _entities)
         {
+            List<uint> _objects = new List<uint>();
             for (int i = 0; i < _entities.Count; i++)
             {
+                _objects.AddRange(_entities[i].Nodes);
                 _entities[i].Parent.Children.Remove(_entities[i]);
+            }
+            if (TagGlobals.autoRename)
+            {
+                RenameUsingStructure(_objects);
             }
         }
         public static void MergeEntities(TagNode _toMerge, TagNode _target)
