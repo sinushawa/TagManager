@@ -236,6 +236,7 @@ namespace TagManager
             this.Sync = sync;
             fastPan = new FastPan();
             TagGlobals.tagCenter = this;
+            TagGlobals.selectionChain = new Stack<List<TagNode>>();
             InitializeTree();
             TagGlobals.addToSelection = false;
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
@@ -274,7 +275,21 @@ namespace TagManager
         }
         private void SelChanged(IntPtr obj, IntPtr infoHandle)
         {
+            string stopper = "";
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
+            if(!TagGlobals.internalSelectionSwitch)
+            {
+                TagGlobals.selectionChain = new Stack<List<TagNode>>();
+            }
+            else if(TagGlobals.internalSelectionSwitch && TagGlobals.internalSelectionCounter==0)
+            {
+                TagGlobals.internalSelectionCounter = 1;
+            }
+            else if (TagGlobals.internalSelectionSwitch && TagGlobals.internalSelectionCounter == 1)
+            {
+                TagGlobals.internalSelectionSwitch = !TagGlobals.internalSelectionSwitch;
+                TagGlobals.internalSelectionCounter = 0;
+            }
         }
         private void NodeCloned(IntPtr obj, IntPtr infoHandle)
         {

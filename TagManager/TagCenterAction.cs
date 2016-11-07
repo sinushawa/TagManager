@@ -130,4 +130,88 @@ namespace TagManager
             }
         }
     }
+    public class ContainingEntityGrow : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "Containing Entity Grow";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagMethods.GrowEntity();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
+    public class ContainingEntityShrink : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "Containing Entity Shrink";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagMethods.ShrinkEntity();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
 }

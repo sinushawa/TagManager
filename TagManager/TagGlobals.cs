@@ -11,11 +11,14 @@ namespace TagManager
         public static TagCenter tagCenter;
         public static TagNode root;
         public static TagNode mergedRoot;
+        public static bool internalSelectionSwitch = false;
+        public static int internalSelectionCounter = 0;
         public static bool isMerging = false;
         public static string delimiter = "_";
         public static bool addToSelection = false;
         public static bool autoRename = true;
         public static bool childrenAutoSelect = false;
         public static List<string> baseNames = new List<string>() { "Root", "Project" };
+        public static Stack<List<TagNode>> selectionChain;
     }
 }

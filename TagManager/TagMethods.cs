@@ -21,6 +21,7 @@ namespace TagManager
         }
         public static void SelectEntities(List<TagNode> _entities)
         {
+            TagGlobals.internalSelectionSwitch = true;
             List<uint> objectsToSelect = _entities.SelectMany(x => x.Nodes).ToList();
             MaxPluginUtilities.SetSelection(objectsToSelect);
         }
@@ -48,11 +49,15 @@ namespace TagManager
             {
                 _objects.AddRange(_entities[i].Nodes);
                 _entities[i].Parent.Children.Remove(_entities[i]);
+                if (TagGlobals.autoRename)
+                {
+                    if (_entities[i].IsNameable)
+                    {
+                        RenameUsingStructure(_entities[i].Nodes.ToList());
+                    }
+                }
             }
-            if (TagGlobals.autoRename)
-            {
-                RenameUsingStructure(_objects);
-            }
+            
         }
         public static void MergeEntities(TagNode _toMerge, TagNode _target)
         {
@@ -62,6 +67,9 @@ namespace TagManager
         public static void RenameUsingStructure(List<uint> _objects)
         {
             SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects);
+
+            // !!!!!!! Retrieving The entities Of all the objects even if the particular object doesn't use the entity
+
             SortableObservableCollection<TagNode> nameableEntitiesContainingObjects = entitiesContainingObjects.Where(x => x.IsNameable == true).ToSortableObservableCollection();
             SortableObservableCollection<List<string>> branchesElementsNames = new SortableObservableCollection<List<string>>();
             foreach (TagNode _entity in nameableEntitiesContainingObjects)
@@ -95,11 +103,20 @@ namespace TagManager
         }
         public static void SelectEntityHoldingObject()
         {
-            SelectEntityHoldingObject(MaxPluginUtilities.Selection.ToListHandles());
+            if (TagGlobals.selectionChain.Count == 0)
+            {
+                SelectEntityHoldingObject(MaxPluginUtilities.Selection.ToListHandles());
+            }
+            else
+            {
+                GrowEntity();
+            }
         }
         public static void SelectEntityHoldingObject(List<uint> _nodeHandles)
         {
-            SelectEntities(GetEntitiesContainingObjects(_nodeHandles).ToList());
+            List<TagNode> _currentEntities = GetEntitiesContainingObjects(_nodeHandles).ToList();
+            TagGlobals.selectionChain.Push(_currentEntities);
+            SelectEntities(_currentEntities);
         }
         public static void SelectParentEntityHoldingObject()
         {
@@ -109,6 +126,31 @@ namespace TagManager
         {
             List<TagNode> _parentNodeList = GetEntitiesContainingObjects(_nodeHandles).ToList().SelectMany(x => x.Parent.GetNodeList()).ToList();
             SelectEntities(_parentNodeList);
+        }
+        public static void GrowEntity()
+        {
+            List<TagNode> _currentEntities = TagGlobals.selectionChain.First();
+            List<TagNode> _parents = new List<TagNode>();
+            foreach (TagNode _node in _currentEntities)
+            {
+                if (_node.Parent != null)
+                {
+                    _parents.Add(_node.Parent);
+                    _parents.AddRange(_node.Parent.GetNodeList());
+                }
+            }
+            _parents.AddRange(_currentEntities);
+            TagGlobals.selectionChain.Push(_parents.Distinct().ToList());
+
+            SelectEntities(TagGlobals.selectionChain.First());
+        }
+        public static void ShrinkEntity()
+        {
+            if (TagGlobals.selectionChain.Count>1)
+            {
+                List<TagNode> _toRemove = TagGlobals.selectionChain.Pop();
+            }
+            SelectEntities(TagGlobals.selectionChain.First());
         }
     }
 }

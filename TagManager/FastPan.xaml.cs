@@ -102,6 +102,10 @@ namespace TagManager
         {
             MenuItem ctrl = sender as MenuItem;
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
+            TagGlobals.selectionChain = new Stack<List<TagNode>>();
+            List<TagNode> selectionStuff = new List<TagNode>();
+            selectionStuff.Add(_currentEntity);
+            TagGlobals.selectionChain.Push(selectionStuff);
             if (_currentEntity.IsShortcut)
             {
                 MaxPluginUtilities.SetSelection(_currentEntity.Shortcut.getCorrespondingSel());

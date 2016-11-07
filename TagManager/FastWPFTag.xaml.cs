@@ -148,7 +148,12 @@ namespace TagManager
                 {
                     _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.None));
                 }
-                MaxPluginUtilities.SetSelection(_currentContainer.getCorrespondingSel());
+
+                List<uint> _nodeHandles = _currentContainer.getCorrespondingSel();
+
+                TagGlobals.selectionChain.Push(TagMethods.GetEntitiesContainingObjects(_nodeHandles).ToList());
+
+                MaxPluginUtilities.SetSelection(_nodeHandles);
                 autoCompleteBox.FontStyle = FontStyles.Normal;
                 this.winParent.Close();
             }
