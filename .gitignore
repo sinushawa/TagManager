@@ -212,3 +212,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+TagManager/TagManager.csproj
+TagManager/max_2016_dlls/TreeViewEx.dll
+*.dll

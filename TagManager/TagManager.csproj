@@ -63,7 +63,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Controls.Input.Toolkit">
       <HintPath>..\..\TagPan\TagPan\bin\Debug\System.Windows.Controls.Input.Toolkit.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -133,12 +133,12 @@
     <ProjectReference Include="..\..\AutoCompleteTextBox\dragonz.actb\dragonz.actb.csproj">
       <Project>{89bc47c7-f14d-46c5-8b9b-0db90ce2ac42}</Project>
       <Name>dragonz.actb</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\TreeViewEx\TreeViewEx.csproj">
       <Project>{2854814f-ea3c-41d4-aa94-460c4694f430}</Project>
       <Name>TreeViewEx</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
