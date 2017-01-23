@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>max_2016_dlls\</OutputPath>
+    <OutputPath>max_2017_dlls\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,36 +34,38 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autodesk.Max">
-      <HintPath>max_2016_dlls\Autodesk.Max.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Autodesk.Max.StateSets, Version=16.5.277.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Autodesk.Max, Version=18.0.873.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2016_dlls\Autodesk.Max.StateSets.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>max_2017_dlls\Autodesk.Max.dll</HintPath>
+    </Reference>
+    <Reference Include="Autodesk.Max.StateSets, Version=18.0.873.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\Autodesk.Max.StateSets.dll</HintPath>
     </Reference>
     <Reference Include="Autodesk.Max.Wrappers, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2016_dlls\Autodesk.Max.Wrappers.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>max_2017_dlls\Autodesk.Max.Wrappers.dll</HintPath>
     </Reference>
-    <Reference Include="ManagedServices">
-      <HintPath>max_2016_dlls\ManagedServices.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="dragonz.actb, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\dragonz.actb.dll</HintPath>
     </Reference>
-    <Reference Include="MaxCustomControls">
-      <HintPath>max_2016_dlls\MaxCustomControls.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="ManagedServices, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\ManagedServices.dll</HintPath>
+    </Reference>
+    <Reference Include="MaxCustomControls, Version=18.0.873.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\MaxCustomControls.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Controls.Input.Toolkit">
-      <HintPath>..\..\TagPan\TagPan\bin\Debug\System.Windows.Controls.Input.Toolkit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\System.Windows.Controls.Input.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -72,11 +74,19 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UiViewModels">
-      <HintPath>max_2016_dlls\UiViewModels.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="TreeViewEx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2e0e4fd5520af127, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\TreeViewEx.dll</HintPath>
+    </Reference>
+    <Reference Include="UiViewModels, Version=18.0.873.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\UiViewModels.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=f46432d619119730, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2017_dlls\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleContainerElement.cs" />
@@ -128,18 +138,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\AutoCompleteTextBox\dragonz.actb\dragonz.actb.csproj">
-      <Project>{89bc47c7-f14d-46c5-8b9b-0db90ce2ac42}</Project>
-      <Name>dragonz.actb</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TreeViewEx\TreeViewEx.csproj">
-      <Project>{2854814f-ea3c-41d4-aa94-460c4694f430}</Project>
-      <Name>TreeViewEx</Name>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

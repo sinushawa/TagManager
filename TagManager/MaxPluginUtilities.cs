@@ -111,7 +111,7 @@ namespace TagManager
             for (int i = 0; i < _nodes.Count; i++ )
             {
                 IntPtr pointer = (IntPtr)i;
-                listNodes.Add(_nodes[pointer]);
+                listNodes.Add(_nodes[i]);
             }
             return listNodes;
         }
@@ -224,7 +224,9 @@ namespace TagManager
             for (int i = 0; i < classes.Length; i++)
             {
                 //_node.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
-                _node.NotifyDependents_(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
+                // max 2016
+                //_node.NotifyDependents_(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
+                _node.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null, NotifyDependentsOption.AllowOptimizations);
             }
         }
     }

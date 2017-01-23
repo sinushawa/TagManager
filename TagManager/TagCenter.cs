@@ -269,13 +269,12 @@ namespace TagManager
         /// </summary>
         /// <param name="arg1"></param>
         /// <param name="arg2"></param>
-        private void MaxStartup(IntPtr obj, IntPtr infoHandle)
+        private void MaxStartup(IntPtr obj, INotifyInfo param)
         {
             GlobalInterface.Instance.UnRegisterNotification(new GlobalDelegates.Delegate5(this.MaxStartup), null);
         }
-        private void SelChanged(IntPtr obj, IntPtr infoHandle)
+        private void SelChanged(IntPtr obj, INotifyInfo param)
         {
-            string stopper = "";
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
             if(!TagGlobals.internalSelectionSwitch)
             {
@@ -291,7 +290,7 @@ namespace TagManager
                 TagGlobals.internalSelectionCounter = 0;
             }
         }
-        private void NodeCloned(IntPtr obj, IntPtr infoHandle)
+        private void NodeCloned(IntPtr obj, INotifyInfo param)
         {
             List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection;
             foreach (Autodesk.Max.IINode nod in selectedObjects)
@@ -307,22 +306,20 @@ namespace TagManager
             }
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
         }
-        private void NodeCreated(IntPtr obj, IntPtr infoHandle)
+        private void NodeCreated(IntPtr obj, INotifyInfo param)
         {
             fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
-            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
-            IINode _node = notifyInfo.CallParam as IINode;
+            IINode _node = param.CallParam as IINode;
         }
-        private void SceneAddedNode(IntPtr obj, IntPtr infoHandle)
+        private void SceneAddedNode(IntPtr obj, INotifyInfo param)
         {
-            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
-            IINode _node = notifyInfo.CallParam as IINode;
+            IINode _node = param.CallParam as IINode;
         }
-        private void FileReset(IntPtr obj, IntPtr infoHandle)
+        private void FileReset(IntPtr obj, INotifyInfo param)
         {
             InitializeTree();
         }
-        private void FileSaving(IntPtr obj, IntPtr infoHandle)
+        private void FileSaving(IntPtr obj, INotifyInfo param)
         {
             var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
             foreach (KeyValuePair<uint,List<Guid>> _nodeHandle in _nodes)
@@ -335,7 +332,7 @@ namespace TagManager
                 }
             }
         }
-        private void FileSaved(IntPtr obj, IntPtr infoHandle)
+        private void FileSaved(IntPtr obj, INotifyInfo param)
         {
             var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
             foreach (KeyValuePair<uint, List<Guid>> _nodeHandle in _nodes)
@@ -347,7 +344,7 @@ namespace TagManager
                 }
             }
         }
-        private void FileMerging(IntPtr obj, IntPtr infoHandle)
+        private void FileMerging(IntPtr obj, INotifyInfo param)
         {
             var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
             foreach (KeyValuePair<uint, List<Guid>> _nodeHandle in _nodes)
@@ -361,14 +358,13 @@ namespace TagManager
             TagGlobals.isMerging = true;
              
         }
-        private void FileMerged(IntPtr obj, IntPtr infoHandle)
+        private void FileMerged(IntPtr obj, INotifyInfo param)
         {
             TagGlobals.isMerging = false;
         }
-        private void NodeDeleted(IntPtr obj, IntPtr infoHandle)
+        private void NodeDeleted(IntPtr obj, INotifyInfo param)
         {
-            INotifyInfo notifyInfo = GlobalInterface.Instance.NotifyInfo.Marshal(infoHandle);
-            IINode _node = notifyInfo.CallParam as IINode;
+            IINode _node = param.CallParam as IINode;
             TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
         }
         public void CreateTagManagerWin()

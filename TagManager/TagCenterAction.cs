@@ -214,4 +214,46 @@ namespace TagManager
             }
         }
     }
+    public class RemoveObjectsFromEntities : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "Remove objects from entities";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagMethods.RemoveObjectsFromEntities();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
 }

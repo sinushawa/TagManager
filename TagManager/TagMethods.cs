@@ -152,5 +152,10 @@ namespace TagManager
             }
             SelectEntities(TagGlobals.selectionChain.First());
         }
+        public static void RemoveObjectsFromEntities()
+        {
+            List<TagNode> _currentEntities = GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();
+            RemoveObjects(_currentEntities, MaxPluginUtilities.Selection.ToListHandles());
+        }
     }
 }
