@@ -11,6 +11,7 @@ namespace TagManager
         public static TagCenter tagCenter;
         public static TagNode root;
         public static TagNode mergedRoot;
+        public static bool autoCloneTag = true;
         public static bool internalSelectionSwitch = false;
         public static int internalSelectionCounter = 0;
         public static bool isMerging = false;

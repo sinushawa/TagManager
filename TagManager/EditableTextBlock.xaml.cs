@@ -83,7 +83,7 @@ namespace TagManager
             get { return String.Format(TextFormat, Text); }
         }
 
-        public new static readonly DependencyProperty IsShortcutProperty = DependencyProperty.Register("IsShortcut", typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(false));
+        public static readonly DependencyProperty   IsShortcutProperty = DependencyProperty.Register("IsShortcut", typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(false));
 
         public bool IsShortcut
         {

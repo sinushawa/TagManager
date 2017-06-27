@@ -292,28 +292,37 @@ namespace TagManager
         }
         private void NodeCloned(IntPtr obj, INotifyInfo param)
         {
-            List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection;
-            foreach (Autodesk.Max.IINode nod in selectedObjects)
+            if (TagGlobals.autoCloneTag)
             {
-                string _name = nod.Name;
-                _name = _name.Remove(_name.Length - 4);
-                TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, false, null);
-                if(entity.Name != "Project")
+                List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection;
+                foreach (Autodesk.Max.IINode nod in selectedObjects)
                 {
-                    entity.Nodes.AddRange(new List<uint>() { nod.Handle }, true);
+                    string _name = nod.Name;
+                    _name = _name.Remove(_name.Length - 4);
+                    TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, false, null);
+                    if (entity.Name != "Project")
+                    {
+                        entity.Nodes.AddRange(new List<uint>() { nod.Handle }, true);
+                    }
+
                 }
-                
+                fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
             }
-            fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
         }
         private void NodeCreated(IntPtr obj, INotifyInfo param)
         {
-            fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
-            IINode _node = param.CallParam as IINode;
+            if (TagGlobals.autoCloneTag)
+            {
+                fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
+                IINode _node = param.CallParam as IINode;
+            }
         }
         private void SceneAddedNode(IntPtr obj, INotifyInfo param)
         {
-            IINode _node = param.CallParam as IINode;
+            if (TagGlobals.autoCloneTag)
+            {
+                IINode _node = param.CallParam as IINode;
+            }
         }
         private void FileReset(IntPtr obj, INotifyInfo param)
         {
