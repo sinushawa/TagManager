@@ -157,5 +157,46 @@ namespace TagManager
             List<TagNode> _currentEntities = GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();
             RemoveObjects(_currentEntities, MaxPluginUtilities.Selection.ToListHandles());
         }
+        public static void CreateSelectionSetFromEntities(TagNode _node, bool _children)
+        {
+            List<TagNode> nodes = new List<TagNode>();
+            if (_children == true)
+            {
+                nodes.AddRange(_node.GetNodeList());
+            }
+            else
+            {
+                nodes.Add(_node);
+            }
+            CreateSelectionSetFromEntities(nodes);
+        }
+
+        public static void CreateSelectionSetFromEntities(List<TagNode> _nodes)
+        {
+            Autodesk.Max.IINamedSelectionSetManager selSetManager = MaxPluginUtilities.Global.INamedSelectionSetManager.Instance;
+            int nbSelSet = selSetManager.NumNamedSelSets;
+            SortedList<int, string> selSets = new SortedList<int, string>();
+            for (int i = 0; i < nbSelSet; i++)
+            {
+                //int sel_ObjectsCount = selSetManager.GetNamedSelSetItemCount(i);
+                string selSetName = selSetManager.GetNamedSelSetName(i);
+                selSets.Add(i, selSetName);
+            }
+            
+            foreach (TagNode _node in _nodes)
+            {
+                string _nodeName = _node.LongName;
+                if(selSets.ContainsValue(_nodeName))
+                {
+                    ITab<IINode> tabNode = TagHelperMethods.GetBranchObjects(_node).GetNodesByHandles().ToITab();
+                    selSetManager.ReplaceNamedSelSet(tabNode, ref _nodeName);
+                }
+                else
+                {
+                    ITab<IINode> tabNode = TagHelperMethods.GetBranchObjects(_node).GetNodesByHandles().ToITab();
+                    selSetManager.AddNewNamedSelSet(tabNode, ref _nodeName);
+                }
+            }
+        }
     }
 }

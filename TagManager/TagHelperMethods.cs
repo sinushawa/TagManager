@@ -37,6 +37,12 @@ namespace TagManager
             }
             return i;
         }
+        public static List<uint> GetBranchObjects(TagNode _entity)
+        {
+            List<TagNode> _entities = _entity.GetNodeList();
+            List <uint> sel = _entities.SelectMany(x => x.Nodes).ToList<uint>();
+            return sel;
+        }
         public static List<TagNode> FindLeavesEntities(TagNode _root)
         {
             List<TagNode> allEntities = _root.GetNodeList();

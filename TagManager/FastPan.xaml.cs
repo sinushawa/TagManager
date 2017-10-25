@@ -182,7 +182,6 @@ namespace TagManager
         }
         private void onCreateEntityFromSelSet(object sender, RoutedEventArgs e)
         {
-
             Autodesk.Max.IINamedSelectionSetManager selSetManager = MaxPluginUtilities.Global.INamedSelectionSetManager.Instance;
             int nbSelSet = selSetManager.NumNamedSelSets;
             for (int i = 0; i < nbSelSet; i++)
@@ -197,6 +196,11 @@ namespace TagManager
                 TagNode entity = TagHelperMethods.GetLonguestMatchingTag(selSetName, true, null);
                 entity.Nodes.AddRange(_nodes.Select(x => x.Handle));
             }
+        }
+        private void onCreateSelSetFromEntity(object sender, RoutedEventArgs e)
+        {
+            List<TagNode> _nodes = TV.SelectedItems.Cast<TreeViewExItem>().Select(x => x.DataContext).Cast<TagNode>().ToList();
+            TagMethods.CreateSelectionSetFromEntities(_nodes);
         }
         private void onRenameFromEntity(object sender, RoutedEventArgs e)
         {

@@ -55,8 +55,7 @@ namespace TagManager
             if (modifier == ConsoleElementModifier.Children)
             {
                 TagNode _entity = TagHelperMethods.RetrieveEntityFromTag(name);
-                List<TagNode> _entities = _entity.GetNodeList();
-                sel = _entities.SelectMany(x => x.Nodes).ToList<uint>();
+                sel = TagHelperMethods.GetBranchObjects(_entity);
             }
             return sel;
         }

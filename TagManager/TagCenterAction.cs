@@ -298,4 +298,46 @@ namespace TagManager
             }
         }
     }
+    public class CreateSelectionSet : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "To Selection Set";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagMethods.CreateSelectionSetFromEntities(TagGlobals.root, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
 }

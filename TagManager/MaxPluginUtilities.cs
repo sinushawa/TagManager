@@ -92,6 +92,13 @@ namespace TagManager
             }
             return nodeTab;
         }
+        public static ITab<IINode> ToITab(this List<IINode> _nodes)
+        {
+            
+            ITab<IINode> _Itab = _nodes.ToNodeTab() as ITab<IINode>;
+
+            return _Itab;
+        }
         public static IINode GetNodeByHandle(uint _handle)
         {
             return Interface.GetINodeByHandle(_handle);
