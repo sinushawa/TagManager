@@ -253,6 +253,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.PostMergeProcess);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(ViewportChanged)), null, SystemNotificationCode.ViewportChange);
         }
         public void InitializeTree()
         {
@@ -376,6 +377,15 @@ namespace TagManager
             IINode _node = param.CallParam as IINode;
             TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
         }
+        private void ViewportChanged(IntPtr obj, INotifyInfo param)
+        {
+            if(TagGlobals.displayEntities)
+            {
+                TagMethods.DisplayEntities();
+            }
+            
+        }
+
         public void CreateTagManagerWin()
         {
             // Create a new managed window to contain the WPF control

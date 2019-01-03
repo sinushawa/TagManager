@@ -340,4 +340,47 @@ namespace TagManager
             }
         }
     }
+    public class DisplayEntities : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "Display Entities";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagGlobals.displayEntities = !TagGlobals.displayEntities;
+                TagMethods.DisplayEntities();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
 }

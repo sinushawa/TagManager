@@ -25,6 +25,12 @@ namespace TagManager
             List<uint> objectsToSelect = _entities.SelectMany(x => x.Nodes).ToList();
             MaxPluginUtilities.SetSelection(objectsToSelect);
         }
+        public static SortableObservableCollection<TagNode> GetEntitiesContainingObjects(uint _objectHandle)
+        {
+            List<uint> objs = new List<uint>();
+            objs.Add(_objectHandle);
+            return GetEntitiesContainingObjects(objs);
+        }
         public static SortableObservableCollection<TagNode> GetEntitiesContainingObjects(List<uint> _objects)
         {
             SortableObservableCollection<TagNode> nodes = new SortableObservableCollection<TagNode>();
@@ -129,20 +135,23 @@ namespace TagManager
         }
         public static void GrowEntity()
         {
-            List<TagNode> _currentEntities = TagGlobals.selectionChain.First();
-            List<TagNode> _parents = new List<TagNode>();
-            foreach (TagNode _node in _currentEntities)
+            if (TagGlobals.selectionChain.Count > 0)
             {
-                if (_node.Parent != null)
+                List<TagNode> _currentEntities = TagGlobals.selectionChain.First();
+                List<TagNode> _parents = new List<TagNode>();
+                foreach (TagNode _node in _currentEntities)
                 {
-                    _parents.Add(_node.Parent);
-                    _parents.AddRange(_node.Parent.GetNodeList());
+                    if (_node.Parent != null)
+                    {
+                        _parents.Add(_node.Parent);
+                        _parents.AddRange(_node.Parent.GetNodeList());
+                    }
                 }
-            }
-            _parents.AddRange(_currentEntities);
-            TagGlobals.selectionChain.Push(_parents.Distinct().ToList());
+                _parents.AddRange(_currentEntities);
+                TagGlobals.selectionChain.Push(_parents.Distinct().ToList());
 
-            SelectEntities(TagGlobals.selectionChain.First());
+                SelectEntities(TagGlobals.selectionChain.First());
+            }
         }
         public static void ShrinkEntity()
         {
@@ -196,6 +205,41 @@ namespace TagManager
                     ITab<IINode> tabNode = TagHelperMethods.GetBranchObjects(_node).GetNodesByHandles().ToITab();
                     selSetManager.AddNewNamedSelSet(tabNode, ref _nodeName);
                 }
+            }
+        }
+
+        public static void DisplayEntities()
+        {
+            try
+            {
+                IViewExp view = MaxPluginUtilities.Interface.GetViewExp(0);
+                IGraphicsWindow graphWindow = view.Gw;
+                var res1 = view.IsActive;
+                var res2 = view.IsAlive;
+                var res3 = view.IsEnabled;
+                var res4 = view.ViewType;
+                foreach (IINode _node in MaxPluginUtilities.Selection)
+                {
+                    if(!_node.IsObjectHidden)
+                    {
+                        List<string> _objectEntitiesName = GetEntitiesContainingObjects(_node.Handle).Select(x=> x.Name).ToList();
+                        IInterval interval = MaxPluginUtilities.Global.Interval.Create();
+                        interval.SetInfinite();
+                        IPoint3 pos = _node.GetNodeTM(0, interval).Trans;
+                        IBox3 wbb = _node.ObjectRef.GetWorldBoundBox(0, _node, view);
+                        IPoint3 wcenter = wbb.Max.Subtract(wbb.Min).DivideBy(2).Add(wbb.Min);
+                        graphWindow.Text(wcenter, "HERE");
+                        graphWindow.Transform = MaxPluginUtilities.Global.Matrix3.Identity;
+                        graphWindow.Text(wcenter, "HERE");
+                        
+                    }
+                }
+                graphWindow.ResetUpdateRect();
+                graphWindow.UpdateScreen();
+            }
+            catch
+            {
+
             }
         }
     }

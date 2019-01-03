@@ -21,5 +21,6 @@ namespace TagManager
         public static bool childrenAutoSelect = false;
         public static List<string> baseNames = new List<string>() { "Root", "Project" };
         public static Stack<List<TagNode>> selectionChain;
+        public static bool displayEntities = false;
     }
 }
