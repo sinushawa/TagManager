@@ -14,7 +14,8 @@ namespace TagManager
         None,
         Selection,
         Containing,
-        Children
+        Children,
+        Not
     }
 
     [Serializable]
@@ -56,6 +57,11 @@ namespace TagManager
             {
                 TagNode _entity = TagHelperMethods.RetrieveEntityFromTag(name);
                 sel = TagHelperMethods.GetBranchObjects(_entity);
+            }
+            if (modifier == ConsoleElementModifier.Not)
+            {
+
+                sel = (TagHelperMethods.GetBranchObjects(TagGlobals.root).Except(TagHelperMethods.RetrieveEntityFromTag(name).Nodes.ToList())).ToList();
             }
             return sel;
         }

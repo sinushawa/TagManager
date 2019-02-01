@@ -379,11 +379,12 @@ namespace TagManager
         }
         private void ViewportChanged(IntPtr obj, INotifyInfo param)
         {
+            /*
             if(TagGlobals.displayEntities)
             {
                 TagMethods.DisplayEntities();
             }
-            
+            */
         }
 
         public void CreateTagManagerWin()

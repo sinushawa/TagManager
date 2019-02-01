@@ -207,7 +207,7 @@ namespace TagManager
                 }
             }
         }
-
+        /*
         public static void DisplayEntities()
         {
             try
@@ -242,5 +242,6 @@ namespace TagManager
 
             }
         }
+        */
     }
 }

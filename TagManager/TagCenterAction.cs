@@ -340,6 +340,7 @@ namespace TagManager
             }
         }
     }
+    /*
     public class DisplayEntities : CuiActionCommandAdapter
     {
         public override string ActionText
@@ -383,4 +384,5 @@ namespace TagManager
             }
         }
     }
+    */
 }

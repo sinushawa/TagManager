@@ -17,7 +17,9 @@ namespace TagManager
         [Description("-")]
         substraction,
         [Description("*")]
-        intersection
+        intersection,
+        [Description("/")]
+        except
     }
 
     [Serializable]
@@ -73,6 +75,18 @@ namespace TagManager
         {
             List<uint> result = new List<uint>();
             result.AddRange(c1.Intersect(c2.getCorrespondingSel()));
+            return result;
+        }
+        public static List<uint> operator /(ConsoleElement c1, ConsoleElement c2)
+        {
+            List<uint> result = new List<uint>();
+            result.AddRange(c1.getCorrespondingSel().Except(c2.getCorrespondingSel()));
+            return result;
+        }
+        public static List<uint> operator /(List<uint> c1, ConsoleElement c2)
+        {
+            List<uint> result = new List<uint>();
+            result.AddRange(c1.Except(c2.getCorrespondingSel()));
             return result;
         }
 

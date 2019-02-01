@@ -198,6 +198,28 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+            if (e.Key == Key.D2 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+            {
+                FastPop.IsOpen = true;
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
+                if (entity != null)
+                {
+                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Children));
+                }
+                autoCompleteBox.Text = "";
+                e.Handled = true;
+            }
+            if (e.Key == Key.D1 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+            {
+                FastPop.IsOpen = true;
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
+                if (entity != null)
+                {
+                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Children));
+                }
+                autoCompleteBox.Text = "";
+                e.Handled = true;
+            }
             if (e.Key == Key.OemPlus)
             {
                 FastPop.IsOpen = true;

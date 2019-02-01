@@ -32,7 +32,7 @@ namespace TagManager
             {
                 
                 // treat intersections first
-                while (ops.Contains(concat.intersection) && (ops.Contains(concat.addition) || ops.Contains(concat.substraction)))
+                while (ops.Contains(concat.intersection) && (ops.Contains(concat.addition) || ops.Contains(concat.substraction) || ops.Contains(concat.except)))
                 {
                     int _index = ops.FindIndex(y => y == concat.intersection);
                     ConsoleElement c1 = content[_index];
