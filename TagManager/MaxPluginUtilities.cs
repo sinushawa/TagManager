@@ -54,7 +54,7 @@ namespace TagManager
             try
             {
                 _nodes = _nodes.Distinct().ToList();
-                IINodeTab selectedNodes = Global.NodeTab.Create();
+                IINodeTab selectedNodes = Global.INodeTab.Create();
                 selectedNodes.Resize(_nodes.Count);
                 foreach (IINode _node in _nodes)
                 {
@@ -84,7 +84,7 @@ namespace TagManager
         }
         public static IINodeTab ToNodeTab(this List<IINode> _nodes)
         {
-            IINodeTab nodeTab = Global.NodeTab.Create();
+            IINodeTab nodeTab = Global.INodeTab.Create();
             foreach (IINode _node in _nodes)
             {
                 nodeTab.AppendNode(_node, false, 1);
