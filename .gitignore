@@ -215,3 +215,4 @@ pip-log.txt
 TagManager/TagManager.csproj
 TagManager/max_2016_dlls/TreeViewEx.dll
 *.dll
+*.ide
