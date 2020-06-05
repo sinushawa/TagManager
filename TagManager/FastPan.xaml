@@ -108,6 +108,15 @@
                         </TextBlock>
                     </MenuItem.ToolTip>
                 </MenuItem>
+                <MenuItem Header="Push to layer" Click="onConvertEntityToLayer">
+                    <MenuItem.ToolTip>
+                        <TextBlock>
+                                Create a new selection sets,
+                                <LineBreak/>
+                                from entities
+                        </TextBlock>
+                    </MenuItem.ToolTip>
+                </MenuItem>
                 <MenuItem Header="Rename from Entity" Click="onRenameFromEntity" >
                     <MenuItem.ToolTip>
                         <TextBlock>

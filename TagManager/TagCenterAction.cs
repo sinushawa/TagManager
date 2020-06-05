@@ -340,6 +340,48 @@ namespace TagManager
             }
         }
     }
+    public class ApplyEntityFromLayer : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "Entity from layer";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagMethods.ApplyEntityFromLayer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
     /*
     public class DisplayEntities : CuiActionCommandAdapter
     {

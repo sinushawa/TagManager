@@ -22,5 +22,7 @@ namespace TagManager
         public static List<string> baseNames = new List<string>() { "Root", "Project" };
         public static Stack<List<TagNode>> selectionChain;
         public static bool displayEntities = false;
+        public static bool autoLayer = true;
+        public static int autoLayerDepth = 0;
     }
 }

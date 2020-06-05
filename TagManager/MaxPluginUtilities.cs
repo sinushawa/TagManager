@@ -24,6 +24,14 @@ namespace TagManager
                 return GlobalInterface.Instance;
             }
         }
+        public static IILayerManager LayerManager
+        {
+            get
+            {
+                return MaxPluginUtilities.Interface.LayerManager;
+            }
+        }
+
         public static List<IINode> Selection
         {
             get
@@ -235,6 +243,64 @@ namespace TagManager
                 //_node.NotifyDependents_(interval, partID, RefMessage.NodeNamechange, classes[i], true, null);
                 _node.NotifyDependents(interval, partID, RefMessage.NodeNamechange, classes[i], true, null, NotifyDependentsOption.AllowOptimizations);
             }
+        }
+        public static IILayer GetObjectLayer(IINode _node)
+        {
+            return (IILayer)_node.GetReference(6);
+        }
+        public static void SetObjectLayer(IINode _node, string LayerName)
+        {
+            IILayer _layer = LayerManager.GetLayer(LayerName);
+            _layer.AddToLayer(_node);
+        }
+        public static void SetObjectsLayer(List<IINode> _nodes, string LayerName)
+        {
+            IILayer _layer = LayerManager.GetLayer(LayerName);
+            foreach(IINode _node in _nodes)
+            {
+                _layer.AddToLayer(_node);
+            }
+        }
+
+        public static bool IsLayerExisting(string _layerName)
+        {
+            IILayer _layer = LayerManager.GetLayer(_layerName);
+            return (_layer != null);
+        }
+        public static IILayer CreateLayer(IILayer _parent, string _layerName)
+        {
+            IILayer _newLayer = LayerManager.CreateLayer(_layerName);
+            _newLayer.SetParentLayer(_parent);
+            return _newLayer;
+        }
+        public static IILayer CreateLayer(string _layerName)
+        {
+            IILayer _newLayer = LayerManager.CreateLayer(_layerName);
+            return _newLayer;
+        }
+        public static IILayer CreateLayerBranch(TagNode _leaf)
+        {
+            IILayer _selectedLayer=LayerManager.RootLayer;
+            for (int i=0; i< _leaf.GetNodeBranch(false).Count; i++)
+            {
+                TagNode _entity = _leaf.GetNodeBranch(false)[i];
+                if (!IsLayerExisting(_entity.LongName))
+                {
+                    if (i != 0)
+                    {
+                        _selectedLayer = CreateLayer(_selectedLayer, _entity.LongName);
+                    }
+                    else
+                    {
+                        _selectedLayer = CreateLayer(_entity.LongName);
+                    }
+                }
+                else
+                {
+                    _selectedLayer = LayerManager.GetLayer(_entity.LongName);
+                }
+            }
+            return _selectedLayer;
         }
     }
 }

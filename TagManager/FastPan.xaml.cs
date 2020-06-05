@@ -197,6 +197,11 @@ namespace TagManager
                 entity.Nodes.AddRange(_nodes.Select(x => x.Handle));
             }
         }
+        private void onConvertEntityToLayer(object sender, RoutedEventArgs e)
+        {
+            TagNode _node = TV.SelectedItems.Cast<TreeViewExItem>().Select(x => x.DataContext).Cast<TagNode>().ToList().First();
+            TagMethods.LayOutEntity(_node);
+        }
         private void onCreateSelSetFromEntity(object sender, RoutedEventArgs e)
         {
             List<TagNode> _nodes = TV.SelectedItems.Cast<TreeViewExItem>().Select(x => x.DataContext).Cast<TagNode>().ToList();

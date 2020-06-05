@@ -187,6 +187,10 @@ namespace TagManager
         }
         public List<T> GetNodeBranch()
         {
+            return GetNodeBranch(true);
+        }
+        public List<T> GetNodeBranch(bool _rootIncluded)
+        {
             T _entity = (T)this;
             List<T> _hierarchy = new List<T>();
             _hierarchy.Add((T)this);
@@ -195,6 +199,10 @@ namespace TagManager
                 T _parentJoint = _entity.Parent;
                 _hierarchy.Add(_parentJoint);
                 _entity = _entity.Parent;
+            }
+            if (!_rootIncluded)
+            {
+                _hierarchy = _hierarchy.Where(x => x.LongName != "").ToList();
             }
             _hierarchy.Reverse();
             return _hierarchy;

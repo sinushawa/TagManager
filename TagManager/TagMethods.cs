@@ -7,8 +7,75 @@ using Autodesk.Max;
 
 namespace TagManager
 {
+
     public static class TagMethods
     {
+        public static void ApplyEntityFromLayer()
+        {
+            List<IINode> _nodes = MaxPluginUtilities.Selection;
+            foreach(IINode _node in _nodes)
+            {
+                IILayer _layer = MaxPluginUtilities.GetObjectLayer(_node);
+                string _longName = _layer.Name;
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(_longName);
+                if (entity == null)
+                {
+                    entity = TagHelperMethods.GetLonguestMatchingTag(_longName, true, null);
+                }
+                if (!entity.IsShortcut)
+                {
+                    TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint> { _node.Handle });
+                    if (TagGlobals.autoRename && entity.IsNameable)
+                    {
+                        TagMethods.RenameUsingStructure();
+                    }
+                }
+            }
+        }
+
+        public static void LayOutEntity(TagNode _entity)
+        {
+            IILayer _layer;
+            if(TagGlobals.autoLayer)
+            {
+                _layer = MaxPluginUtilities.CreateLayerBranch(_entity);
+            }
+            else
+            {
+                _layer = MaxPluginUtilities.LayerManager.GetLayer(_entity.LongName);
+            }
+            if (_layer != null)
+            {
+                List<IINode> _nodes = _entity.Nodes.GetNodesByHandles();
+
+                foreach (IINode _node in _nodes)
+                {
+                    _layer.AddToLayer(_node);
+                }
+            }
+        }
+        public static void LayOutObjects(TagNode _entity, List<uint> _objects)
+        {
+            IILayer _layer;
+            if (TagGlobals.autoLayer)
+            {
+                _layer = MaxPluginUtilities.CreateLayerBranch(_entity);
+            }
+            else
+            {
+                _layer = MaxPluginUtilities.LayerManager.GetLayer(_entity.LongName);
+            }
+            if (_layer != null)
+            {
+                List<IINode> _nodes = _objects.GetNodesByHandles();
+
+                foreach (IINode _node in _nodes)
+                {
+                    _layer.AddToLayer(_node);
+                }
+            }
+        }
+
         public static void ApplyEntities(List<TagNode> _entities, List<uint> _objects)
         {
             
@@ -16,6 +83,10 @@ namespace TagManager
             {
                 // Check to make sure there is no double.
                 _entity.Nodes.AddRange(_objects, true);
+                if(TagGlobals.autoLayer)
+                {
+                    LayOutObjects(_entity, _objects);
+                }
             }
             
         }
@@ -207,6 +278,7 @@ namespace TagManager
                 }
             }
         }
+
         /*
         public static void DisplayEntities()
         {
