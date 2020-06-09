@@ -173,6 +173,7 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+            // %
             if (e.Key == Key.D5 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
@@ -180,6 +181,7 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+            // $
             if (e.Key == Key.D4 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
@@ -187,6 +189,7 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+            // #
             if (e.Key == Key.D3 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
@@ -198,24 +201,26 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+            // @
             if (e.Key == Key.D2 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
                 if (entity != null)
                 {
-                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Children));
+                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Visible));
                 }
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+            // !
             if (e.Key == Key.D1 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
                 if (entity != null)
                 {
-                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Children));
+                    _currentContainer.content.Add(new ConsoleStringSelElement(autoCompleteBox.Text, ConsoleElementModifier.Not));
                 }
                 autoCompleteBox.Text = "";
                 e.Handled = true;

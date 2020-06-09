@@ -36,7 +36,7 @@ namespace TagManager
 
         // We keep the old text when we go into editmode
         // in case the user aborts with the escape key
-        private string oldText;
+        public string oldText;
 
         #endregion Member Variables
 
@@ -119,8 +119,17 @@ namespace TagManager
         {
             if (e.Key == Key.Enter)
             {
-                this.IsInEditMode = false;
-                e.Handled = true;
+                if (Text != "")
+                {
+                    this.IsInEditMode = false;
+                    e.Handled = true;
+                }
+                else
+                {
+                    this.IsInEditMode = false;
+                    Text = oldText;
+                    e.Handled = true;
+                }
             }
             else if (e.Key == Key.Escape)
             {

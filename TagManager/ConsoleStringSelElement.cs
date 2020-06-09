@@ -15,7 +15,8 @@ namespace TagManager
         Selection,
         Containing,
         Children,
-        Not
+        Not,
+        Visible
     }
 
     [Serializable]
@@ -62,6 +63,12 @@ namespace TagManager
             {
 
                 sel = (TagHelperMethods.GetBranchObjects(TagGlobals.root).Except(TagHelperMethods.RetrieveEntityFromTag(name).Nodes.ToList())).ToList();
+            }
+            if (modifier == ConsoleElementModifier.Visible)
+            {
+                TagNode _entity = TagHelperMethods.RetrieveEntityFromTag(name);
+                List<uint> _objects = _entity.Nodes.ToList();
+                sel = MaxPluginUtilities.GetVisibleNodes(_objects);
             }
             return sel;
         }

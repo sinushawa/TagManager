@@ -212,10 +212,13 @@ namespace TagManager
                 List<TagNode> _parents = new List<TagNode>();
                 foreach (TagNode _node in _currentEntities)
                 {
-                    if (_node.Parent != null)
+                    if (!_node.IsNameable)
                     {
-                        _parents.Add(_node.Parent);
-                        _parents.AddRange(_node.Parent.GetNodeList());
+                        if (_node.Parent != null && _node.Parent.IsNameable)
+                        {
+                            _parents.Add(_node.Parent);
+                            _parents.AddRange(_node.Parent.GetNodeList());
+                        }
                     }
                 }
                 _parents.AddRange(_currentEntities);

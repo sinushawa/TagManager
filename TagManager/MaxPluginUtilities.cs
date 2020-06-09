@@ -229,6 +229,11 @@ namespace TagManager
             _node.Name = finalName;
             _node.NotifyNameChanged();
         }
+        public static void RenameNode(this uint _nodeHandle, string _newName)
+        {
+            IINode _node = GetNodeByHandle(_nodeHandle);
+            RenameNode(_node, _newName);
+        }
         public static void NotifyNameChanged(this IINode _node)
         {
             // this part is only to refresh the node's name in the UI
@@ -301,6 +306,50 @@ namespace TagManager
                 }
             }
             return _selectedLayer;
+        }
+        public static List<IINode> GetAllSceneNodes()
+        {
+            IINode _root = Interface.RootNode;
+            int _nodesNb = _root.NumberOfChildren;
+            List<IINode> _allNodes = new List<IINode>();
+            for(int i=0; i<_nodesNb; i++)
+            {
+                _allNodes.Add(_root.GetChildNode(i));
+            }
+            return _allNodes;
+        }
+        public static List<IINode> GetVisibleNodes(List<IINode> _nodes)
+        {
+            List<IINode> _visibleNodes = new List<IINode>();
+            foreach(IINode _node in _nodes)
+            {
+                IILayer _layer = GetObjectLayer(_node);
+                bool _layerHidden = _layer.IsHidden(true);
+                if (!_node.IsObjectHidden && !_layerHidden)
+                {
+                    _visibleNodes.Add(_node);
+                }
+            }
+            return _visibleNodes;
+        }
+        public static List<uint> GetVisibleNodes(List<uint> _nodeHandles)
+        {
+            List<IINode> _nodes = _nodeHandles.GetNodesByHandles();
+            List<IINode> _visibleNodes = new List<IINode>();
+            foreach (IINode _node in _nodes)
+            {
+                IILayer _layer = GetObjectLayer(_node);
+                bool _layerHidden = _layer.IsHidden(true);
+                if (!_node.IsObjectHidden && !_layerHidden)
+                {
+                    _visibleNodes.Add(_node);
+                }
+            }
+            return _visibleNodes.ToListHandles();
+        }
+        public static List<IINode> GetVsibileNodesInScene()
+        {
+            return GetVisibleNodes(GetAllSceneNodes());
         }
     }
 }

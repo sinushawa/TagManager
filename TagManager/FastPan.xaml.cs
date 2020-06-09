@@ -164,6 +164,7 @@ namespace TagManager
              */
             EditableTextBlock textblock = ((TreeViewExItem)TV.SelectedItems[0]).FindChild<EditableTextBlock>();
             Keyboard.Focus(textblock);
+            textblock.oldText = textblock.Text;
             textblock.IsInEditMode = true;
         }
         private void onCreateEntityFromName(object sender, RoutedEventArgs e)
@@ -209,7 +210,16 @@ namespace TagManager
         }
         private void onRenameFromEntity(object sender, RoutedEventArgs e)
         {
-            
+            MenuItem ctrl = sender as MenuItem;
+            TagNode _currentEntity = (TagNode)ctrl.DataContext;
+            List<uint> _nodesToRename = MaxPluginUtilities.Selection.ToListHandles().Intersect(_currentEntity.Nodes.ToList()).ToList();
+            TagMethods.RenameUsingStructure(_nodesToRename);
+            /*
+            foreach (uint _nodeHandle in _currentEntity.Nodes)
+            {
+                MaxPluginUtilities.RenameNode(_nodeHandle, _currentEntity.LongName);
+            }
+            */
         }
         private void onDeleteEntity(object sender, RoutedEventArgs e)
         {
