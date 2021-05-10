@@ -24,5 +24,6 @@ namespace TagManager
         public static bool displayEntities = false;
         public static bool autoLayer = true;
         public static int autoLayerDepth = 0;
+        public static List<TagNode> lastUsedNode;
     }
 }

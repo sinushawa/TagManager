@@ -75,7 +75,11 @@ namespace TagManager
                 }
             }
         }
-
+        public static void ApplyEntity(TagNode _node, List<uint> _objects)
+        {
+            List<TagNode> _listEntities = new List<TagNode>() { _node };
+            ApplyEntities(_listEntities, _objects);
+        }
         public static void ApplyEntities(List<TagNode> _entities, List<uint> _objects)
         {
             
@@ -87,8 +91,9 @@ namespace TagManager
                 {
                     LayOutObjects(_entity, _objects);
                 }
+                
             }
-            
+            TagGlobals.lastUsedNode = _entities;
         }
         public static void SelectEntities(List<TagNode> _entities)
         {
@@ -280,6 +285,21 @@ namespace TagManager
                     selSetManager.AddNewNamedSelSet(tabNode, ref _nodeName);
                 }
             }
+        }
+
+        public static void ApplyLastEntity()
+        {
+            ApplyEntities(TagGlobals.lastUsedNode, MaxPluginUtilities.Selection.ToListHandles());
+            if (TagGlobals.autoRename)
+            {
+                RenameUsingStructure();
+            }
+        }
+
+        public static void CopyEntities()
+        {
+            TagGlobals.lastUsedNode = GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();
+            
         }
 
         /*
