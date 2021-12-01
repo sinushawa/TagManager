@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>max_2020_dlls\</OutputPath>
+    <OutputPath>max_2022_dlls\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,20 +35,25 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autodesk.Max">
-      <HintPath>max_2020_dlls\Autodesk.Max.dll</HintPath>
+    <Reference Include="Autodesk.Max, Version=22.3.0.3165, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\Autodesk.Max.dll</HintPath>
     </Reference>
-    <Reference Include="Autodesk.Max.StateSets">
-      <HintPath>max_2020_dlls\Autodesk.Max.StateSets.dll</HintPath>
+    <Reference Include="Autodesk.Max.StateSets, Version=22.3.0.3165, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\Autodesk.Max.StateSets.dll</HintPath>
     </Reference>
-    <Reference Include="Autodesk.Max.Wrappers">
-      <HintPath>max_2020_dlls\Autodesk.Max.Wrappers.dll</HintPath>
+    <Reference Include="Autodesk.Max.Wrappers, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\Autodesk.Max.Wrappers.dll</HintPath>
     </Reference>
-    <Reference Include="ManagedServices">
-      <HintPath>max_2020_dlls\ManagedServices.dll</HintPath>
+    <Reference Include="ManagedServices, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\ManagedServices.dll</HintPath>
     </Reference>
-    <Reference Include="MaxCustomControls">
-      <HintPath>max_2020_dlls\MaxCustomControls.dll</HintPath>
+    <Reference Include="MaxCustomControls, Version=22.3.0.3165, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\MaxCustomControls.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -62,12 +67,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UiViewModels">
-      <HintPath>max_2020_dlls\UiViewModels.dll</HintPath>
+    <Reference Include="UiViewModels, Version=22.3.0.3165, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\UiViewModels.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="WPFToolkit">
-      <HintPath>max_2020_dlls\WPFToolkit.dll</HintPath>
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=f46432d619119730, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>max_2022_dlls\WPFToolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

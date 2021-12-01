@@ -140,6 +140,9 @@ namespace TagManager
                     return saveIsNeeded;
                 }
             }
+
+            public override string NonLocalizedClassName => "TagManager";
+
             public override IOResult Save(IISave isave)
             {
                 IOResult result = isave.Save(TagGlobals.root);
@@ -251,7 +254,6 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaved)), null, SystemNotificationCode.FilePostSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.PostMergeProcess);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(ViewportChanged)), null, SystemNotificationCode.ViewportChange);
         }
