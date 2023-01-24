@@ -52,7 +52,12 @@ namespace TagManager
             }
             if (modifier == ConsoleElementModifier.Containing)
             {
-                sel = TagHelperMethods.RetrieveEntitiesContainsTag(name).SelectMany((TagNode x) => x.Nodes).ToList<uint>();
+                List<uint> children = new List<uint>();
+                List<TagNode> _entities = TagHelperMethods.RetrieveEntitiesContainsTag(name);
+                foreach(TagNode tagNode in _entities)
+                {
+                    sel.AddRange(TagHelperMethods.GetBranchObjects(tagNode));
+                }
             }
             if (modifier == ConsoleElementModifier.Children)
             {

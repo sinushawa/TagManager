@@ -34,9 +34,9 @@ namespace TagManager
     public class TagCenter : ReferenceMaker,IPlugin
     {
 
-        private FastPan _fastPan;
+        private EntityPan _fastPan;
 
-        public FastPan fastPan
+        public EntityPan fastPan
         {
             get { return _fastPan; }
             set { _fastPan = value; }
@@ -237,7 +237,7 @@ namespace TagManager
             }
             TagCenter.Instance = this;
             this.Sync = sync;
-            fastPan = new FastPan();
+            fastPan = new EntityPan();
             TagGlobals.tagCenter = this;
             TagGlobals.selectionChain = new Stack<List<TagNode>>();
             InitializeTree();
