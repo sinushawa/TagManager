@@ -156,7 +156,7 @@ namespace TagManager
         public static void Write(string s)
         {
             MaxPluginUtilities.Global.TheListener.EditStream.Wputs(s);
-            MaxPluginUtilities.Global.TheListener.EditStream.Flush();
+            MaxPluginUtilities.Global.TheListener.EditStream.Wflush();
         }
         public static void WriteLine(string s)
         {

@@ -11,8 +11,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ItemTemplate_Node.xaml"/>
-                <ResourceDictionary Source="PathsAndGradients.xaml"/>
+                <ResourceDictionary Source="/TagManager;component/ItemTemplate_Node.xaml"/>
+                <ResourceDictionary Source="/TagManager;component/PathsAndGradients.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <ContextMenu x:Key="StdMenu">
                 <MenuItem Header="Apply Entity" Click="onApplyEntity" >
