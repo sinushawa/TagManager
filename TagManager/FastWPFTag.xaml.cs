@@ -52,6 +52,8 @@ namespace TagManager
         private void FastBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             dragonz.actb.control.AutoCompleteTextBox autoCompleteBox = (dragonz.actb.control.AutoCompleteTextBox)sender;
+
+            // open bracket [
             if (e.Key == Key.Oem4)
             {
                 FastPop.IsOpen = true;
@@ -60,6 +62,8 @@ namespace TagManager
                 _currentContainer = consoleContainerElement;
                 e.Handled = true;
             }
+
+            // close bracket ]
             if (e.Key == Key.Oem6)
             {
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
@@ -71,6 +75,8 @@ namespace TagManager
                 _currentContainer = _currentContainer.parent;
                 e.Handled = true;
             }
+
+            // + key
             if (e.Key == Key.Add)
             {
                 FastPop.IsOpen = true;
@@ -87,6 +93,8 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+
+            // - key
             if (e.Key == Key.Subtract)
             {
                 FastPop.IsOpen = true;
@@ -103,6 +111,8 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
+
+            // slash key /
             if (e.Key == Key.Oem2)
             {
                 FastPop.IsOpen = true;
@@ -121,6 +131,8 @@ namespace TagManager
                 }
                 winParent.Close();
             }
+
+            // backslash key \
             if (e.Key == Key.Oem5)
             {
                 FastPop.IsOpen = true;
@@ -135,6 +147,8 @@ namespace TagManager
                 }
                 winParent.Close();
             }
+
+            // enter key 
             if (e.Key == Key.Return)
             {
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
@@ -157,6 +171,8 @@ namespace TagManager
                 autoCompleteBox.FontStyle = FontStyles.Normal;
                 this.winParent.Close();
             }
+
+            // * key
             if (e.Key == Key.Multiply)
             {
                 FastPop.IsOpen = true;

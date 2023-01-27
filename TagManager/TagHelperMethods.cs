@@ -124,6 +124,9 @@ namespace TagManager
                     matchingEntity = _newlyCreated;
                 }
             }
+
+            TagGlobals.tagCenter.fastPan.SortSource();
+
             return matchingEntity;
         }
         public static EntityVisibility GetEntityVisibility(this TagNode _tagNode)

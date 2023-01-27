@@ -4,6 +4,6 @@
     <StartWorkingDirectory>C:\Program Files\Autodesk\3ds Max 2024</StartWorkingDirectory>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Autodesk\3ds Max 2024\3dsmax.exe</StartProgram>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>

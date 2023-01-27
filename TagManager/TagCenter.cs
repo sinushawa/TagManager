@@ -11,6 +11,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.IO;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace TagManager
 {
@@ -261,9 +262,8 @@ namespace TagManager
         {
             TagGlobals.root = new TagNode("Root");
             TagNode firstchild = new TagNode("Project");
+            TagGlobals.project = firstchild;
             TagGlobals.root.Children.Add(firstchild);
-            TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
-
             
         }
 
@@ -416,7 +416,9 @@ namespace TagManager
             
             // Setup 3ds Max to handle the WPF dialog correctly
             ManagedServices.AppSDK.ConfigureWindowForMax(dialog);
-            
+
+            TagGlobals.tagCenter.fastPan.UpdateSource();
+
             dialog.Loaded += dialog_Loaded;
             dialog.Closing += dialog_Closing;
             // Show the dialog box

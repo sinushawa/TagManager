@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using Form=System.Windows.Forms;
+using System.ComponentModel;
 
 namespace TagManager
 {
@@ -54,10 +55,26 @@ namespace TagManager
 
         public void LoadSource()
         {
-            DataContext = Root;
+            // moved in TagCenter.cs InitializeTree() Root was not yet initialized here
+            //DataContext = Root;
+
             ItemToContextMenuConverter.StdContextMenu = this.Resources["StdMenu"] as ContextMenu;
             ItemToContextMenuConverter.RootContextMenu = this.Resources["RootMenu"] as ContextMenu;
         }
+
+        public void UpdateSource()
+        {
+            DataContext = TagGlobals.root.Children[0];
+        }
+
+        public void SortSource()
+        {
+            ICollectionView pView = CollectionViewSource.GetDefaultView(TagGlobals.project.Children);
+            pView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            var productview = (ICollectionViewLiveShaping)CollectionViewSource.GetDefaultView(TagGlobals.project.Children);
+            productview.IsLiveSorting = true;
+        }
+
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             stopwatch.Start();
