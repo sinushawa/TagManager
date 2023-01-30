@@ -121,10 +121,11 @@ namespace TagManager
                         _newlyCreated = new TagNode(queuedElements.Dequeue(), matchingEntity.IsNameable);
                     }
                     matchingEntity.Children.Add(_newlyCreated);
+                    matchingEntity.Children.Sort(x => x.Name);
                     matchingEntity = _newlyCreated;
                 }
             }
-
+            
             TagGlobals.tagCenter.fastPan.SortSource();
 
             return matchingEntity;

@@ -218,3 +218,6 @@ TagManager/max_2016_dlls/TreeViewEx.dll
 *.ide
 *.lock
 *.ide
+*.vsidx
+*.vsidx
+*.vsidx
