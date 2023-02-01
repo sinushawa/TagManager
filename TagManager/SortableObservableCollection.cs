@@ -14,6 +14,12 @@ namespace TagManager
     [Serializable]
     public class SortableObservableCollection<T> : ObservableCollection<T>
     {
+        public new void Add(T _val)
+        {
+            Items.Add(_val);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, _val));
+        }
+
         public void AddRange(IEnumerable<T> collection)
         {
             foreach (var i in collection)

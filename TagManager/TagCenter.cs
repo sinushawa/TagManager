@@ -247,7 +247,8 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCreated)), null, SystemNotificationCode.NodeCreated);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCloned)), null, SystemNotificationCode.NodeCloned);
+            //GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCloned)), null, SystemNotificationCode.NodeCloned);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(PostNodeCloned)), null, SystemNotificationCode.PostNodesCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPreReset);
@@ -293,6 +294,7 @@ namespace TagManager
                 TagGlobals.internalSelectionCounter = 0;
             }
         }
+        /*
         private void NodeCloned(IntPtr obj, INotifyInfo param)
         {
             if (TagGlobals.autoCloneTag)
@@ -310,6 +312,22 @@ namespace TagManager
 
                 }
                 fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
+            }
+        }
+        */
+        private void PostNodeCloned(IntPtr obj, INotifyInfo param)
+        {
+            SortableObservableCollection<uint> _originalNodes = ((param.CallParam as IPostNodesClonedParams).OriginalNodes).ToListNode().ToSOC();
+            SortableObservableCollection<uint> _clonedNodes = ((param.CallParam as IPostNodesClonedParams).ClonedNodes).ToListNode().ToSOC();
+            for(int i = 0; i < _originalNodes.Count; i++)
+            {
+                uint _originalNodeID = _originalNodes[i];
+                uint _clonedNodeID = _clonedNodes[i];
+                SortableObservableCollection<TagNode> _tags = TagMethods.GetEntitiesContainingObjects(_originalNodeID);
+                foreach(TagNode _tag in _tags)
+                {
+                    _tag.Nodes.Add(_clonedNodeID);
+                }
             }
         }
         private void NodeCreated(IntPtr obj, INotifyInfo param)
