@@ -43,6 +43,14 @@ namespace TagManager
             set { _fastPan = value; }
         }
 
+        private FastWPFTag _fastTag;
+
+        public FastWPFTag fastTag
+        {
+            get { return _fastTag; }
+            set { _fastTag = value; }
+        }
+
         public class Descriptor : Autodesk.Max.Plugins.ClassDesc2
         {
             internal class PostLoadCallback : Autodesk.Max.Plugins.PostLoadCallback
@@ -167,7 +175,7 @@ namespace TagManager
                     {
                         TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault().Nodes= new SortableObservableCollection<uint>();
                     }
-                    TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root;
+                    TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root.Children[0];
                     return base.Load(iload);
                 }
                 else
@@ -247,11 +255,11 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCreated)), null, SystemNotificationCode.NodeCreated);
-            //GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCloned)), null, SystemNotificationCode.NodeCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(PostNodeCloned)), null, SystemNotificationCode.PostNodesCloned);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPreReset);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPostReset);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPostNew);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaving)), null, SystemNotificationCode.FilePreSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaved)), null, SystemNotificationCode.FilePostSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
@@ -294,27 +302,6 @@ namespace TagManager
                 TagGlobals.internalSelectionCounter = 0;
             }
         }
-        /*
-        private void NodeCloned(IntPtr obj, INotifyInfo param)
-        {
-            if (TagGlobals.autoCloneTag)
-            {
-                List<Autodesk.Max.IINode> selectedObjects = MaxPluginUtilities.Selection;
-                foreach (Autodesk.Max.IINode nod in selectedObjects)
-                {
-                    string _name = nod.Name;
-                    _name = _name.Remove(_name.Length - 4);
-                    TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_name, false, null);
-                    if (entity.Name != "Project")
-                    {
-                        entity.Nodes.AddRange(new List<uint>() { nod.Handle }, true);
-                    }
-
-                }
-                fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
-            }
-        }
-        */
         private void PostNodeCloned(IntPtr obj, INotifyInfo param)
         {
             SortableObservableCollection<uint> _originalNodes = ((param.CallParam as IPostNodesClonedParams).OriginalNodes).ToListNode().ToSOC();
@@ -348,6 +335,8 @@ namespace TagManager
         private void FileReset(IntPtr obj, INotifyInfo param)
         {
             InitializeTree();
+            fastPan.UpdateSource();
+            fastTag.CreateAutoCompleteSource();
         }
         private void FileSaving(IntPtr obj, INotifyInfo param)
         {
@@ -518,7 +507,7 @@ namespace TagManager
             dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
 
             // Assign the window's content to be the WPF control
-            FastWPFTag fastTag = new FastWPFTag();
+            fastTag = new FastWPFTag();
             fastTag.actbFastBox.Focusable = true;
             
             fastTag.CreateAutoCompleteSource();
