@@ -174,16 +174,21 @@ namespace TagManager
         }
         private void onRenameEntity(object sender, RoutedEventArgs e)
         {
-            /*
-            MenuItem ctrl = sender as MenuItem;
-            TagNode selectedEntity = (TagNode)ctrl.DataContext;
-            selectedEntity.IsInEditMode = true;
-             */
             EditableTextBlock textblock = ((TreeViewExItem)TV.SelectedItems[0]).FindChild<EditableTextBlock>();
             Keyboard.Focus(textblock);
             textblock.oldText = textblock.Text;
             textblock.IsInEditMode = true;
+            textblock.NotifyTextEditionCompleted += Textblock_NotifyTextEditionCompleted;
         }
+
+        private void Textblock_NotifyTextEditionCompleted(object sender, EventArgs e)
+        {
+            EditableTextBlock textblock = sender as EditableTextBlock;
+            TagNode _currentTagNode = (textblock.TryFindParent<TreeViewExItem>().DataContext) as TagNode;
+            TagMethods.LayOutEntity(_currentTagNode);
+            textblock.NotifyTextEditionCompleted -= Textblock_NotifyTextEditionCompleted;
+        }
+
         private void onCreateEntityFromName(object sender, RoutedEventArgs e)
         {
             MenuItem ctrl = sender as MenuItem;
@@ -231,12 +236,6 @@ namespace TagManager
             TagNode _currentEntity = (TagNode)ctrl.DataContext;
             List<uint> _nodesToRename = MaxPluginUtilities.Selection.ToListHandles().Intersect(_currentEntity.Nodes.ToList()).ToList();
             TagMethods.RenameUsingStructure(_nodesToRename);
-            /*
-            foreach (uint _nodeHandle in _currentEntity.Nodes)
-            {
-                MaxPluginUtilities.RenameNode(_nodeHandle, _currentEntity.LongName);
-            }
-            */
         }
         private void onDeleteEntity(object sender, RoutedEventArgs e)
         {

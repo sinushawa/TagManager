@@ -21,6 +21,8 @@ namespace TagManager
     public partial class EditableTextBlock : UserControl
     {
 
+        public event EventHandler NotifyTextEditionCompleted;
+
         #region Constructor
 
         public EditableTextBlock()
@@ -122,6 +124,7 @@ namespace TagManager
                 if (Text != "")
                 {
                     this.IsInEditMode = false;
+                    NotifyTextEditionCompleted.Invoke(this, new EventArgs());
                     e.Handled = true;
                 }
                 else
