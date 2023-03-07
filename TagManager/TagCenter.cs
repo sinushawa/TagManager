@@ -402,7 +402,7 @@ namespace TagManager
             System.Windows.Window dialog = new System.Windows.Window();
 
             // Name the window
-            dialog.Title = "Entity Manager";
+            dialog.Title = "Entity Manager v1.1";
 
             // Example of setup size and location
             // ...

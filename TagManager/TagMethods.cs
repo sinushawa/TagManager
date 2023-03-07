@@ -217,7 +217,7 @@ namespace TagManager
                 List<TagNode> _parents = new List<TagNode>();
                 foreach (TagNode _node in _currentEntities)
                 {
-                    if (!_node.IsNameable)
+                    if (_node.IsNameable)
                     {
                         if (_node.Parent != null && _node.Parent.IsNameable)
                         {
