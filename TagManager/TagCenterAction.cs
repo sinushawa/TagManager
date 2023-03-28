@@ -468,14 +468,13 @@ namespace TagManager
             }
         }
     }
-    /*
-    public class DisplayEntities : CuiActionCommandAdapter
+    public class ToggleAutoRename : CuiActionCommandAdapter
     {
         public override string ActionText
         {
             get
             {
-                return "Display Entities";
+                return "Toggle AutoRename";
             }
         }
         public override string Category
@@ -503,8 +502,9 @@ namespace TagManager
         {
             try
             {
-                TagGlobals.displayEntities = !TagGlobals.displayEntities;
-                TagMethods.DisplayEntities();
+                TagGlobals.autoRename = !TagGlobals.autoRename;
+                string _s = "AutoRename is " + TagGlobals.autoRename.ToString();
+                MaxPluginUtilities.Interface.DisplayTempPrompt(_s, 5000);
             }
             catch (Exception ex)
             {
@@ -512,5 +512,4 @@ namespace TagManager
             }
         }
     }
-    */
 }

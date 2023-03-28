@@ -36,12 +36,16 @@ namespace TagManager
         public void CreateAutoCompleteSource()
         {
             projectEntity = TagGlobals.root.GetNodeList().First(x => x.Name == "Project");
-            nodesList = projectEntity.Children.ToList().GetNodeList();
             branchNames = new List<string>();
-            foreach (TagNode _entity in nodesList)
+            if (projectEntity.Children.Count > 0)
             {
-                string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames);
-                branchNames.Add(_branchName);
+                nodesList = projectEntity.Children.ToList().GetNodeList();
+                foreach (TagNode _entity in nodesList)
+                {
+                    string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames);
+                    branchNames.Add(_branchName);
+                }
+                
             }
             actbFastBox.AutoCompleteManager.DataProvider = new DataProviderContains(branchNames);
             actbFastBox.AutoCompleteManager.AutoAppend = false;

@@ -81,7 +81,7 @@ namespace TagManager
                                 {
                                     if (TagGlobals.mergedRoot != null)
                                     {
-                                        TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID.ToString() == ID);
+                                        TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID == Guid.Parse(ID));
                                         if (_nodeMerged != null)
                                         {
                                             TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
@@ -265,7 +265,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(ViewportChanged)), null, SystemNotificationCode.ViewportChange);
+            //GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(ViewportChanged)), null, SystemNotificationCode.ViewportChange);
         }
         public void InitializeTree()
         {
@@ -336,7 +336,10 @@ namespace TagManager
         {
             InitializeTree();
             fastPan.UpdateSource();
-            fastTag.CreateAutoCompleteSource();
+            if (fastTag != null)
+            {
+                fastTag.CreateAutoCompleteSource();
+            }
         }
         private void FileSaving(IntPtr obj, INotifyInfo param)
         {
@@ -385,15 +388,6 @@ namespace TagManager
         {
             IINode _node = param.CallParam as IINode;
             TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
-        }
-        private void ViewportChanged(IntPtr obj, INotifyInfo param)
-        {
-            /*
-            if(TagGlobals.displayEntities)
-            {
-                TagMethods.DisplayEntities();
-            }
-            */
         }
 
         public void CreateTagManagerWin()
