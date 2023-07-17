@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>max_2023_dlls\</OutputPath>
+    <OutputPath>max_2024_dlls\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,26 +37,26 @@
   <ItemGroup>
     <Reference Include="Autodesk.Max, Version=26.0.0.888, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2023_dlls\Autodesk.Max.dll</HintPath>
+      <HintPath>max_2024_dlls\Autodesk.Max.dll</HintPath>
     </Reference>
     <Reference Include="Autodesk.Max.StateSets, Version=26.0.0.888, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2023_dlls\Autodesk.Max.StateSets.dll</HintPath>
+      <HintPath>max_2024_dlls\Autodesk.Max.StateSets.dll</HintPath>
     </Reference>
     <Reference Include="Autodesk.Max.Wrappers, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2023_dlls\Autodesk.Max.Wrappers.dll</HintPath>
+      <HintPath>max_2024_dlls\Autodesk.Max.Wrappers.dll</HintPath>
     </Reference>
     <Reference Include="dragonz.actb">
       <HintPath>..\..\AutoCompleteTextBox\dragonz.actb\bin\Debug\dragonz.actb.dll</HintPath>
     </Reference>
     <Reference Include="ManagedServices, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2023_dlls\ManagedServices.dll</HintPath>
+      <HintPath>max_2024_dlls\ManagedServices.dll</HintPath>
     </Reference>
     <Reference Include="MaxCustomControls, Version=26.0.0.888, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2023_dlls\MaxCustomControls.dll</HintPath>
+      <HintPath>max_2024_dlls\MaxCustomControls.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -72,7 +72,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="UiViewModels, Version=26.0.0.888, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2023_dlls\UiViewModels.dll</HintPath>
+      <HintPath>max_2024_dlls\UiViewModels.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

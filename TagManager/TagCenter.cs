@@ -53,6 +53,7 @@ namespace TagManager
 
         public class Descriptor : Autodesk.Max.Plugins.ClassDesc2
         {
+
             internal class PostLoadCallback : Autodesk.Max.Plugins.PostLoadCallback
             {
                 public PostLoadCallback()
@@ -262,9 +263,10 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPostNew);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaving)), null, SystemNotificationCode.FilePreSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaved)), null, SystemNotificationCode.FilePostSave);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerging)), null, SystemNotificationCode.FilePreMerge);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FilePreMerging)), null, SystemNotificationCode.FilePreMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.FilePreOpen);
             //GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(ViewportChanged)), null, SystemNotificationCode.ViewportChange);
         }
         public void InitializeTree()
@@ -366,18 +368,22 @@ namespace TagManager
                 }
             }
         }
-        private void FileMerging(IntPtr obj, INotifyInfo param)
-        {
-            var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
-            foreach (KeyValuePair<uint, List<Guid>> _nodeHandle in _nodes)
+        private void FilePreMerging(IntPtr obj, INotifyInfo param)
+        { 
+            // if it is not an Xref
+            if (param.CallParam != null)
             {
-                IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
-                if(_node != null)
+                var _nodes = (from node in TagGlobals.root.GetNodeList() from objet in node.Nodes group node.ID by objet).ToDictionary();
+                foreach (KeyValuePair<uint, List<Guid>> _nodeHandle in _nodes)
                 {
-                    _node.ClearAllAppData();
+                    IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
+                    if (_node != null)
+                    {
+                        _node.ClearAllAppData();
+                    }
                 }
+                TagGlobals.isMerging = true;
             }
-            TagGlobals.isMerging = true;
              
         }
         private void FileMerged(IntPtr obj, INotifyInfo param)
@@ -388,6 +394,11 @@ namespace TagManager
         {
             IINode _node = param.CallParam as IINode;
             TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
+        }
+
+        private void FilePreOpen(IntPtr obj, INotifyInfo param)
+        {
+
         }
 
         public void CreateTagManagerWin()
