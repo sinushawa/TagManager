@@ -1,0 +1,143 @@
+\doxysection{Tag\+Manager.\+Sortable\+Observable\+Collection\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_tag_manager_1_1_sortable_observable_collection}{}\label{class_tag_manager_1_1_sortable_observable_collection}\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+
+
+Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed and allows sorting.  
+
+
+
+
+Inheritance diagram for Tag\+Manager.\+Sortable\+Observable\+Collection\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{class_tag_manager_1_1_sortable_observable_collection__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+new void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a77b3a6f31537615b8df8ee10928d0222}{Add}} (T \+\_\+val)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a9539f74076d0d25825d09d97cd69b1b8}{Add\+Range}} (IEnumerable$<$ T $>$ collection)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_ab79a44974272cacc3311bf0b46b81610}{Add\+Range}} (IEnumerable$<$ T $>$ collection, bool \+\_\+unique)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a5ffef56eb475f9f6829c3bf5092f6948}{Remove\+Range}} (IEnumerable$<$ T $>$ collection)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a576b031507ca66a7ebb5f3b4844a76ff}{Sort$<$ TKey $>$}} (Func$<$ T, TKey $>$ key\+Selector)
+\begin{DoxyCompactList}\small\item\em Sorts the items of the collection in ascending order according to a key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a99e04d1fe3a1842e71e4eaefc7625bcf}{Sort$<$ TKey $>$}} (Func$<$ T, TKey $>$ key\+Selector, IComparer$<$ TKey $>$ comparer)
+\begin{DoxyCompactList}\small\item\em Sorts the items of the collection in ascending order according to a key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed and allows sorting. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of elements in the collection.\\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00015}{15}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_tag_manager_1_1_sortable_observable_collection_a77b3a6f31537615b8df8ee10928d0222}\label{class_tag_manager_1_1_sortable_observable_collection_a77b3a6f31537615b8df8ee10928d0222} 
+\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}!Add@{Add}}
+\index{Add@{Add}!TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily new void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Tag\+Manager.\+Sortable\+Observable\+Collection}}$<$ T $>$.Add (\begin{DoxyParamCaption}\item[{T}]{\+\_\+val }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_sortable_observable_collection_a9539f74076d0d25825d09d97cd69b1b8}\label{class_tag_manager_1_1_sortable_observable_collection_a9539f74076d0d25825d09d97cd69b1b8} 
+\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}!AddRange@{AddRange}}
+\index{AddRange@{AddRange}!TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AddRange()}{AddRange()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Tag\+Manager.\+Sortable\+Observable\+Collection}}$<$ T $>$.Add\+Range (\begin{DoxyParamCaption}\item[{IEnumerable$<$ T $>$}]{collection }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_sortable_observable_collection_ab79a44974272cacc3311bf0b46b81610}\label{class_tag_manager_1_1_sortable_observable_collection_ab79a44974272cacc3311bf0b46b81610} 
+\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}!AddRange@{AddRange}}
+\index{AddRange@{AddRange}!TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AddRange()}{AddRange()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Tag\+Manager.\+Sortable\+Observable\+Collection}}$<$ T $>$.Add\+Range (\begin{DoxyParamCaption}\item[{IEnumerable$<$ T $>$}]{collection,  }\item[{bool}]{\+\_\+unique }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_sortable_observable_collection_a5ffef56eb475f9f6829c3bf5092f6948}\label{class_tag_manager_1_1_sortable_observable_collection_a5ffef56eb475f9f6829c3bf5092f6948} 
+\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}!RemoveRange@{RemoveRange}}
+\index{RemoveRange@{RemoveRange}!TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{RemoveRange()}{RemoveRange()}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Tag\+Manager.\+Sortable\+Observable\+Collection}}$<$ T $>$.Remove\+Range (\begin{DoxyParamCaption}\item[{IEnumerable$<$ T $>$}]{collection }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00049}{49}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_sortable_observable_collection_a576b031507ca66a7ebb5f3b4844a76ff}\label{class_tag_manager_1_1_sortable_observable_collection_a576b031507ca66a7ebb5f3b4844a76ff} 
+\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}!Sort$<$ TKey $>$@{Sort$<$ TKey $>$}}
+\index{Sort$<$ TKey $>$@{Sort$<$ TKey $>$}!TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Sort$<$ TKey $>$()}{Sort< TKey >()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Tag\+Manager.\+Sortable\+Observable\+Collection}}$<$ T $>$.Sort$<$ TKey $>$ (\begin{DoxyParamCaption}\item[{Func$<$ T, TKey $>$}]{key\+Selector }\end{DoxyParamCaption})}
+
+
+
+Sorts the items of the collection in ascending order according to a key. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em TKey} & The type of the key returned by {\itshape key\+Selector} .\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em key\+Selector} & A function to extract a key from an item.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00065}{65}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_sortable_observable_collection_a99e04d1fe3a1842e71e4eaefc7625bcf}\label{class_tag_manager_1_1_sortable_observable_collection_a99e04d1fe3a1842e71e4eaefc7625bcf} 
+\index{TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}!Sort$<$ TKey $>$@{Sort$<$ TKey $>$}}
+\index{Sort$<$ TKey $>$@{Sort$<$ TKey $>$}!TagManager.SortableObservableCollection$<$ T $>$@{TagManager.SortableObservableCollection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Sort$<$ TKey $>$()}{Sort< TKey >()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Tag\+Manager.\+Sortable\+Observable\+Collection}}$<$ T $>$.Sort$<$ TKey $>$ (\begin{DoxyParamCaption}\item[{Func$<$ T, TKey $>$}]{key\+Selector,  }\item[{IComparer$<$ TKey $>$}]{comparer }\end{DoxyParamCaption})}
+
+
+
+Sorts the items of the collection in ascending order according to a key. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em TKey} & The type of the key returned by {\itshape key\+Selector} .\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em key\+Selector} & A function to extract a key from an item.\\
+\hline
+{\em comparer} & An IComparer$<$\+T$>$ to compare keys.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sortable_observable_collection_8cs_source_l00076}{76}} of file \mbox{\hyperlink{_sortable_observable_collection_8cs_source}{Sortable\+Observable\+Collection.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/Sortable\+Observable\+Collection.\+cs\end{DoxyCompactItemize}

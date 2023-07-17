@@ -10,6 +10,11 @@ using System.Runtime.CompilerServices;
 
 namespace TagManager
 {
+    /// <summary>
+    /// DDNode is a tree-like container base, it handles hierarchy changes.
+    /// </summary>
+    /// <typeparam name="T">The type of elements contained as children.</typeparam>
+
     [Serializable]
     public abstract class DDNode<T> where T : DDNode<T>, INotifyPropertyChanged
     {
@@ -18,7 +23,7 @@ namespace TagManager
         public event EventHandler ChangedLongName;
         #region Public Properties
 
-        //private SortableObservableCollection<T> children;
+
         public SortableObservableCollection<T> Children
         {
             get;

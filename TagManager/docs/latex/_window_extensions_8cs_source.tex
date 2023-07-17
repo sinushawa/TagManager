@@ -1,0 +1,67 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Window\+Extensions.cs}
+\hypertarget{_window_extensions_8cs_source}{}\label{_window_extensions_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Runtime.InteropServices;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.Windows.Interop;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00008}00008\ \textcolor{keyword}{using\ }System.Windows;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00010}00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{internal}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }WindowExtensions}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ [DllImport(\textcolor{stringliteral}{"{}user32.dll"{}})]}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ GetWindowLong(IntPtr\ hwnd,\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ [DllImport(\textcolor{stringliteral}{"{}user32.dll"{}})]}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ SetWindowLong(IntPtr\ hwnd,\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{int}\ newStyle);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ [DllImport(\textcolor{stringliteral}{"{}user32.dll"{}})]}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ SetWindowPos(IntPtr\ hwnd,\ IntPtr\ hwndInsertAfter,}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ uint\ flags);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ [DllImport(\textcolor{stringliteral}{"{}user32.dll"{}})]}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{extern}\ IntPtr\ SendMessage(IntPtr\ hwnd,\ uint\ msg,}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IntPtr\ wParam,\ IntPtr\ lParam);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ GWL\_EXSTYLE\ =\ -\/20;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ WS\_EX\_DLGMODALFRAME\ =\ 0x0001;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SWP\_NOSIZE\ =\ 0x0001;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SWP\_NOMOVE\ =\ 0x0002;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SWP\_NOZORDER\ =\ 0x0004;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SWP\_FRAMECHANGED\ =\ 0x0020;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ GWL\_STYLE\ =\ -\/16;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ WS\_MAXIMIZEBOX\ =\ 0x00010000;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ WS\_MINIMIZEBOX\ =\ 0x00020000;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ WS\_SYSMENU\ =\ 0x00080000;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ WS\_EX\_TOOLWINDOW\ =\ 0x00000080;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RemoveIcon(System.Windows.Interop.WindowInteropHelper\ windowHandle)}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ this\ window's\ handle}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ IntPtr\ hwnd\ =\ windowHandle.Handle;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Change\ the\ extended\ window\ style\ to\ not\ show\ a\ window\ icon}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ extendedStyle\ =\ GetWindowLong(hwnd,\ GWL\_EXSTYLE);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindowLong(hwnd,\ GWL\_EXSTYLE,\ extendedStyle\ |\ WS\_EX\_TOOLWINDOW);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ window's\ non-\/client\ area\ to\ reflect\ the\ changes}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindowPos(hwnd,\ IntPtr.Zero,\ 0,\ 0,\ 0,\ 0,\ SWP\_NOMOVE\ |}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SWP\_NOSIZE\ |\ SWP\_NOZORDER\ |\ SWP\_FRAMECHANGED);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{internal}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ HideMinimizeAndMaximizeButtons(System.Windows.Interop.WindowInteropHelper\ windowHandle)}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ IntPtr\ hwnd\ =\ windowHandle.Handle;}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ var\ currentStyle\ =\ GetWindowLong(hwnd,\ GWL\_STYLE);}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindowLong(hwnd,\ GWL\_STYLE,\ (currentStyle\ \&\ \string~WS\_MAXIMIZEBOX\ \&\ \string~WS\_MINIMIZEBOX));}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_window_extensions_8cs_source_l00062}00062\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,96 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Sortable\+Observable\+Collection.cs}
+\hypertarget{_sortable_observable_collection_8cs_source}{}\label{_sortable_observable_collection_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Collections.ObjectModel;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Collections.Specialized;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00014}00014\ \ \ \ \ [Serializable]}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00015}\mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{00015}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{SortableObservableCollection}}<T>\ :\ ObservableCollection<T>}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00016}00016\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{void}\ Add(T\ \_val)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ Items.Add(\_val);}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ OnCollectionChanged(\textcolor{keyword}{new}\ NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,\ \_val));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ AddRange(IEnumerable<T>\ collection)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ i\ \textcolor{keywordflow}{in}\ collection)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Items.Add(i);}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ OnCollectionChanged(\textcolor{keyword}{new}\ NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,\ collection.ToList()));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ AddRange(IEnumerable<T>\ collection,\ \textcolor{keywordtype}{bool}\ \_unique)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ IEnumerable<T>\ uniqueColl;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_unique)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uniqueColl\ =\ collection.Distinct();}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uniqueColl\ =\ uniqueColl.Except(uniqueColl.Intersect(Items));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uniqueColl\ =\ collection;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ i\ \textcolor{keywordflow}{in}\ uniqueColl)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Items.Add(i);}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ OnCollectionChanged(\textcolor{keyword}{new}\ NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,\ collection.ToList()));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ RemoveRange(IEnumerable<T>\ collection)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ i\ \textcolor{keywordflow}{in}\ collection)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Items.Contains(i))}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Items.Remove(i);}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ OnCollectionChanged(\textcolor{keyword}{new}\ NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,\ collection.ToList()));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00065}\mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a576b031507ca66a7ebb5f3b4844a76ff}{00065}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a576b031507ca66a7ebb5f3b4844a76ff}{Sort<TKey>}}(Func<T,\ TKey>\ keySelector)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ InternalSort(Items.OrderBy(keySelector));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00076}\mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a99e04d1fe3a1842e71e4eaefc7625bcf}{00076}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection_a576b031507ca66a7ebb5f3b4844a76ff}{Sort<TKey>}}(Func<T,\ TKey>\ keySelector,\ IComparer<TKey>\ comparer)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ InternalSort(Items.OrderBy(keySelector,\ comparer));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ InternalSort(IEnumerable<T>\ sortedItems)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ var\ sortedItemsList\ =\ sortedItems.ToList();}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ item\ \textcolor{keywordflow}{in}\ sortedItemsList)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Move(IndexOf(item),\ sortedItemsList.IndexOf(item));}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00095}00095\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }SortableObservableCollectionExtension}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00096}00096\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ SortableObservableCollection<TSource>\ ToSortableObservableCollection<TSource>(\textcolor{keyword}{this}\ IEnumerable<TSource>\ \_collection)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ SortableObservableCollection<TSource>\ res\ =\ \textcolor{keyword}{new}\ SortableObservableCollection<TSource>();}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ res.AddRange(\_collection);}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ List<TSource>\ ToList<TSource>(\textcolor{keyword}{this}\ IEnumerable<TSource>\ \_collection)}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ List<TSource>\ res\ =\ \textcolor{keyword}{new}\ List<TSource>();}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ res.AddRange(\_collection);}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sortable_observable_collection_8cs_source_l00110}00110\ \}}
+
+\end{DoxyCode}

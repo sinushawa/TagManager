@@ -1,0 +1,110 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Tag\+Manager.cs}
+\hypertarget{_tag_manager_8cs_source}{}\label{_tag_manager_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }Autodesk.Max;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.Runtime.InteropServices;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00008}00008\ \textcolor{keyword}{using\ }System.IO;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00009}00009\ \textcolor{keyword}{using\ }System.Diagnostics;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00011}00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00013}\mbox{\hyperlink{class_tag_manager_1_1_tag_manager}{00013}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00014}00014\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ IGlobal\ maxGlobal;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ IInterface13\ maxInterface;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{namespace_tag_manager}{TagManager}}()}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ maxGlobal\ =\ Autodesk.Max.GlobalInterface.Instance;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ maxInterface\ =\ maxGlobal.COREInterface13;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Manage()}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_tag_manager}{TagManager}}\ \_tagManager\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{namespace_tag_manager}{TagManager}}();}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ IListener\ \_listener\ =\ \_tagManager.maxGlobal.TheListener;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_nbNodes\ =\ \_tagManager.maxInterface.SelNodeCount;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ List<IINode>\ \_nodes\ =\ \textcolor{keyword}{new}\ List<IINode>();}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<\_nbNodes;\ i++)}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IINode\ \_node\ =\ \_tagManager.maxInterface.GetSelNode(i);}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_nodes.Add(\_node);}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_listener.EditStream.Wputs(\_node.Name+\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_listener.EditStream.Flush();}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00040}\mbox{\hyperlink{class_tag_manager_1_1test_sub}{00040}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tag_manager_1_1test_sub}{testSub}}\ :\ Autodesk.Max.Plugins.UtilityObj}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00042}\mbox{\hyperlink{class_tag_manager_1_1test_sub_1_1_descriptor}{00042}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tag_manager_1_1test_sub_1_1_descriptor}{Descriptor}}\ :\ Autodesk.Max.Plugins.ClassDesc2}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}\ IGlobal\ \_global;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{internal}\ \textcolor{keyword}{static}\ IClass\_ID\ \_classID;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ IGlobal\ Global}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ this.\_global;\ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1test_sub_1_1_descriptor}{Descriptor}}(IGlobal\ global)}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.\_global\ =\ global;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_classID\ =\ \_global.Class\_ID.Create(0x8962d7,\ 0x285b3ff9);}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{string}\ Category}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}NetPluginTests"{}};\ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ IClass\_ID\ ClassID}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ \_classID;\ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{string}\ ClassName}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}TestPlugin01"{}};\ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{object}\ Create(\textcolor{keywordtype}{bool}\ loading)}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_tag_manager_1_1test_sub}{testSub}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{bool}\ IsPublic}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ SClass\_ID\ SuperClassID}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ SClass\_ID.Utility;\ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1test_sub_1_1_descriptor}{Descriptor}}\ \_descriptor;}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1test_sub}{testSub}}(\mbox{\hyperlink{class_tag_manager_1_1test_sub_1_1_descriptor}{Descriptor}}\ descriptor)\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ this.\_descriptor\ =\ descriptor;\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{void}\ BeginEditParams(IInterface\ ip,\ IIUtil\ iu)\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ ip.PushPrompt(\textcolor{stringliteral}{"{}This\ is\ a\ prompt\ msg\ :D"{}});\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{void}\ EndEditParams(IInterface\ ip,\ IIUtil\ iu)\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ ip.PopPrompt();\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_manager_8cs_source_l00105}00105\ \}}
+
+\end{DoxyCode}

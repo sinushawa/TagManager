@@ -1,0 +1,27 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Layer.cs}
+\hypertarget{_layer_8cs_source}{}\label{_layer_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }Autodesk.Max;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.ComponentModel;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00008}00008\ \textcolor{keyword}{using\ }System.Runtime.CompilerServices;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00010}00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }LayerManager}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ IILayerManager\ manager\ =\ MaxPluginUtilities.\mbox{\hyperlink{class_tag_manager_1_1_layer_manager}{LayerManager}};}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ IILayer\ rootLayer\ =\ manager.RootLayer;}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CreateLayer(\textcolor{keywordtype}{string}\ \_layerName)}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ manager.CreateLayer(\_layerName);}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_layer_8cs_source_l00022}00022\ \}}
+
+\end{DoxyCode}

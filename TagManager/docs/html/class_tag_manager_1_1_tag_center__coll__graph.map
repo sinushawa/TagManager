@@ -1,0 +1,11 @@
+<map id="TagManager.TagCenter" name="TagManager.TagCenter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="97,188,253,215"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,97,121,124"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,131,161,185,157,190,88,135"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="145,97,205,124"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,139,178,187,172,187,172,139"/>
+<area shape="rect" id="Node000004" href="$class_tag_manager_1_1_tag_center_1_1_descriptor.html" title=" " alt="" coords="230,97,448,124"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="304,134,200,190,197,185,302,129"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="259,5,419,48"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="342,63,342,97,336,97,336,63"/>
+</map>

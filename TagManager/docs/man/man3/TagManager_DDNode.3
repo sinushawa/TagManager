@@ -1,0 +1,260 @@
+.TH "TagManager.DDNode< T >" 3TagManager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TagManager.DDNode< T > \- DDNode is a tree-like container base, it handles hierarchy changes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBDDNode_ChangedParent\fP (object sender, EventArgs e)"
+.br
+.ti -1c
+.RI "void \fBChildren_CollectionChanged\fP (object sender, System\&.Collections\&.Specialized\&.NotifyCollectionChangedEventArgs e)"
+.br
+.ti -1c
+.RI "void \fBOnInsert\fP (int index, object obj)"
+.br
+.ti -1c
+.RI "bool \fBCanInsertFormat\fP (int index, string format)"
+.br
+.ti -1c
+.RI "bool \fBCanInsert\fP (int index, object obj)"
+.br
+.ti -1c
+.RI "bool \fBCanDropFormat\fP (string arg)"
+.br
+.ti -1c
+.RI "bool \fBCanDrop\fP (object obj)"
+.br
+.ti -1c
+.RI "virtual void \fBOnDrop\fP (object obj)"
+.br
+.ti -1c
+.RI "bool \fBCanDrag\fP ()"
+.br
+.ti -1c
+.RI "object \fBOnDrag\fP ()"
+.br
+.ti -1c
+.RI "void \fBNotifyPropertyChanged\fP ([CallerMemberName] String propertyName='')"
+.br
+.ti -1c
+.RI "override string \fBToString\fP ()"
+.br
+.ti -1c
+.RI "List< T > \fBGetNodeBranch\fP ()"
+.br
+.ti -1c
+.RI "List< T > \fBGetNodeBranch\fP (bool _rootIncluded)"
+.br
+.ti -1c
+.RI "List< string > \fBGetNodeBranchElementsNames\fP (bool _toRemove)"
+.br
+.ti -1c
+.RI "string \fBBranchName\fP (List< T > _entities, string _delimiter)"
+.br
+.ti -1c
+.RI "string \fBGetNodeBranchName\fP (string _delimiter)"
+.br
+.ti -1c
+.RI "string \fBGetNodeBranchName\fP (string _delimiter, List< string > _toRemove)"
+.br
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBSortableObservableCollection\fP< T > \fBChildren\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "string \fBName\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "string \fBLongName\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "T \fBParent\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBAllowDrop\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBAllowDrag\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBAllowInsert\fP\fC [get, set]\fP"
+.br
+.in -1c
+.SS "Events"
+
+.in +1c
+.ti -1c
+.RI "EventHandler \fBChangedParent\fP"
+.br
+.ti -1c
+.RI "EventHandler \fBChangedName\fP"
+.br
+.ti -1c
+.RI "EventHandler \fBChangedLongName\fP"
+.br
+.ti -1c
+.RI "PropertyChangedEventHandler \fBPropertyChanged\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+DDNode is a tree-like container base, it handles hierarchy changes\&. 
+
+
+.PP
+\fBTemplate Parameters\fP
+.RS 4
+\fIT\fP The type of elements contained as children\&.
+.RE
+.PP
+
+.PP
+\fBType Constraints\fP
+.TP
+\fIT\fP : \fI\fBDDNode\fP<T>\fP
+.TP
+\fIT\fP : \fIINotifyPropertyChanged\fP
+.PP
+Definition at line \fB19\fP of file \fBDDNode\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "\fBTagManager\&.DDNode\fP< T >\&.\fBDDNode\fP ()"
+
+.PP
+Definition at line \fB77\fP of file \fBDDNode\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "string \fBTagManager\&.DDNode\fP< T >\&.BranchName (List< T > _entities, string _delimiter)"
+
+.PP
+Definition at line \fB233\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.CanDrag ()"
+
+.PP
+Definition at line \fB165\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.CanDrop (object obj)"
+
+.PP
+Definition at line \fB155\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.CanDropFormat (string arg)"
+
+.PP
+Definition at line \fB144\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.CanInsert (int index, object obj)"
+
+.PP
+Definition at line \fB139\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.CanInsertFormat (int index, string format)"
+
+.PP
+Definition at line \fB134\fP of file \fBDDNode\&.cs\fP\&.
+.SS "void \fBTagManager\&.DDNode\fP< T >\&.Children_CollectionChanged (object sender, System::Collections::Specialized::NotifyCollectionChangedEventArgs e)"
+
+.PP
+Definition at line \fB104\fP of file \fBDDNode\&.cs\fP\&.
+.SS "void \fBTagManager\&.DDNode\fP< T >\&.DDNode_ChangedParent (object sender, EventArgs e)"
+
+.PP
+Definition at line \fB95\fP of file \fBDDNode\&.cs\fP\&.
+.SS "List< T > \fBTagManager\&.DDNode\fP< T >\&.GetNodeBranch ()"
+
+.PP
+Definition at line \fB193\fP of file \fBDDNode\&.cs\fP\&.
+.SS "List< T > \fBTagManager\&.DDNode\fP< T >\&.GetNodeBranch (bool _rootIncluded)"
+
+.PP
+Definition at line \fB197\fP of file \fBDDNode\&.cs\fP\&.
+.SS "List< string > \fBTagManager\&.DDNode\fP< T >\&.GetNodeBranchElementsNames (bool _toRemove)"
+
+.PP
+Definition at line \fB215\fP of file \fBDDNode\&.cs\fP\&.
+.SS "string \fBTagManager\&.DDNode\fP< T >\&.GetNodeBranchName (string _delimiter)"
+
+.PP
+Definition at line \fB246\fP of file \fBDDNode\&.cs\fP\&.
+.SS "string \fBTagManager\&.DDNode\fP< T >\&.GetNodeBranchName (string _delimiter, List< string > _toRemove)"
+
+.PP
+Definition at line \fB251\fP of file \fBDDNode\&.cs\fP\&.
+.SS "void \fBTagManager\&.DDNode\fP< T >\&.NotifyPropertyChanged ([CallerMemberName] String propertyName = \fC''\fP)"
+
+.PP
+Definition at line \fB179\fP of file \fBDDNode\&.cs\fP\&.
+.SS "object \fBTagManager\&.DDNode\fP< T >\&.OnDrag ()"
+
+.PP
+Definition at line \fB170\fP of file \fBDDNode\&.cs\fP\&.
+.SS "virtual void \fBTagManager\&.DDNode\fP< T >\&.OnDrop (object obj)\fC [virtual]\fP"
+
+.PP
+Definition at line \fB160\fP of file \fBDDNode\&.cs\fP\&.
+.SS "void \fBTagManager\&.DDNode\fP< T >\&.OnInsert (int index, object obj)"
+
+.PP
+Definition at line \fB117\fP of file \fBDDNode\&.cs\fP\&.
+.SS "override string \fBTagManager\&.DDNode\fP< T >\&.ToString ()"
+
+.PP
+Definition at line \fB189\fP of file \fBDDNode\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.AllowDrag\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB151\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.AllowDrop\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB149\fP of file \fBDDNode\&.cs\fP\&.
+.SS "bool \fBTagManager\&.DDNode\fP< T >\&.AllowInsert\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB153\fP of file \fBDDNode\&.cs\fP\&.
+.SS "\fBSortableObservableCollection\fP<T> \fBTagManager\&.DDNode\fP< T >\&.Children\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB27\fP of file \fBDDNode\&.cs\fP\&.
+.SS "string \fBTagManager\&.DDNode\fP< T >\&.LongName\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB47\fP of file \fBDDNode\&.cs\fP\&.
+.SS "string \fBTagManager\&.DDNode\fP< T >\&.Name\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB34\fP of file \fBDDNode\&.cs\fP\&.
+.SS "T \fBTagManager\&.DDNode\fP< T >\&.Parent\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB61\fP of file \fBDDNode\&.cs\fP\&.
+.SH "Event Documentation"
+.PP 
+.SS "EventHandler \fBTagManager\&.DDNode\fP< T >\&.ChangedLongName"
+
+.PP
+Definition at line \fB23\fP of file \fBDDNode\&.cs\fP\&.
+.SS "EventHandler \fBTagManager\&.DDNode\fP< T >\&.ChangedName"
+
+.PP
+Definition at line \fB22\fP of file \fBDDNode\&.cs\fP\&.
+.SS "EventHandler \fBTagManager\&.DDNode\fP< T >\&.ChangedParent"
+
+.PP
+Definition at line \fB21\fP of file \fBDDNode\&.cs\fP\&.
+.SS "PropertyChangedEventHandler \fBTagManager\&.DDNode\fP< T >\&.PropertyChanged"
+
+.PP
+Definition at line \fB174\fP of file \fBDDNode\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TagManager from the source code\&.

@@ -1,0 +1,101 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Console\+String\+Sel\+Element.cs}
+\hypertarget{_console_string_sel_element_8cs_source}{}\label{_console_string_sel_element_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Runtime.Serialization;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Runtime.Serialization.Formatters.Binary;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.IO;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00010}00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{enum}\ ConsoleElementModifier}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ None,}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ Selection,}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ Containing,}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ Children,}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ Not,}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ Visible}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00020}00020\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00022}00022\ \ \ \ \ [Serializable]}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00023}\mbox{\hyperlink{class_tag_manager_1_1_console_string_sel_element}{00023}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tag_manager_1_1_console_string_sel_element}{ConsoleStringSelElement}}\ :\ \mbox{\hyperlink{class_tag_manager_1_1_console_element}{ConsoleElement}},\ ISerializable}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00024}00024\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ name;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ ConsoleElementModifier\ modifier;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1_console_string_sel_element}{ConsoleStringSelElement}}(\textcolor{keywordtype}{string}\ \_name,\ ConsoleElementModifier\ \_modifier)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ \_name;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ modifier\ =\ \_modifier;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ List<uint>\ getCorrespondingSel()}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ sel\ =\ \textcolor{keyword}{new}\ List<uint>();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(modifier\ ==\ ConsoleElementModifier.None)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1_tag_node}{TagNode}}\ \_entity\ =\ TagHelperMethods.RetrieveEntityFromTag(name);}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_entity.IsShortcut)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel\ =\ \_entity.Nodes.ToList();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel\ =\ \_entity.Shortcut.getCorrespondingSel();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(modifier\ ==\ ConsoleElementModifier.Selection)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel\ =\ MaxPluginUtilities.Selection.ToListHandles();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (modifier\ ==\ ConsoleElementModifier.Containing)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ children\ =\ \textcolor{keyword}{new}\ List<uint>();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_entities\ =\ TagHelperMethods.RetrieveEntitiesContainsTag(name);}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}(\mbox{\hyperlink{class_tag_manager_1_1_tag_node}{TagNode}}\ tagNode\ \textcolor{keywordflow}{in}\ \_entities)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel.AddRange(TagHelperMethods.GetBranchObjects(tagNode));}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (modifier\ ==\ ConsoleElementModifier.Children)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1_tag_node}{TagNode}}\ \_entity\ =\ TagHelperMethods.RetrieveEntityFromTag(name);}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel\ =\ TagHelperMethods.GetBranchObjects(\_entity);}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (modifier\ ==\ ConsoleElementModifier.Not)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel\ =\ (TagHelperMethods.GetBranchObjects(TagGlobals.root).Except(TagHelperMethods.RetrieveEntityFromTag(name).Nodes.ToList())).ToList();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (modifier\ ==\ ConsoleElementModifier.Visible)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1_tag_node}{TagNode}}\ \_entity\ =\ TagHelperMethods.RetrieveEntityFromTag(name);}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ \_objects\ =\ \_entity.Nodes.ToList();}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sel\ =\ MaxPluginUtilities.GetVisibleNodes(\_objects);}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sel;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{string}\ getCorrespondingStr()}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ name;}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}\ \mbox{\hyperlink{class_tag_manager_1_1_console_string_sel_element}{ConsoleStringSelElement}}(SerializationInfo\ info,\ StreamingContext\ context)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ (string)info.GetValue(\textcolor{stringliteral}{"{}name"{}},\ typeof(\textcolor{keywordtype}{string}));}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ modifier\ =\ (ConsoleElementModifier)info.GetValue(\textcolor{stringliteral}{"{}modifier"{}},\ typeof(ConsoleElementModifier));}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ISerializable.GetObjectData(SerializationInfo\ info,\ StreamingContext\ context)}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ info.AddValue(\textcolor{stringliteral}{"{}name"{}},\ name,\ typeof(\textcolor{keywordtype}{string}));}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ info.AddValue(\textcolor{stringliteral}{"{}modifier"{}},\ modifier,\ typeof(ConsoleElementModifier));}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00095}00095\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_string_sel_element_8cs_source_l00096}00096\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,35 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Tag\+Globals.cs}
+\hypertarget{_tag_globals_8cs_source}{}\label{_tag_globals_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }TagGlobals}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00010}00010\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ TagCenter\ tagCenter;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ TagNode\ root;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ TagNode\ project;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ TagNode\ mergedRoot;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ autoCloneTag\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ internalSelectionSwitch\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ internalSelectionCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isMerging\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ delimiter\ =\ \textcolor{stringliteral}{"{}\_"{}};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ addToSelection\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ autoRename\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ childrenAutoSelect\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ List<string>\ baseNames\ =\ \textcolor{keyword}{new}\ List<string>()\ \{\ \textcolor{stringliteral}{"{}Root"{}},\ \textcolor{stringliteral}{"{}Project"{}}\ \};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ Stack<List<TagNode>>\ selectionChain;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ displayEntities\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ autoLayer\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ autoLayerDepth\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ List<TagNode>\ lastUsedNode;}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_globals_8cs_source_l00030}00030\ \}}
+
+\end{DoxyCode}

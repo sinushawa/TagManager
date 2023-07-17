@@ -1,0 +1,270 @@
+.TH "TagManager.TagNode" 3TagManager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TagManager.TagNode \- TagNode is the container for entities it inehrites from DDNode\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBTagManager\&.DDNode< TagNode >\fP, ISerializable, and INotifyPropertyChanged\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTagNode\fP (string _label)"
+.br
+.ti -1c
+.RI "\fBTagNode\fP (string _label, bool _nameable)"
+.br
+.ti -1c
+.RI "\fBTagNode\fP (string _label, List< uint > _objects)"
+.br
+.ti -1c
+.RI "\fBTagNode\fP (string _label, \fBConsoleContainerElement\fP _shortcut)"
+.br
+.ti -1c
+.RI "\fBTagNode\fP (Guid _ID, string _label, List< uint > _objects, bool _isShortcut, \fBConsoleContainerElement\fP _shortcut)"
+.br
+.ti -1c
+.RI "\fBTagNode\fP (Guid _ID, string _label, List< uint > _objects, bool _isNameable, bool _isShortcut, \fBConsoleContainerElement\fP _shortcut)"
+.br
+.ti -1c
+.RI "void \fBNodes_CollectionChanged\fP (object sender, System\&.Collections\&.Specialized\&.NotifyCollectionChangedEventArgs e)"
+.br
+.ti -1c
+.RI "override void \fBOnDrop\fP (object obj)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBTagManager\&.DDNode< TagNode >\fP
+.in +1c
+.ti -1c
+.RI "void \fBDDNode_ChangedParent\fP (object sender, EventArgs e)"
+.br
+.ti -1c
+.RI "void \fBChildren_CollectionChanged\fP (object sender, System\&.Collections\&.Specialized\&.NotifyCollectionChangedEventArgs e)"
+.br
+.ti -1c
+.RI "void \fBOnInsert\fP (int index, object obj)"
+.br
+.ti -1c
+.RI "bool \fBCanInsertFormat\fP (int index, string format)"
+.br
+.ti -1c
+.RI "bool \fBCanInsert\fP (int index, object obj)"
+.br
+.ti -1c
+.RI "bool \fBCanDropFormat\fP (string arg)"
+.br
+.ti -1c
+.RI "bool \fBCanDrop\fP (object obj)"
+.br
+.ti -1c
+.RI "virtual void \fBOnDrop\fP (object obj)"
+.br
+.ti -1c
+.RI "bool \fBCanDrag\fP ()"
+.br
+.ti -1c
+.RI "object \fBOnDrag\fP ()"
+.br
+.ti -1c
+.RI "void \fBNotifyPropertyChanged\fP ([CallerMemberName] String propertyName='')"
+.br
+.ti -1c
+.RI "override string \fBToString\fP ()"
+.br
+.ti -1c
+.RI "List< T > \fBGetNodeBranch\fP ()"
+.br
+.ti -1c
+.RI "List< T > \fBGetNodeBranch\fP (bool _rootIncluded)"
+.br
+.ti -1c
+.RI "List< string > \fBGetNodeBranchElementsNames\fP (bool _toRemove)"
+.br
+.ti -1c
+.RI "string \fBBranchName\fP (List< T > _entities, string _delimiter)"
+.br
+.ti -1c
+.RI "string \fBGetNodeBranchName\fP (string _delimiter)"
+.br
+.ti -1c
+.RI "string \fBGetNodeBranchName\fP (string _delimiter, List< string > _toRemove)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "System\&.Drawing\&.Color \fBwireColor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTagNode\fP (SerializationInfo info, StreamingContext context)"
+.br
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "Guid \fBID\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBIsInEditMode\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "\fBSortableObservableCollection\fP< uint > \fBNodes\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "EntityVisibility \fBVisible\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBIsNameable\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBIsShortcut\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "\fBConsoleContainerElement\fP \fBShortcut\fP\fC [get, set]\fP"
+.br
+.in -1c
+
+Properties inherited from \fBTagManager\&.DDNode< TagNode >\fP
+.in +1c
+.ti -1c
+.RI "\fBSortableObservableCollection\fP< T > \fBChildren\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "string \fBName\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "string \fBLongName\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "T \fBParent\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBAllowDrop\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBAllowDrag\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBAllowInsert\fP\fC [get, set]\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Events inherited from \fBTagManager\&.DDNode< TagNode >\fP
+.in +1c
+.ti -1c
+.RI "EventHandler \fBChangedParent\fP"
+.br
+.ti -1c
+.RI "EventHandler \fBChangedName\fP"
+.br
+.ti -1c
+.RI "EventHandler \fBChangedLongName\fP"
+.br
+.ti -1c
+.RI "PropertyChangedEventHandler \fBPropertyChanged\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+TagNode is the container for entities it inehrites from DDNode\&. 
+.PP
+Definition at line \fB18\fP of file \fBTagNode\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "TagManager\&.TagNode\&.TagNode ()"
+
+.PP
+Definition at line \fB69\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (string _label)"
+
+.PP
+Definition at line \fB72\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (string _label, bool _nameable)"
+
+.PP
+Definition at line \fB75\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (string _label, List< uint > _objects)"
+
+.PP
+Definition at line \fB78\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (string _label, \fBConsoleContainerElement\fP _shortcut)"
+
+.PP
+Definition at line \fB81\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (Guid _ID, string _label, List< uint > _objects, bool _isShortcut, \fBConsoleContainerElement\fP _shortcut)"
+
+.PP
+Definition at line \fB84\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (Guid _ID, string _label, List< uint > _objects, bool _isNameable, bool _isShortcut, \fBConsoleContainerElement\fP _shortcut)"
+
+.PP
+Definition at line \fB95\fP of file \fBTagNode\&.cs\fP\&.
+.SS "TagManager\&.TagNode\&.TagNode (SerializationInfo info, StreamingContext context)\fC [protected]\fP"
+
+.PP
+Definition at line \fB157\fP of file \fBTagNode\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void TagManager\&.TagNode\&.Nodes_CollectionChanged (object sender, System::Collections::Specialized::NotifyCollectionChangedEventArgs e)"
+
+.PP
+Definition at line \fB114\fP of file \fBTagNode\&.cs\fP\&.
+.SS "override void TagManager\&.TagNode\&.OnDrop (object obj)\fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBTagManager\&.DDNode< TagNode >\fP\&.
+.PP
+Definition at line \fB132\fP of file \fBTagNode\&.cs\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "System\&.Drawing\&.Color TagManager\&.TagNode\&.wireColor"
+
+.PP
+Definition at line \fB67\fP of file \fBTagNode\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "Guid TagManager\&.TagNode\&.ID\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB22\fP of file \fBTagNode\&.cs\fP\&.
+.SS "bool TagManager\&.TagNode\&.IsInEditMode\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB28\fP of file \fBTagNode\&.cs\fP\&.
+.SS "bool TagManager\&.TagNode\&.IsNameable\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB50\fP of file \fBTagNode\&.cs\fP\&.
+.SS "bool TagManager\&.TagNode\&.IsShortcut\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB56\fP of file \fBTagNode\&.cs\fP\&.
+.SS "\fBSortableObservableCollection\fP<uint> TagManager\&.TagNode\&.Nodes\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB38\fP of file \fBTagNode\&.cs\fP\&.
+.SS "\fBConsoleContainerElement\fP TagManager\&.TagNode\&.Shortcut\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB62\fP of file \fBTagNode\&.cs\fP\&.
+.SS "EntityVisibility TagManager\&.TagNode\&.Visible\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB44\fP of file \fBTagNode\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TagManager from the source code\&.

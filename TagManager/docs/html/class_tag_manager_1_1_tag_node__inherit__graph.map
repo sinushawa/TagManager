@@ -1,0 +1,9 @@
+<map id="TagManager.TagNode" name="TagManager.TagNode">
+<area shape="rect" id="Node000001" title="TagNode is the container for entities it inehrites from DDNode." alt="" coords="145,80,293,107"/>
+<area shape="rect" id="Node000002" href="$class_tag_manager_1_1_d_d_node.html" title=" " alt="" coords="5,5,150,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,37,195,77,193,82,114,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="173,5,265,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,47,222,80,216,80,216,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="288,5,446,32"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="329,41,246,82,244,77,327,36"/>
+</map>

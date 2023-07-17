@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using UiViewModels.Actions;
 
-namespace TagManager
+namespace TagManager.Actions
 {
     public class OpenClose : CuiActionCommandAdapter
     {

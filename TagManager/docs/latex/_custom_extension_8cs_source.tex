@@ -1,0 +1,45 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Custom\+Extension.cs}
+\hypertarget{_custom_extension_8cs_source}{}\label{_custom_extension_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Collections.ObjectModel;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Windows.Forms;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }CustomExtension}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00011}00011\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ List<TagNode>\ GetNodeList(\textcolor{keyword}{this}\ TagNode\ dnod)}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00013}00013\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ var\ ret\ =\ \textcolor{keyword}{new}\ List<TagNode>();}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ ret.Add(dnod);}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ ret.AddRange(dnod.Children.ToList().GetNodeList());}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ List<TagNode>\ GetNodeList(\textcolor{keyword}{this}\ List<TagNode>\ dnodColl)}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ var\ ret\ =\ \textcolor{keyword}{new}\ List<TagNode>();}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (TagNode\ \_dnode\ \textcolor{keywordflow}{in}\ dnodColl)}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret.Add(\_dnode);}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret.AddRange(\_dnode.Children.ToList().GetNodeList());}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ IEnumerable<T>\ IntersectNonEmpty<T>(\textcolor{keyword}{this}\ IEnumerable<IEnumerable<T>>\ lists)}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ var\ nonEmptyLists\ =\ lists.Where(l\ =>\ l.Any());}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nonEmptyLists.Aggregate((l1,\ l2)\ =>\ l1.Intersect(l2));}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ Dictionary<TKey,\ List<TValue>>\ ToDictionary<TKey,\ TValue>(\textcolor{keyword}{this}\ IEnumerable<IGrouping<TKey,\ TValue>>\ groupings)}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ groupings.ToDictionary(group\ =>\ group.Key,\ group\ =>\ group.ToList());}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_custom_extension_8cs_source_l00040}00040\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,338 @@
+\doxysection{Tag\+Manager.\+Tag\+Node Class Reference}
+\hypertarget{class_tag_manager_1_1_tag_node}{}\label{class_tag_manager_1_1_tag_node}\index{TagManager.TagNode@{TagManager.TagNode}}
+
+
+Tag\+Node is the container for entities it inehrites from DDNode.  
+
+
+
+
+Inheritance diagram for Tag\+Manager.\+Tag\+Node\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_tag_manager_1_1_tag_node__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_a26e0b013c77f0f424fcfe189cf3a23a5}{Tag\+Node}} (string \+\_\+label)
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_ad57445fe064d8c96dc29f6dfcfd64faf}{Tag\+Node}} (string \+\_\+label, bool \+\_\+nameable)
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_a4e7297b54c6e84a52dbf6fb901e22d16}{Tag\+Node}} (string \+\_\+label, List$<$ uint $>$ \+\_\+objects)
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_ac3553b4ed3a03dda52cdb739324529f7}{Tag\+Node}} (string \+\_\+label, \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}} \+\_\+shortcut)
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_ad3da6f6fd59f0996e31f7d9e6803b4ed}{Tag\+Node}} (Guid \+\_\+\+ID, string \+\_\+label, List$<$ uint $>$ \+\_\+objects, bool \+\_\+is\+Shortcut, \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}} \+\_\+shortcut)
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_afae841475bbdf7105b0c3f904c083d3e}{Tag\+Node}} (Guid \+\_\+\+ID, string \+\_\+label, List$<$ uint $>$ \+\_\+objects, bool \+\_\+is\+Nameable, bool \+\_\+is\+Shortcut, \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}} \+\_\+shortcut)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_tag_node_a0788dea97df98111ded681f3532bc038}{Nodes\+\_\+\+Collection\+Changed}} (object sender, System.\+Collections.\+Specialized.\+Notify\+Collection\+Changed\+Event\+Args e)
+\item 
+override void \mbox{\hyperlink{class_tag_manager_1_1_tag_node_afe4d0d901eef1e23710a8c1d75f09cc7}{On\+Drop}} (object obj)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{Tag\+Manager.\+DDNode$<$ Tag\+Node $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_ad1aab52c5367cfeae47f935b5cb4c2de}{DDNode\+\_\+\+Changed\+Parent}} (object sender, Event\+Args e)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a668a4142d80b787872b087aec4d4c938}{Children\+\_\+\+Collection\+Changed}} (object sender, System.\+Collections.\+Specialized.\+Notify\+Collection\+Changed\+Event\+Args e)
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_ad9eb171063eb5b1ddb67df0a64737606}{On\+Insert}} (int index, object obj)
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_ad485141f39882957d7f84af719647895}{Can\+Insert\+Format}} (int index, string format)
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_ae3dc3b80d6883b7eaf4e563bebd94b14}{Can\+Insert}} (int index, object obj)
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_abf220922f55c36f8fef0ae8c4494547b}{Can\+Drop\+Format}} (string arg)
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_ac3d9a0e9e5e092b1fc41dcec07ab1486}{Can\+Drop}} (object obj)
+\item 
+virtual void \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_acc2848e7c95f9d3f791b28f82f479791}{On\+Drop}} (object obj)
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_ad2ff70f633006db1da2bd0a93bced849}{Can\+Drag}} ()
+\item 
+object \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_abd4c0fd36adf59fc1dfada8be2b2ca9c}{On\+Drag}} ()
+\item 
+void \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_aa9398a83fb412b3e928e4300a2e0f986}{Notify\+Property\+Changed}} (\mbox{[}Caller\+Member\+Name\mbox{]} String property\+Name=\"{}\"{})
+\item 
+override string \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a56bfa53d715977fd940caa9d116bee53}{To\+String}} ()
+\item 
+List$<$ T $>$ \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a9b9785702351db7aecb323f53653b8a2}{Get\+Node\+Branch}} ()
+\item 
+List$<$ T $>$ \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a844555193fcf70d30a84d3ad974e47f9}{Get\+Node\+Branch}} (bool \+\_\+root\+Included)
+\item 
+List$<$ string $>$ \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a78e42158243471d58877c8287670b201}{Get\+Node\+Branch\+Elements\+Names}} (bool \+\_\+to\+Remove)
+\item 
+string \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_aa2290c28ddaa8bf62acc5297af19899e}{Branch\+Name}} (List$<$ T $>$ \+\_\+entities, string \+\_\+delimiter)
+\item 
+string \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a6c23fc0895f54f0e8460eb4aaed1b4e7}{Get\+Node\+Branch\+Name}} (string \+\_\+delimiter)
+\item 
+string \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a49bc6d30d2a27597f0da7810dca50b02}{Get\+Node\+Branch\+Name}} (string \+\_\+delimiter, List$<$ string $>$ \+\_\+to\+Remove)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+System.\+Drawing.\+Color \mbox{\hyperlink{class_tag_manager_1_1_tag_node_a5eac2646717e0bf10ee37e2cc1455abe}{wire\+Color}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_tag_node_a409054d057680590710cb35d7e073b5a}{Tag\+Node}} (Serialization\+Info info, Streaming\+Context context)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Guid \mbox{\hyperlink{class_tag_manager_1_1_tag_node_aa58e39b848e93198ab36a44ea7044711}{ID}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_tag_node_a29fced642664de76e5dd476dc49b3433}{Is\+In\+Edit\+Mode}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Sortable\+Observable\+Collection}}$<$ uint $>$ \mbox{\hyperlink{class_tag_manager_1_1_tag_node_afdcbada0f1b19712d5e4793db521df47}{Nodes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Entity\+Visibility \mbox{\hyperlink{class_tag_manager_1_1_tag_node_a044df6450b20e6f37f6d0a965e7f59c0}{Visible}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_tag_node_a570c9a39ae22b9bc4b5b541bbf9f63dd}{Is\+Nameable}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_tag_node_a5a2aef3ca5fe207cc03777044ed16a93}{Is\+Shortcut}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}} \mbox{\hyperlink{class_tag_manager_1_1_tag_node_aa083391a7459470d98f4e3dea6c86a5f}{Shortcut}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{Tag\+Manager.\+DDNode$<$ Tag\+Node $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Sortable\+Observable\+Collection}}$<$ T $>$ \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a32039d67c6cf5c9025a8e81bd1b8c629}{Children}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+string \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_aba97884eaacf9c3b10170cb548a48ed8}{Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+string \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_addbfe1139e7bf4f56238237a524e2827}{Long\+Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+T \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_abd1266fef8d64c36525c9a580b1b2bd0}{Parent}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a602f9007b363aa6b6e7104c6408ba6fd}{Allow\+Drop}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a6a92d797989d11459cfc70f18114d5fe}{Allow\+Drag}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_adf425eca9d27c2f3f7f2d09cb90d101f}{Allow\+Insert}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Events inherited from \mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{Tag\+Manager.\+DDNode$<$ Tag\+Node $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Event\+Handler \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a3a3f6b827fd9d1e22a064b58c3e17f91}{Changed\+Parent}}
+\item 
+Event\+Handler \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a8495cdc7c47d0df869ce58b789c3b683}{Changed\+Name}}
+\item 
+Event\+Handler \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a817ede8821a8880e1117d5c107d7b7ec}{Changed\+Long\+Name}}
+\item 
+Property\+Changed\+Event\+Handler \mbox{\hyperlink{class_tag_manager_1_1_d_d_node_a97c823a9747361acb06851e8ecd97a1c}{Property\+Changed}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tag\+Node is the container for entities it inehrites from DDNode. 
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00018}{18}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_tag_manager_1_1_tag_node_a25655d44887f901312272be640f22ad7}\label{class_tag_manager_1_1_tag_node_a25655d44887f901312272be640f22ad7} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00069}{69}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a26e0b013c77f0f424fcfe189cf3a23a5}\label{class_tag_manager_1_1_tag_node_a26e0b013c77f0f424fcfe189cf3a23a5} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{string}]{\+\_\+label }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00072}{72}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_ad57445fe064d8c96dc29f6dfcfd64faf}\label{class_tag_manager_1_1_tag_node_ad57445fe064d8c96dc29f6dfcfd64faf} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{string}]{\+\_\+label,  }\item[{bool}]{\+\_\+nameable }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00075}{75}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a4e7297b54c6e84a52dbf6fb901e22d16}\label{class_tag_manager_1_1_tag_node_a4e7297b54c6e84a52dbf6fb901e22d16} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{string}]{\+\_\+label,  }\item[{List$<$ uint $>$}]{\+\_\+objects }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00078}{78}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_ac3553b4ed3a03dda52cdb739324529f7}\label{class_tag_manager_1_1_tag_node_ac3553b4ed3a03dda52cdb739324529f7} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{string}]{\+\_\+label,  }\item[{\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}}}]{\+\_\+shortcut }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00081}{81}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_ad3da6f6fd59f0996e31f7d9e6803b4ed}\label{class_tag_manager_1_1_tag_node_ad3da6f6fd59f0996e31f7d9e6803b4ed} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{Guid}]{\+\_\+\+ID,  }\item[{string}]{\+\_\+label,  }\item[{List$<$ uint $>$}]{\+\_\+objects,  }\item[{bool}]{\+\_\+is\+Shortcut,  }\item[{\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}}}]{\+\_\+shortcut }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00084}{84}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_afae841475bbdf7105b0c3f904c083d3e}\label{class_tag_manager_1_1_tag_node_afae841475bbdf7105b0c3f904c083d3e} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{Guid}]{\+\_\+\+ID,  }\item[{string}]{\+\_\+label,  }\item[{List$<$ uint $>$}]{\+\_\+objects,  }\item[{bool}]{\+\_\+is\+Nameable,  }\item[{bool}]{\+\_\+is\+Shortcut,  }\item[{\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}}}]{\+\_\+shortcut }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00095}{95}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a409054d057680590710cb35d7e073b5a}\label{class_tag_manager_1_1_tag_node_a409054d057680590710cb35d7e073b5a} 
+\index{TagManager.TagNode@{TagManager.TagNode}!TagNode@{TagNode}}
+\index{TagNode@{TagNode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{TagNode()}{TagNode()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily Tag\+Manager.\+Tag\+Node.\+Tag\+Node (\begin{DoxyParamCaption}\item[{Serialization\+Info}]{info,  }\item[{Streaming\+Context}]{context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00157}{157}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_tag_manager_1_1_tag_node_a0788dea97df98111ded681f3532bc038}\label{class_tag_manager_1_1_tag_node_a0788dea97df98111ded681f3532bc038} 
+\index{TagManager.TagNode@{TagManager.TagNode}!Nodes\_CollectionChanged@{Nodes\_CollectionChanged}}
+\index{Nodes\_CollectionChanged@{Nodes\_CollectionChanged}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{Nodes\_CollectionChanged()}{Nodes\_CollectionChanged()}}
+{\footnotesize\ttfamily void Tag\+Manager.\+Tag\+Node.\+Nodes\+\_\+\+Collection\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{System\+::\+Collections\+::\+Specialized\+::\+Notify\+Collection\+Changed\+Event\+Args}]{e }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00114}{114}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_afe4d0d901eef1e23710a8c1d75f09cc7}\label{class_tag_manager_1_1_tag_node_afe4d0d901eef1e23710a8c1d75f09cc7} 
+\index{TagManager.TagNode@{TagManager.TagNode}!OnDrop@{OnDrop}}
+\index{OnDrop@{OnDrop}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{OnDrop()}{OnDrop()}}
+{\footnotesize\ttfamily override void Tag\+Manager.\+Tag\+Node.\+On\+Drop (\begin{DoxyParamCaption}\item[{object}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{Tag\+Manager.\+DDNode$<$ Tag\+Node $>$}}.
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00132}{132}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_tag_manager_1_1_tag_node_a5eac2646717e0bf10ee37e2cc1455abe}\label{class_tag_manager_1_1_tag_node_a5eac2646717e0bf10ee37e2cc1455abe} 
+\index{TagManager.TagNode@{TagManager.TagNode}!wireColor@{wireColor}}
+\index{wireColor@{wireColor}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{wireColor}{wireColor}}
+{\footnotesize\ttfamily System.\+Drawing.\+Color Tag\+Manager.\+Tag\+Node.\+wire\+Color}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00067}{67}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{class_tag_manager_1_1_tag_node_aa58e39b848e93198ab36a44ea7044711}\label{class_tag_manager_1_1_tag_node_aa58e39b848e93198ab36a44ea7044711} 
+\index{TagManager.TagNode@{TagManager.TagNode}!ID@{ID}}
+\index{ID@{ID}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{ID}{ID}}
+{\footnotesize\ttfamily Guid Tag\+Manager.\+Tag\+Node.\+ID\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a29fced642664de76e5dd476dc49b3433}\label{class_tag_manager_1_1_tag_node_a29fced642664de76e5dd476dc49b3433} 
+\index{TagManager.TagNode@{TagManager.TagNode}!IsInEditMode@{IsInEditMode}}
+\index{IsInEditMode@{IsInEditMode}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{IsInEditMode}{IsInEditMode}}
+{\footnotesize\ttfamily bool Tag\+Manager.\+Tag\+Node.\+Is\+In\+Edit\+Mode\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a570c9a39ae22b9bc4b5b541bbf9f63dd}\label{class_tag_manager_1_1_tag_node_a570c9a39ae22b9bc4b5b541bbf9f63dd} 
+\index{TagManager.TagNode@{TagManager.TagNode}!IsNameable@{IsNameable}}
+\index{IsNameable@{IsNameable}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{IsNameable}{IsNameable}}
+{\footnotesize\ttfamily bool Tag\+Manager.\+Tag\+Node.\+Is\+Nameable\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00050}{50}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a5a2aef3ca5fe207cc03777044ed16a93}\label{class_tag_manager_1_1_tag_node_a5a2aef3ca5fe207cc03777044ed16a93} 
+\index{TagManager.TagNode@{TagManager.TagNode}!IsShortcut@{IsShortcut}}
+\index{IsShortcut@{IsShortcut}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{IsShortcut}{IsShortcut}}
+{\footnotesize\ttfamily bool Tag\+Manager.\+Tag\+Node.\+Is\+Shortcut\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00056}{56}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_afdcbada0f1b19712d5e4793db521df47}\label{class_tag_manager_1_1_tag_node_afdcbada0f1b19712d5e4793db521df47} 
+\index{TagManager.TagNode@{TagManager.TagNode}!Nodes@{Nodes}}
+\index{Nodes@{Nodes}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{Nodes}{Nodes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{Sortable\+Observable\+Collection}}$<$uint$>$ Tag\+Manager.\+Tag\+Node.\+Nodes\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00038}{38}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_aa083391a7459470d98f4e3dea6c86a5f}\label{class_tag_manager_1_1_tag_node_aa083391a7459470d98f4e3dea6c86a5f} 
+\index{TagManager.TagNode@{TagManager.TagNode}!Shortcut@{Shortcut}}
+\index{Shortcut@{Shortcut}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{Shortcut}{Shortcut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{Console\+Container\+Element}} Tag\+Manager.\+Tag\+Node.\+Shortcut\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00062}{62}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+\Hypertarget{class_tag_manager_1_1_tag_node_a044df6450b20e6f37f6d0a965e7f59c0}\label{class_tag_manager_1_1_tag_node_a044df6450b20e6f37f6d0a965e7f59c0} 
+\index{TagManager.TagNode@{TagManager.TagNode}!Visible@{Visible}}
+\index{Visible@{Visible}!TagManager.TagNode@{TagManager.TagNode}}
+\doxysubsubsection{\texorpdfstring{Visible}{Visible}}
+{\footnotesize\ttfamily Entity\+Visibility Tag\+Manager.\+Tag\+Node.\+Visible\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line \mbox{\hyperlink{_tag_node_8cs_source_l00044}{44}} of file \mbox{\hyperlink{_tag_node_8cs_source}{Tag\+Node.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/Tag\+Node.\+cs\end{DoxyCompactItemize}

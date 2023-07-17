@@ -1,0 +1,109 @@
+.TH "TagManager.SortableObservableCollection< T >" 3TagManager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TagManager.SortableObservableCollection< T > \- Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed and allows sorting\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits ObservableCollection< T >\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "new void \fBAdd\fP (T _val)"
+.br
+.ti -1c
+.RI "void \fBAddRange\fP (IEnumerable< T > collection)"
+.br
+.ti -1c
+.RI "void \fBAddRange\fP (IEnumerable< T > collection, bool _unique)"
+.br
+.ti -1c
+.RI "void \fBRemoveRange\fP (IEnumerable< T > collection)"
+.br
+.ti -1c
+.RI "void \fBSort< TKey >\fP (Func< T, TKey > keySelector)"
+.br
+.RI "Sorts the items of the collection in ascending order according to a key\&. "
+.ti -1c
+.RI "void \fBSort< TKey >\fP (Func< T, TKey > keySelector, IComparer< TKey > comparer)"
+.br
+.RI "Sorts the items of the collection in ascending order according to a key\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed and allows sorting\&. 
+
+
+.PP
+\fBTemplate Parameters\fP
+.RS 4
+\fIT\fP The type of elements in the collection\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB15\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "new void \fBTagManager\&.SortableObservableCollection\fP< T >\&.Add (T _val)"
+
+.PP
+Definition at line \fB17\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+.SS "void \fBTagManager\&.SortableObservableCollection\fP< T >\&.AddRange (IEnumerable< T > collection)"
+
+.PP
+Definition at line \fB23\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+.SS "void \fBTagManager\&.SortableObservableCollection\fP< T >\&.AddRange (IEnumerable< T > collection, bool _unique)"
+
+.PP
+Definition at line \fB31\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+.SS "void \fBTagManager\&.SortableObservableCollection\fP< T >\&.RemoveRange (IEnumerable< T > collection)"
+
+.PP
+Definition at line \fB49\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+.SS "void \fBTagManager\&.SortableObservableCollection\fP< T >\&.Sort< TKey > (Func< T, TKey > keySelector)"
+
+.PP
+Sorts the items of the collection in ascending order according to a key\&. 
+.PP
+\fBTemplate Parameters\fP
+.RS 4
+\fITKey\fP The type of the key returned by \fIkeySelector\fP \&.
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIkeySelector\fP A function to extract a key from an item\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB65\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+.SS "void \fBTagManager\&.SortableObservableCollection\fP< T >\&.Sort< TKey > (Func< T, TKey > keySelector, IComparer< TKey > comparer)"
+
+.PP
+Sorts the items of the collection in ascending order according to a key\&. 
+.PP
+\fBTemplate Parameters\fP
+.RS 4
+\fITKey\fP The type of the key returned by \fIkeySelector\fP \&.
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIkeySelector\fP A function to extract a key from an item\&.
+.br
+\fIcomparer\fP An IComparer<T> to compare keys\&.
+.RE
+.PP
+
+.PP
+Definition at line \fB76\fP of file \fBSortableObservableCollection\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TagManager from the source code\&.

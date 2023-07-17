@@ -1,0 +1,49 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Enum\+Helper.cs}
+\hypertarget{_enum_helper_8cs_source}{}\label{_enum_helper_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Reflection;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.ComponentModel;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }EnumHelper}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00011}00011\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ GetEnumDescription(\textcolor{keyword}{this}\ Enum\ value)}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00013}00013\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ FieldInfo\ fi\ =\ value.GetType().GetField(value.ToString());}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ DescriptionAttribute[]\ attributes\ =}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (attributes\ !=\ \textcolor{keyword}{null}\ \&\&\ attributes.Length\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ attributes[0].Description;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value.ToString();}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ IEnumerable<T>\ EnumToList<T>()}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ enumType\ =\ typeof(T);}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Can't\ use\ generic\ type\ constraints\ on\ value\ types,}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ have\ to\ do\ check\ like\ this}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (enumType.BaseType\ !=\ typeof(Enum))}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ ArgumentException(\textcolor{stringliteral}{"{}T\ must\ be\ of\ type\ System.Enum"{}});}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ Array\ enumValArray\ =\ Enum.GetValues(enumType);}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ List<T>\ enumValList\ =\ \textcolor{keyword}{new}\ List<T>(enumValArray.Length);}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\textcolor{keywordtype}{int}\ val\ \textcolor{keywordflow}{in}\ enumValArray)}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enumValList.Add((T)Enum.Parse(enumType,\ val.ToString()));}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ enumValList;}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_enum_helper_8cs_source_l00044}00044\ \}}
+
+\end{DoxyCode}

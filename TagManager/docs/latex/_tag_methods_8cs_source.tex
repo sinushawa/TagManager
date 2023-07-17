@@ -1,0 +1,347 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Tag\+Methods.cs}
+\hypertarget{_tag_methods_8cs_source}{}\label{_tag_methods_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Threading.Tasks;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }Autodesk.Max;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }TagMethods}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ApplyEntityFromLayer()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ List<IINode>\ \_nodes\ =\ MaxPluginUtilities.Selection;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}(IINode\ \_node\ \textcolor{keywordflow}{in}\ \_nodes)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IILayer\ \_layer\ =\ MaxPluginUtilities.GetObjectLayer(\_node);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \_longName\ =\ \_layer.Name;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TagNode\ entity\ =\ TagHelperMethods.RetrieveEntityFromTag(\_longName);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (entity\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entity\ =\ TagHelperMethods.GetLonguestMatchingTag(\_longName,\ \textcolor{keyword}{true},\ \textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!entity.IsShortcut)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TagMethods.ApplyEntities(\textcolor{keyword}{new}\ List<TagNode>()\ \{\ entity\ \},\ \textcolor{keyword}{new}\ List<uint>\ \{\ \_node.Handle\ \});}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.autoRename\ \&\&\ entity.IsNameable)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TagMethods.RenameUsingStructure();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ LayOutEntity(TagNode\ \_entity)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ IILayer\ \_layer;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(TagGlobals.autoLayer)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_layer\ =\ MaxPluginUtilities.CreateLayerBranch(\_entity);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_layer\ =\ MaxPluginUtilities.\mbox{\hyperlink{class_tag_manager_1_1_layer_manager}{LayerManager}}.GetLayer(\_entity.LongName);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_layer\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<IINode>\ \_nodes\ =\ \_entity.Nodes.GetNodesByHandles();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (IINode\ \_node\ \textcolor{keywordflow}{in}\ \_nodes)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_layer.AddToLayer(\_node);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ LayOutObjects(TagNode\ \_entity,\ List<uint>\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ IILayer\ \_layer;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.autoLayer)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_layer\ =\ MaxPluginUtilities.CreateLayerBranch(\_entity);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_layer\ =\ MaxPluginUtilities.LayerManager.GetLayer(\_entity.LongName);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_layer\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<IINode>\ \_nodes\ =\ \_objects.GetNodesByHandles();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (IINode\ \_node\ \textcolor{keywordflow}{in}\ \_nodes)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_layer.AddToLayer(\_node);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ApplyEntity(TagNode\ \_node,\ List<uint>\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_listEntities\ =\ \textcolor{keyword}{new}\ List<TagNode>()\ \{\ \_node\ \};}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ ApplyEntities(\_listEntities,\ \_objects);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ApplyEntities(List<TagNode>\ \_entities,\ List<uint>\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (TagNode\ \_entity\ \textcolor{keywordflow}{in}\ \_entities)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ to\ make\ sure\ there\ is\ no\ double.}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_entity.Nodes.AddRange(\_objects,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(TagGlobals.autoLayer)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LayOutObjects(\_entity,\ \_objects);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ TagGlobals.lastUsedNode\ =\ \_entities;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SelectEntities(List<TagNode>\ \_entities)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ TagGlobals.internalSelectionSwitch\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ objectsToSelect\ =\ \_entities.SelectMany(x\ =>\ x.Nodes).ToList();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ MaxPluginUtilities.SetSelection(objectsToSelect);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ SortableObservableCollection<TagNode>\ GetEntitiesContainingObjects(uint\ \_objectHandle)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ objs\ =\ \textcolor{keyword}{new}\ List<uint>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ objs.Add(\_objectHandle);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetEntitiesContainingObjects(objs);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ SortableObservableCollection<TagNode>\ GetEntitiesContainingObjects(List<uint>\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ SortableObservableCollection<TagNode>\ nodes\ =\ \textcolor{keyword}{new}\ SortableObservableCollection<TagNode>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ nodes.AddRange(TagGlobals.root.GetNodeList().Where(x\ =>\ x.Nodes.Intersect(\_objects).ToList().Count>0));}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nodes;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RemoveObjects(List<TagNode>\ \_entities,\ List<uint>\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (TagNode\ \_entity\ \textcolor{keywordflow}{in}\ \_entities)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_entity.Nodes.RemoveRange(\_objects);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.autoRename\ \&\&\ \_entity.IsNameable)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RenameUsingStructure(\_objects);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ DeleteEntities(List<TagNode>\ \_entities)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00128}00128\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ \_objects\ =\ \textcolor{keyword}{new}\ List<uint>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \_entities.Count;\ i++)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_objects.AddRange(\_entities[i].Nodes);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_entities[i].Parent.Children.Remove(\_entities[i]);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.autoRename)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_entities[i].IsNameable)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RenameUsingStructure(\_entities[i].Nodes.ToList());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00143}00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MergeEntities(TagNode\ \_toMerge,\ TagNode\ \_target)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00145}00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \_toMerge.Nodes.AddRange(\_target.Nodes);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \_target.Parent.Children.Remove(\_target);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00148}00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RenameUsingStructure(List<uint>\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00150}00150\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ SortableObservableCollection<TagNode>\ entitiesContainingObjects\ =\ GetEntitiesContainingObjects(\_objects);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ !!!!!!!\ Retrieving\ The\ entities\ Of\ all\ the\ objects\ even\ if\ the\ particular\ object\ doesn't\ use\ the\ entity}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ SortableObservableCollection<TagNode>\ nameableEntitiesContainingObjects\ =\ entitiesContainingObjects.Where(x\ =>\ x.IsNameable\ ==\ \textcolor{keyword}{true}).ToSortableObservableCollection();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ SortableObservableCollection<List<string>>\ branchesElementsNames\ =\ \textcolor{keyword}{new}\ SortableObservableCollection<List<string>>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (TagNode\ \_entity\ \textcolor{keywordflow}{in}\ nameableEntitiesContainingObjects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ branchesElementsNames.Add(\_entity.GetNodeBranchElementsNames(\textcolor{keyword}{true}));}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ branchesElementsNames.Sort(x\ =>\ x.Count);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ List<List<string>>\ \_listBranchElements\ =\ branchesElementsNames.Reverse().ToList();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \_namePrefix\ =\ TagHelperMethods.ConcateneNameFromElements(\_listBranchElements.SelectMany(x=>\ x).ToList());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_namePrefix\ !=\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (uint\ \_nodeHandle\ \textcolor{keywordflow}{in}\ \_objects)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IINode\ \_object\ =\ MaxPluginUtilities.GetNodeByHandle(\_nodeHandle);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_object.Name.Length\ >\ 4)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \_objectPrefix\ =\ \_object.Name.Substring(0,\ \_object.Name.Length\ -\/\ 4);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_objectPrefix\ !=\ \_namePrefix)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ finalName\ =\ MaxPluginUtilities.MakeNameUnique(\_namePrefix\ +\ TagGlobals.delimiter);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_object.Name\ =\ finalName;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_object.NotifyNameChanged();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00181}00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RenameUsingStructure()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00183}00183\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ RenameUsingStructure(MaxPluginUtilities.Selection.ToListHandles());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00185}00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SelectEntityHoldingObject()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00187}00187\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.selectionChain.Count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectEntityHoldingObject(MaxPluginUtilities.Selection.ToListHandles());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GrowEntity();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00196}00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SelectEntityHoldingObject(List<uint>\ \_nodeHandles)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00198}00198\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_currentEntities\ =\ GetEntitiesContainingObjects(\_nodeHandles).ToList();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ TagGlobals.selectionChain.Push(\_currentEntities);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ SelectEntities(\_currentEntities);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00202}00202\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SelectParentEntityHoldingObject()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00204}00204\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ SelectParentEntityHoldingObject(MaxPluginUtilities.Selection.ToListHandles());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00206}00206\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SelectParentEntityHoldingObject(List<uint>\ \_nodeHandles)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00208}00208\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_parentNodeList\ =\ GetEntitiesContainingObjects(\_nodeHandles).ToList().SelectMany(x\ =>\ x.Parent.GetNodeList()).ToList();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ SelectEntities(\_parentNodeList);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00211}00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GrowEntity()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00213}00213\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.selectionChain.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_currentEntities\ =\ TagGlobals.selectionChain.First();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_parents\ =\ \textcolor{keyword}{new}\ List<TagNode>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (TagNode\ \_node\ \textcolor{keywordflow}{in}\ \_currentEntities)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_node.IsNameable)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_node.Parent\ !=\ \textcolor{keyword}{null}\ \&\&\ \_node.Parent.IsNameable)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_parents.Add(\_node.Parent);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_parents.AddRange(\_node.Parent.GetNodeList());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_parents.AddRange(\_currentEntities);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TagGlobals.selectionChain.Push(\_parents.Distinct().ToList());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectEntities(TagGlobals.selectionChain.First());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00234}00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ShrinkEntity()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00236}00236\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.selectionChain.Count>1)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_toRemove\ =\ TagGlobals.selectionChain.Pop();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ SelectEntities(TagGlobals.selectionChain.First());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00242}00242\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RemoveObjectsFromEntities()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00244}00244\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ \_currentEntities\ =\ GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ RemoveObjects(\_currentEntities,\ MaxPluginUtilities.Selection.ToListHandles());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00247}00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CreateSelectionSetFromEntities(TagNode\ \_node,\ \textcolor{keywordtype}{bool}\ \_children)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00249}00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ List<TagNode>\ nodes\ =\ \textcolor{keyword}{new}\ List<TagNode>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_children\ ==\ \textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nodes.AddRange(\_node.GetNodeList());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nodes.Add(\_node);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ CreateSelectionSetFromEntities(nodes);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00260}00260\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CreateSelectionSetFromEntities(List<TagNode>\ \_nodes)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00263}00263\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ Autodesk.Max.IINamedSelectionSetManager\ selSetManager\ =\ MaxPluginUtilities.Global.INamedSelectionSetManager.Instance;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nbSelSet\ =\ selSetManager.NumNamedSelSets;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ SortedList<int,\ string>\ selSets\ =\ \textcolor{keyword}{new}\ SortedList<int,\ string>();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nbSelSet;\ i++)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//int\ sel\_ObjectsCount\ =\ selSetManager.GetNamedSelSetItemCount(i);}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ selSetName\ =\ selSetManager.GetNamedSelSetName(i);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selSets.Add(i,\ selSetName);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (TagNode\ \_node\ \textcolor{keywordflow}{in}\ \_nodes)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \_nodeName\ =\ \_node.LongName;}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(selSets.ContainsValue(\_nodeName))}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ITab<IINode>\ tabNode\ =\ TagHelperMethods.GetBranchObjects(\_node).GetNodesByHandles().ToITab();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selSetManager.ReplaceNamedSelSet(tabNode,\ ref\ \_nodeName);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ITab<IINode>\ tabNode\ =\ TagHelperMethods.GetBranchObjects(\_node).GetNodesByHandles().ToITab();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selSetManager.AddNewNamedSelSet(tabNode,\ ref\ \_nodeName);}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00288}00288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00290}00290\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ApplyLastEntity()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00291}00291\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ ApplyEntities(TagGlobals.lastUsedNode,\ MaxPluginUtilities.Selection.ToListHandles());}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TagGlobals.autoRename)}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RenameUsingStructure();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00297}00297\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00299}00299\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CopyEntities()}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00300}00300\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ TagGlobals.lastUsedNode\ =\ GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00303}00303\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00305}00305\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00306}00306\ \textcolor{comment}{\ \ \ \ \ \ \ \ public\ static\ void\ DisplayEntities()}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00307}00307\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00308}00308\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ try}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00309}00309\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00310}00310\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IViewExp\ view\ =\ MaxPluginUtilities.Interface.GetViewExp(0);}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00311}00311\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IGraphicsWindow\ graphWindow\ =\ view.Gw;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00312}00312\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ res1\ =\ view.IsActive;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00313}00313\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ res2\ =\ view.IsAlive;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00314}00314\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ res3\ =\ view.IsEnabled;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00315}00315\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var\ res4\ =\ view.ViewType;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00316}00316\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ foreach\ (IINode\ \_node\ in\ MaxPluginUtilities.Selection)}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00317}00317\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00318}00318\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(!\_node.IsObjectHidden)}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00319}00319\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00320}00320\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<string>\ \_objectEntitiesName\ =\ GetEntitiesContainingObjects(\_node.Handle).Select(x=>\ x.Name).ToList();}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00321}00321\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IInterval\ interval\ =\ MaxPluginUtilities.Global.Interval.Create();}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00322}00322\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interval.SetInfinite();}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00323}00323\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IPoint3\ pos\ =\ \_node.GetNodeTM(0,\ interval).Trans;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00324}00324\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IBox3\ wbb\ =\ \_node.ObjectRef.GetWorldBoundBox(0,\ \_node,\ view);}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00325}00325\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IPoint3\ wcenter\ =\ wbb.Max.Subtract(wbb.Min).DivideBy(2).Add(wbb.Min);}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00326}00326\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphWindow.Text(wcenter,\ "{}HERE"{});}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00327}00327\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphWindow.Transform\ =\ MaxPluginUtilities.Global.Matrix3.Identity;}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00328}00328\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphWindow.Text(wcenter,\ "{}HERE"{});}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00329}00329\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00330}00330\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00331}00331\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00332}00332\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphWindow.ResetUpdateRect();}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00333}00333\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphWindow.UpdateScreen();}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00334}00334\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00335}00335\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ catch}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00336}00336\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00337}00337\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00338}00338\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00339}00339\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00340}00340\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00341}00341\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_tag_methods_8cs_source_l00342}00342\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,261 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+DDNode.cs}
+\hypertarget{_d_d_node_8cs_source}{}\label{_d_d_node_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.ObjectModel;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Windows.Controls;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Windows.Input;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Windows.Controls.DragNDrop;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00008}00008\ \textcolor{keyword}{using\ }System.ComponentModel;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00009}00009\ \textcolor{keyword}{using\ }System.Runtime.CompilerServices;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00011}00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00018}00018\ \ \ \ \ [Serializable]}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00019}\mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{00019}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{abstract}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{DDNode}}<T>\ where\ T\ :\ \mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{DDNode}}<T>,\ INotifyPropertyChanged}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{event}\ EventHandler\ ChangedParent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{event}\ EventHandler\ ChangedName;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{event}\ EventHandler\ ChangedLongName;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00024}00024\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#region\ Public\ Properties}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{SortableObservableCollection<T>}}\ Children}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{set};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{string}\ name;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ Name}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ name;\ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{set}\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ value;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChangedName\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangedName(\textcolor{keyword}{this},\ \textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{string}\ longName;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ LongName}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ longName;\ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{set}\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ longName\ =\ value;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChangedLongName\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangedLongName(\textcolor{keyword}{this},\ \textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}\ T\ parent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ T\ Parent}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{get}\ \{\ \textcolor{keywordflow}{return}\ parent;\ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{set}\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent\ =\ value;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangedParent(\textcolor{keyword}{this},\ \textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00071}00071\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00073}00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#region\ Public\ Methods}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00075}00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#region\ Constructors\ and\ Destructors}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{DDNode}}()}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ Children\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_tag_manager_1_1_sortable_observable_collection}{SortableObservableCollection<T>}}();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ Children.CollectionChanged\ +=\ Children\_CollectionChanged;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ ChangedParent\ +=\ DDNode\_ChangedParent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ ChangedName\ +=\ DDNode\_ChangedName;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DDNode\_ChangedName(\textcolor{keywordtype}{object}\ sender,\ EventArgs\ e)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ LongName\ =\ TagHelperMethods.ConcateneNameFromElements(GetNodeBranchElementsNames(\textcolor{keyword}{true}));}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ DDNode\_ChangedParent(\textcolor{keywordtype}{object}\ sender,\ EventArgs\ e)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ LongName\ =\ TagHelperMethods.ConcateneNameFromElements(GetNodeBranchElementsNames(\textcolor{keyword}{true}));}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_tag_manager_1_1_d_d_node}{DDNode<T>}}\ \_child\ \textcolor{keywordflow}{in}\ Children)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_child.ChangedParent.Invoke(\textcolor{keyword}{this},\ \textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ Children\_CollectionChanged(\textcolor{keywordtype}{object}\ sender,\ System.Collections.Specialized.NotifyCollectionChangedEventArgs\ e)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e.Action\ ==\ System.Collections.Specialized.NotifyCollectionChangedAction.Add)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (T\ \_node\ \textcolor{keywordflow}{in}\ e.NewItems)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_node.Parent\ =\ (T)\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ NotifyPropertyChanged(\textcolor{stringliteral}{"{}Children"{}});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ OnInsert(\textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{object}\ obj)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ DragContent\ content\ =\ obj\ as\ DragContent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (content\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (var\ item\ \textcolor{keywordflow}{in}\ content.Items.Reverse())}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ oldNode\ =\ (T)item;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (oldNode\ !=\ \textcolor{keyword}{this})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ oldNode.Parent.Children.Remove(oldNode);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Children.Insert(index,\ oldNode);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00132}00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ CanInsertFormat(\textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{string}\ format)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00135}00135\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00137}00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ CanInsert(\textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{object}\ obj)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00140}00140\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ AllowInsert;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ CanDropFormat(\textcolor{keywordtype}{string}\ arg)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00145}00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00147}00147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ AllowDrop\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ AllowDrag\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ AllowInsert\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ CanDrop(\textcolor{keywordtype}{object}\ obj)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00156}00156\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ AllowDrop;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00158}00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ overidden\ by\ tagNode}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnDrop(\textcolor{keywordtype}{object}\ obj)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00161}00161\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00163}00163\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ CanDrag()}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00166}00166\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ AllowDrag;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00168}00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{object}\ OnDrag()}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00173}00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{event}\ PropertyChangedEventHandler\ PropertyChanged;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ method\ is\ called\ by\ the\ Set\ accessor\ of\ each\ property.\ }}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ CallerMemberName\ attribute\ that\ is\ applied\ to\ the\ optional\ propertyName\ }}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ parameter\ causes\ the\ property\ name\ of\ the\ caller\ to\ be\ substituted\ as\ an\ argument.\ }}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ NotifyPropertyChanged([CallerMemberName]\ String\ propertyName\ =\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00180}00180\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (PropertyChanged\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PropertyChanged(\textcolor{keyword}{this},\ \textcolor{keyword}{new}\ PropertyChangedEventArgs(propertyName));}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00185}00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00187}00187\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{string}\ ToString()}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00190}00190\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Name;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00192}00192\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ List<T>\ GetNodeBranch()}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00194}00194\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetNodeBranch(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00196}00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ List<T>\ GetNodeBranch(\textcolor{keywordtype}{bool}\ \_rootIncluded)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00198}00198\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \_entity\ =\ (T)\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ List<T>\ \_hierarchy\ =\ \textcolor{keyword}{new}\ List<T>();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \_hierarchy.Add((T)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\_entity.Parent\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ \_parentJoint\ =\ \_entity.Parent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_hierarchy.Add(\_parentJoint);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_entity\ =\ \_entity.Parent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_rootIncluded)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_hierarchy\ =\ \_hierarchy.Where(x\ =>\ x.LongName\ !=\ \textcolor{stringliteral}{"{}"{}}).ToList();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \_hierarchy.Reverse();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_hierarchy;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00214}00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00215}00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ List<string>\ GetNodeBranchElementsNames(\textcolor{keywordtype}{bool}\ \_toRemove)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00216}00216\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \_entity\ =\ (T)\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ List<string>\ \_names\ =\ \textcolor{keyword}{new}\ List<string>();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \_names.Add(this.Name);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\_entity.Parent\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ \_parentJoint\ =\ \_entity.Parent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_names.Add(\_parentJoint.Name);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_entity\ =\ \_entity.Parent;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_toRemove)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_names.RemoveAll(x\ =>\ TagGlobals.baseNames.Contains(x));}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \_names.Reverse();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_names;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00232}00232\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00233}00233\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ BranchName(List<T>\ \_entities,\ \textcolor{keywordtype}{string}\ \_delimiter)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00234}00234\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ result\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (T\ \_entity\ \textcolor{keywordflow}{in}\ \_entities)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ !=\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ \_delimiter;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ \_entity;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00245}00245\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ GetNodeBranchName(\textcolor{keywordtype}{string}\ \_delimiter)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00247}00247\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ List<T>\ \_entities\ =\ GetNodeBranch();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ BranchName(\_entities,\ \_delimiter);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00250}00250\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ GetNodeBranchName(\textcolor{keywordtype}{string}\ \_delimiter,\ List<string>\ \_toRemove)}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00252}00252\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ List<T>\ \_entities\ =\ GetNodeBranch();}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \_entities.RemoveAll(x\ =>\ \_toRemove.Contains(x.Name));}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ BranchName(\_entities,\ \_delimiter);}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00256}00256\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00258}00258\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endregion}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00259}00259\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_d_d_node_8cs_source_l00260}00260\ \}}
+
+\end{DoxyCode}

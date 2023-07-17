@@ -11,6 +11,9 @@ using System.Windows.Controls.DragNDrop;
 
 namespace TagManager
 {
+    /// <summary>
+    /// TagNode is the container for entities it inehrites from DDNode
+    /// </summary>
     [Serializable]
     public class TagNode : DDNode<TagNode>, ISerializable, INotifyPropertyChanged
     {

@@ -1,0 +1,139 @@
+.TH "TagManager.EditableTextBlock" 3TagManager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TagManager.EditableTextBlock \- Interaction logic for EditableTextBlock\&.xaml\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits UserControl\&.
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "string \fBoldText\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static readonly DependencyProperty \fBTextProperty\fP = DependencyProperty\&.Register( 'Text', typeof(string), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(''))"
+.br
+.ti -1c
+.RI "static readonly DependencyProperty \fBIsEditableProperty\fP = DependencyProperty\&.Register( 'IsEditable', typeof(bool), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(true))"
+.br
+.ti -1c
+.RI "static readonly DependencyProperty \fBIsInEditModeProperty\fP = DependencyProperty\&.Register( 'IsInEditMode', typeof(bool), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(false))"
+.br
+.ti -1c
+.RI "static readonly DependencyProperty \fBTextFormatProperty\fP = DependencyProperty\&.Register( 'TextFormat', typeof(string), typeof(\fBEditableTextBlock\fP), new PropertyMetadata('{0}'))"
+.br
+.ti -1c
+.RI "static readonly DependencyProperty \fBIsShortcutProperty\fP = DependencyProperty\&.Register('IsShortcut', typeof(bool), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(false))"
+.br
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "string \fBText\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBIsEditable\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "bool \fBIsInEditMode\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "string \fBTextFormat\fP\fC [get, set]\fP"
+.br
+.ti -1c
+.RI "string \fBFormattedText\fP\fC [get]\fP"
+.br
+.ti -1c
+.RI "bool \fBIsShortcut\fP\fC [get, set]\fP"
+.br
+.in -1c
+.SS "Events"
+
+.in +1c
+.ti -1c
+.RI "EventHandler \fBNotifyTextEditionCompleted\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Interaction logic for EditableTextBlock\&.xaml\&. 
+.PP
+Definition at line \fB21\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "TagManager\&.EditableTextBlock\&.EditableTextBlock ()"
+
+.PP
+Definition at line \fB28\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "readonly DependencyProperty TagManager\&.EditableTextBlock\&.IsEditableProperty = DependencyProperty\&.Register( 'IsEditable', typeof(bool), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(true))\fC [static]\fP"
+
+.PP
+Definition at line \fB59\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "readonly DependencyProperty TagManager\&.EditableTextBlock\&.IsInEditModeProperty = DependencyProperty\&.Register( 'IsInEditMode', typeof(bool), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(false))\fC [static]\fP"
+
+.PP
+Definition at line \fB69\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "readonly DependencyProperty TagManager\&.EditableTextBlock\&.IsShortcutProperty = DependencyProperty\&.Register('IsShortcut', typeof(bool), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(false))\fC [static]\fP"
+
+.PP
+Definition at line \fB88\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "string TagManager\&.EditableTextBlock\&.oldText"
+
+.PP
+Definition at line \fB41\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "readonly DependencyProperty TagManager\&.EditableTextBlock\&.TextFormatProperty = DependencyProperty\&.Register( 'TextFormat', typeof(string), typeof(\fBEditableTextBlock\fP), new PropertyMetadata('{0}'))\fC [static]\fP"
+
+.PP
+Definition at line \fB81\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "readonly DependencyProperty TagManager\&.EditableTextBlock\&.TextProperty = DependencyProperty\&.Register( 'Text', typeof(string), typeof(\fBEditableTextBlock\fP), new PropertyMetadata(''))\fC [static]\fP"
+
+.PP
+Definition at line \fB52\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SH "Property Documentation"
+.PP 
+.SS "string TagManager\&.EditableTextBlock\&.FormattedText\fC [get]\fP"
+
+.PP
+Definition at line \fB83\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "bool TagManager\&.EditableTextBlock\&.IsEditable\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB54\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "bool TagManager\&.EditableTextBlock\&.IsInEditMode\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB61\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "bool TagManager\&.EditableTextBlock\&.IsShortcut\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB90\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "string TagManager\&.EditableTextBlock\&.Text\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB47\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SS "string TagManager\&.EditableTextBlock\&.TextFormat\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Definition at line \fB71\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+.SH "Event Documentation"
+.PP 
+.SS "EventHandler TagManager\&.EditableTextBlock\&.NotifyTextEditionCompleted"
+
+.PP
+Definition at line \fB24\fP of file \fBEditableTextBlock\&.xaml\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TagManager from the source code\&.

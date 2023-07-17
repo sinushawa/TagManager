@@ -1,0 +1,150 @@
+.TH "TagManager.ConsoleContainerElement" 3TagManager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TagManager.ConsoleContainerElement
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBTagManager\&.ConsoleElement\fP, and ISerializable\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBConsoleContainerElement\fP (\fBConsoleContainerElement\fP _parent)"
+.br
+.ti -1c
+.RI "override List< uint > \fBgetCorrespondingSel\fP ()"
+.br
+.ti -1c
+.RI "override string \fBgetCorrespondingStr\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBTagManager\&.ConsoleElement\fP
+.in +1c
+.ti -1c
+.RI "abstract List< uint > \fBgetCorrespondingSel\fP ()"
+.br
+.ti -1c
+.RI "abstract string \fBgetCorrespondingStr\fP ()"
+.br
+.ti -1c
+.RI "void \fBGetObjectData\fP (SerializationInfo info, StreamingContext context)"
+.br
+.in -1c
+.in +1c
+.ti -1c
+.RI "List< uint > \fBgetCorrespondingSel\fP ()"
+.br
+.ti -1c
+.RI "string \fBgetCorrespondingStr\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBConsoleContainerElement\fP \fBparent\fP"
+.br
+.ti -1c
+.RI "List< \fBConsoleElement\fP > \fBcontent\fP = new List<\fBConsoleElement\fP>()"
+.br
+.ti -1c
+.RI "List< concat > \fBops\fP = new List<concat>()"
+.br
+.ti -1c
+.RI "bool \fBopen\fP = true"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBConsoleContainerElement\fP (SerializationInfo info, StreamingContext context)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Member Functions inherited from \fBTagManager\&.ConsoleElement\fP
+.in +1c
+.ti -1c
+.RI "static List< uint > \fBoperator+\fP (\fBConsoleElement\fP c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator+\fP (List< uint > c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator\-\fP (\fBConsoleElement\fP c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator\-\fP (List< uint > c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator*\fP (\fBConsoleElement\fP c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator*\fP (List< uint > c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator/\fP (\fBConsoleElement\fP c1, \fBConsoleElement\fP c2)"
+.br
+.ti -1c
+.RI "static List< uint > \fBoperator/\fP (List< uint > c1, \fBConsoleElement\fP c2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line \fB12\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "TagManager\&.ConsoleContainerElement\&.ConsoleContainerElement ()"
+
+.PP
+Definition at line \fB20\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SS "TagManager\&.ConsoleContainerElement\&.ConsoleContainerElement (\fBConsoleContainerElement\fP _parent)"
+
+.PP
+Definition at line \fB23\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SS "TagManager\&.ConsoleContainerElement\&.ConsoleContainerElement (SerializationInfo info, StreamingContext context)\fC [protected]\fP"
+
+.PP
+Definition at line \fB110\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "override List< uint > TagManager\&.ConsoleContainerElement\&.getCorrespondingSel ()\fC [virtual]\fP"
+
+.PP
+Implements \fBTagManager\&.ConsoleElement\fP\&.
+.PP
+Definition at line \fB28\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SS "override string TagManager\&.ConsoleContainerElement\&.getCorrespondingStr ()\fC [virtual]\fP"
+
+.PP
+Implements \fBTagManager\&.ConsoleElement\fP\&.
+.PP
+Definition at line \fB63\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "List<\fBConsoleElement\fP> TagManager\&.ConsoleContainerElement\&.content = new List<\fBConsoleElement\fP>()"
+
+.PP
+Definition at line \fB16\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SS "bool TagManager\&.ConsoleContainerElement\&.open = true"
+
+.PP
+Definition at line \fB18\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SS "List<concat> TagManager\&.ConsoleContainerElement\&.ops = new List<concat>()"
+
+.PP
+Definition at line \fB17\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+.SS "\fBConsoleContainerElement\fP TagManager\&.ConsoleContainerElement\&.parent"
+
+.PP
+Definition at line \fB15\fP of file \fBConsoleContainerElement\&.cs\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TagManager from the source code\&.

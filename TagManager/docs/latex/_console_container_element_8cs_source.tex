@@ -1,0 +1,126 @@
+\doxysection{D\+:/\+Git\+Hub/\+Tag\+Manager/\+Tag\+Manager/\+Console\+Container\+Element.cs}
+\hypertarget{_console_container_element_8cs_source}{}\label{_console_container_element_8cs_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }System.Runtime.Serialization;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Runtime.Serialization.Formatters.Binary;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }System.IO;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00009}\mbox{\hyperlink{namespace_tag_manager}{00009}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_tag_manager}{TagManager}}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00011}00011\ \ \ \ \ [Serializable]}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00012}\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{00012}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}\ :\mbox{\hyperlink{class_tag_manager_1_1_console_element}{ConsoleElement}},\ ISerializable}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ used\ during\ the\ creation\ of\ the\ container\ in\ FastWPFTag}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}\ parent;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ List<ConsoleElement>\ content\ =\ \textcolor{keyword}{new}\ List<ConsoleElement>();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ List<concat>\ ops\ =\ \textcolor{keyword}{new}\ List<concat>();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ open\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}()}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}(\mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}\ \_parent)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ parent\ =\ \_parent;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ List<uint>\ getCorrespondingSel()}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ result\ =\ \textcolor{keyword}{new}\ List<uint>();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ treat\ intersections\ first}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (ops.Contains(concat.intersection)\ \&\&\ (ops.Contains(concat.addition)\ ||\ ops.Contains(concat.substraction)\ ||\ ops.Contains(concat.except)))}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_index\ =\ ops.FindIndex(y\ =>\ y\ ==\ concat.intersection);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1_console_element}{ConsoleElement}}\ c1\ =\ content[\_index];}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1_console_element}{ConsoleElement}}\ c2\ =\ content[\_index\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}\ \_brackElem\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_brackElem.content.Add(c1);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_brackElem.content.Add(c2);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_brackElem.ops.Add(ops[\_index]);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ content.Remove(c1);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ content.Remove(c2);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ops.RemoveAt(\_index);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ content.Insert(\_index,\ \_brackElem);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Queue<ConsoleElement>\ queuedContent\ =\ \textcolor{keyword}{new}\ Queue<ConsoleElement>(content);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Queue<concat>\ queuedOps\ =\ \textcolor{keyword}{new}\ Queue<concat>(ops);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ queuedContent.Dequeue().getCorrespondingSel();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (queuedOps.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ Eval(result,\ queuedContent.Dequeue(),\ queuedOps.Dequeue());}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{override}\ \textcolor{keywordtype}{string}\ getCorrespondingStr()}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ result\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Queue<ConsoleElement>\ queuedContent\ =\ \textcolor{keyword}{new}\ Queue<ConsoleElement>(content);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Queue<concat>\ queuedOps\ =\ \textcolor{keyword}{new}\ Queue<concat>(ops);}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ queuedContent.Dequeue().getCorrespondingStr();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (queuedContent.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ queuedOps.Dequeue().GetEnumDescription();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ queuedContent.Dequeue().getCorrespondingStr();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (queuedOps.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ queuedOps.Dequeue().GetEnumDescription();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}\ List<uint>\ Eval(List<uint>\ c1,\ \mbox{\hyperlink{class_tag_manager_1_1_console_element}{ConsoleElement}}\ c2,\ concat\ \_ops)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ List<uint>\ result\ =\ \textcolor{keyword}{new}\ List<uint>();}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_ops\ ==\ concat.addition)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ c1\ +\ c2;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_ops\ ==\ concat.substraction)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ c1\ -\/\ c2;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_ops\ ==\ concat.intersection)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ c1\ *\ c2;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}\ \mbox{\hyperlink{class_tag_manager_1_1_console_container_element}{ConsoleContainerElement}}(SerializationInfo\ info,\ StreamingContext\ context)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ content\ =\ (List<ConsoleElement>)info.GetValue(\textcolor{stringliteral}{"{}content"{}},\ typeof(List<ConsoleElement>));}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ ops\ =\ (List<concat>)info.GetValue(\textcolor{stringliteral}{"{}ops"{}},\ typeof(List<concat>));}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ISerializable.GetObjectData(SerializationInfo\ info,\ StreamingContext\ context)}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00116}00116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ info.AddValue(\textcolor{stringliteral}{"{}content"{}},\ content,\ typeof(List<ConsoleElement>));}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ info.AddValue(\textcolor{stringliteral}{"{}ops"{}},\ ops,\ typeof(List<concat>));}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00120}00120\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_console_container_element_8cs_source_l00121}00121\ \}}
+
+\end{DoxyCode}
