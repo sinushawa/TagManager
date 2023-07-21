@@ -155,6 +155,7 @@ namespace TagManager
 
             public override IOResult Save(IISave isave)
             {
+                TagMethods.PruneEmptyEntities();
                 IOResult result = isave.Save(TagGlobals.root);
                 return result;
             }

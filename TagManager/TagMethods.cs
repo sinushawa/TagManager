@@ -301,42 +301,10 @@ namespace TagManager
             TagGlobals.lastUsedNode = GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();
             
         }
-
-        /*
-        public static void DisplayEntities()
+        public static void PruneEmptyEntities()
         {
-            try
-            {
-                IViewExp view = MaxPluginUtilities.Interface.GetViewExp(0);
-                IGraphicsWindow graphWindow = view.Gw;
-                var res1 = view.IsActive;
-                var res2 = view.IsAlive;
-                var res3 = view.IsEnabled;
-                var res4 = view.ViewType;
-                foreach (IINode _node in MaxPluginUtilities.Selection)
-                {
-                    if(!_node.IsObjectHidden)
-                    {
-                        List<string> _objectEntitiesName = GetEntitiesContainingObjects(_node.Handle).Select(x=> x.Name).ToList();
-                        IInterval interval = MaxPluginUtilities.Global.Interval.Create();
-                        interval.SetInfinite();
-                        IPoint3 pos = _node.GetNodeTM(0, interval).Trans;
-                        IBox3 wbb = _node.ObjectRef.GetWorldBoundBox(0, _node, view);
-                        IPoint3 wcenter = wbb.Max.Subtract(wbb.Min).DivideBy(2).Add(wbb.Min);
-                        graphWindow.Text(wcenter, "HERE");
-                        graphWindow.Transform = MaxPluginUtilities.Global.Matrix3.Identity;
-                        graphWindow.Text(wcenter, "HERE");
-                        
-                    }
-                }
-                graphWindow.ResetUpdateRect();
-                graphWindow.UpdateScreen();
-            }
-            catch
-            {
-
-            }
+            List<TagNode> emptyNodes = TagGlobals.root.GetNodeList().Where<TagNode>(x=> x.Nodes.Count==0 && x.Children.Count==0).ToList();
+            DeleteEntities(emptyNodes);
         }
-        */
     }
 }
