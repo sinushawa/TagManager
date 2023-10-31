@@ -126,10 +126,8 @@ namespace TagManager
         }
         public static void DeleteEntities(List<TagNode> _entities)
         {
-            List<uint> _objects = new List<uint>();
             for (int i = 0; i < _entities.Count; i++)
             {
-                _objects.AddRange(_entities[i].Nodes);
                 _entities[i].Parent.Children.Remove(_entities[i]);
                 if (TagGlobals.autoRename)
                 {
@@ -301,10 +299,32 @@ namespace TagManager
             TagGlobals.lastUsedNode = GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();
             
         }
+        public static void RecursivePruneEntities(TagNode _start)
+        {
+            while (PruneEmptyEntities(_start)) ;
+        }
+        public static bool PruneEmptyEntities(TagNode _start)
+        {
+            List<TagNode> emptyNodes = _start.GetNodeList().Where<TagNode>(x=> x.Nodes.Count==0 && x.Children.Count==0).ToList();
+            if (emptyNodes.Count==0 || emptyNodes[0] == TagGlobals.project || emptyNodes[0] == TagGlobals.root)
+            {
+                return false;
+            }
+            DeleteEntities(emptyNodes);
+            return true;
+        }
         public static void PruneEmptyEntities()
         {
-            List<TagNode> emptyNodes = TagGlobals.root.GetNodeList().Where<TagNode>(x=> x.Nodes.Count==0 && x.Children.Count==0).ToList();
+            List<TagNode> emptyNodes = TagGlobals.root.GetNodeList().Where<TagNode>(x => x.Nodes.Count == 0 && x.Children.Count == 0).ToList();
             DeleteEntities(emptyNodes);
+        }
+        public static void PruneEmpty(TagNode _start)
+        {
+            while( TagHelperMethods.FindLeavesEntities(_start).Where(leaf => leaf.Nodes.Count==0).Count()>0)
+            {
+                List<TagNode> toPrune = TagHelperMethods.FindLeavesEntities(_start).Where(leaf => leaf.Nodes.Count == 0).ToList();
+                DeleteEntities(toPrune);
+            }
         }
     }
 }

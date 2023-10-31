@@ -57,6 +57,13 @@ namespace TagManager
             }
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, collection.ToList()));
         }
+        public void RaiseNotificationRemoved(IEnumerable<T> collection)
+        {
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, collection.ToList()));
+        }
+        
+
+
         /// <summary>
         /// Sorts the items of the collection in ascending order according to a key.
         /// </summary>
@@ -105,6 +112,23 @@ namespace TagManager
             List<TSource> res = new List<TSource>();
             res.AddRange(_collection);
             return res;
+        }
+
+        public static void RemoveAll<T>(this SortableObservableCollection<T> collection, Func<T, bool> condition)
+        {
+            bool changed = false;
+            for (int i = collection.Count - 1; i >= 0; i--)
+            {
+                if (condition(collection[i]))
+                {
+                    collection.RemoveAt(i);
+                    changed = true;
+                }
+            }
+            if (changed)
+            {
+                collection.RaiseNotificationRemoved(collection);
+            }
         }
     }
 }

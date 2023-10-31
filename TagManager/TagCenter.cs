@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Diagnostics;
 using System.ComponentModel;
+using Force.DeepCloner;
 
 namespace TagManager
 {
@@ -155,41 +156,55 @@ namespace TagManager
 
             public override IOResult Save(IISave isave)
             {
-                TagMethods.PruneEmptyEntities();
-                IOResult result = isave.Save(TagGlobals.root);
-                return result;
+                if (TagGlobals.root != null && TagGlobals.project.Children.Count>0)
+                {
+                    TagNode _copied = TagGlobals.root.DeepClone();
+                    TagMethods.RecursivePruneEntities(_copied);
+                    IOResult result = isave.Save(_copied);
+                    return result;
+                }
+                else
+                {
+                    return IOResult.Ok;
+                }
             }
             public override IOResult Load(IILoad iload)
             {
                 if (!TagGlobals.isMerging)
                 {
                     TagNode openingRoot = (TagNode)iload.LoadObject();
-                    openingRoot.ReParent(false);
-                    TagGlobals.root = openingRoot;
-                    if (TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault() == null)
+                    if (openingRoot != null)
                     {
-                        TagGlobals.root = new TagNode("Root");
-                        TagNode firstchild = new TagNode("Project");
-                        TagGlobals.root.Children.Add(firstchild);
-                    }
+                        openingRoot.ReParent(false);
+                        TagGlobals.root = openingRoot;
+                        if (TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault() == null)
+                        {
+                            TagGlobals.root = new TagNode("Root");
+                            TagNode firstchild = new TagNode("Project");
+                            TagGlobals.root.Children.Add(firstchild);
+                        }
                         // created to remove objects getting tagged with projects because of merging longuest match returns project in case of null
-                    else
-                    {
-                        TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault().Nodes= new SortableObservableCollection<uint>();
+                        else
+                        {
+                            TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault().Nodes = new SortableObservableCollection<uint>();
+                        }
+                        TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root.Children[0];
                     }
-                    TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root.Children[0];
                     return base.Load(iload);
                 }
                 else
                 {
                     Descriptor.PostLoadCallback cb = new Descriptor.PostLoadCallback();
                     TagNode openingRoot = (TagNode)iload.LoadObject();
-                    bool actualValue = TagGlobals.autoRename;
-                    TagGlobals.autoRename = false;
-                    openingRoot.ReParent(true);
-                    TagGlobals.autoRename = actualValue;
-                    TagGlobals.mergedRoot = openingRoot;
-                    iload.RegisterPostLoadCallback(cb);
+                    if (openingRoot != null)
+                    {
+                        bool actualValue = TagGlobals.autoRename;
+                        TagGlobals.autoRename = false;
+                        openingRoot.ReParent(true);
+                        TagGlobals.autoRename = actualValue;
+                        TagGlobals.mergedRoot = openingRoot;
+                        iload.RegisterPostLoadCallback(cb);
+                    }
                     return IOResult.Ok;
                 }
             }

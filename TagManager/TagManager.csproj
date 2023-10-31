@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>max_2024_dlls\Autodesk.Max.Wrappers.dll</HintPath>
     </Reference>
+    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeepCloner.0.10.4\lib\net40\DeepCloner.dll</HintPath>
+    </Reference>
     <Reference Include="dragonz.actb">
       <HintPath>..\..\AutoCompleteTextBox\dragonz.actb\bin\Debug\dragonz.actb.dll</HintPath>
     </Reference>
