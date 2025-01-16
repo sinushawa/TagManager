@@ -512,4 +512,48 @@ namespace TagManager.Actions
             }
         }
     }
+    public class ToggleAutoLayer : CuiActionCommandAdapter
+    {
+        public override string ActionText
+        {
+            get
+            {
+                return "Toggle AutoLayer";
+            }
+        }
+        public override string Category
+        {
+            get
+            {
+                return "Robin plugins";
+            }
+        }
+        public override string InternalActionText
+        {
+            get
+            {
+                return this.ActionText;
+            }
+        }
+        public override string InternalCategory
+        {
+            get
+            {
+                return this.Category;
+            }
+        }
+        public override void Execute(object parameter)
+        {
+            try
+            {
+                TagGlobals.autoLayer = !TagGlobals.autoLayer;
+                string _s = "AutoLayer is " + TagGlobals.autoRename.ToString();
+                MaxPluginUtilities.Interface.DisplayTempPrompt(_s, 5000);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "error");
+            }
+        }
+    }
 }

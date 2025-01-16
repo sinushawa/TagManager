@@ -95,6 +95,22 @@ namespace TagManager
             }
             TagGlobals.lastUsedNode = _entities;
         }
+        public static void ApplyEntities(List<TagNode> _entities, List<uint> _objects, bool _layering)
+        {
+
+            foreach (TagNode _entity in _entities)
+            {
+                // Check to make sure there is no double.
+                _entity.Nodes.AddRange(_objects, true);
+                if (_layering)
+                {
+                    LayOutObjects(_entity, _objects);
+                }
+
+            }
+            TagGlobals.lastUsedNode = _entities;
+        }
+
         public static void SelectEntities(List<TagNode> _entities)
         {
             TagGlobals.internalSelectionSwitch = true;

@@ -152,6 +152,23 @@ namespace TagManager
                 winParent.Close();
             }
 
+
+            // vertical bar key \
+            if (e.Key == Key.Oem5 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+            {
+                FastPop.IsOpen = true;
+                TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
+                if (entity == null)
+                {
+                    entity = TagHelperMethods.GetLonguestMatchingTag(autoCompleteBox.Text, true, false);
+                }
+                if (!entity.IsShortcut)
+                {
+                    TagMethods.ApplyEntities(new List<TagNode>() { entity }, MaxPluginUtilities.Selection.ToListHandles(), false);
+                }
+                winParent.Close();
+            }
+
             // enter key 
             if (e.Key == Key.Return)
             {
@@ -193,7 +210,7 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
-            // %
+            // % all containing string
             if (e.Key == Key.D5 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
@@ -209,7 +226,7 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
-            // #
+            // # children
             if (e.Key == Key.D3 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
@@ -221,7 +238,7 @@ namespace TagManager
                 autoCompleteBox.Text = "";
                 e.Handled = true;
             }
-            // @
+            // @ visible
             if (e.Key == Key.D2 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
