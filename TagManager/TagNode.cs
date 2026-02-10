@@ -117,7 +117,7 @@ namespace TagManager
         }
         void TagNode_ChangedLongName(object sender, EventArgs e)
         {
-            if (TagGlobals.autoRename && IsNameable)
+            if (TagGlobals.autoRename && !TagGlobals.isMerging && IsNameable)
             {
                 foreach (uint _nodeHandle in Nodes)
                 {

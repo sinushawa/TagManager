@@ -198,10 +198,7 @@ namespace TagManager
                     TagNode openingRoot = (TagNode)iload.LoadObject();
                     if (openingRoot != null)
                     {
-                        bool actualValue = TagGlobals.autoRename;
-                        TagGlobals.autoRename = false;
                         openingRoot.ReParent(true);
-                        TagGlobals.autoRename = actualValue;
                         TagGlobals.mergedRoot = openingRoot;
                         iload.RegisterPostLoadCallback(cb);
                     }
@@ -426,12 +423,12 @@ namespace TagManager
             System.Windows.Window dialog = new System.Windows.Window();
 
             // Name the window
-            dialog.Title = "Entity Manager v1.1";
+            dialog.Title = "Entity Manager v1.2 Feb 26";
 
             // Example of setup size and location
             // ...
             //dialog.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
-            dialog.Width = 220;
+            dialog.Width = 260;
             dialog.Height = 650;
             dialog.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
             dialog.ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip;

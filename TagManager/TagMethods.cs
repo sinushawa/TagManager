@@ -87,7 +87,7 @@ namespace TagManager
             {
                 // Check to make sure there is no double.
                 _entity.Nodes.AddRange(_objects, true);
-                if(TagGlobals.autoLayer)
+                if(TagGlobals.autoLayer && !TagGlobals.isMerging)
                 {
                     LayOutObjects(_entity, _objects);
                 }
