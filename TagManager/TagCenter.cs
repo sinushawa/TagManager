@@ -252,6 +252,7 @@ namespace TagManager
 
         public void Cleanup()
         {
+            TagGlobals.SaveSettings();
             AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
         }
 
@@ -265,6 +266,8 @@ namespace TagManager
             this.Sync = sync;
             fastPan = new EntityPan();
             TagGlobals.tagCenter = this;
+            TagGlobals.LoadSettings();
+            fastPan.RefreshStatusBar();
             TagGlobals.selectionChain = new Stack<List<TagNode>>();
             InitializeTree();
             TagGlobals.addToSelection = false;

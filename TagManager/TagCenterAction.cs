@@ -291,6 +291,7 @@ namespace TagManager.Actions
             try
             {
                 TagGlobals.autoCloneTag = !TagGlobals.autoCloneTag;
+                TagGlobals.SaveSettings();
             }
             catch (Exception ex)
             {
@@ -503,6 +504,8 @@ namespace TagManager.Actions
             try
             {
                 TagGlobals.autoRename = !TagGlobals.autoRename;
+                TagGlobals.SaveSettings();
+                TagGlobals.tagCenter.fastPan.RefreshStatusBar();
                 string _s = "AutoRename is " + TagGlobals.autoRename.ToString();
                 MaxPluginUtilities.Interface.DisplayTempPrompt(_s, 5000);
             }
@@ -547,7 +550,9 @@ namespace TagManager.Actions
             try
             {
                 TagGlobals.autoLayer = !TagGlobals.autoLayer;
-                string _s = "AutoLayer is " + TagGlobals.autoRename.ToString();
+                TagGlobals.SaveSettings();
+                TagGlobals.tagCenter.fastPan.RefreshStatusBar();
+                string _s = "AutoLayer is " + TagGlobals.autoLayer.ToString();
                 MaxPluginUtilities.Interface.DisplayTempPrompt(_s, 5000);
             }
             catch (Exception ex)

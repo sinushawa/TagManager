@@ -51,6 +51,31 @@ namespace TagManager
             Selection = new SortableObservableCollection<uint>();
             stopwatch = new Stopwatch();
             LoadSource();
+            RefreshStatusBar();
+        }
+
+        public void RefreshStatusBar()
+        {
+            tbAutoRename.Foreground = TagGlobals.autoRename
+                ? new SolidColorBrush(Color.FromRgb(0xba, 0xd9, 0x89))
+                : new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
+            tbAutoLayer.Foreground = TagGlobals.autoLayer
+                ? new SolidColorBrush(Color.FromRgb(0xba, 0xd9, 0x89))
+                : new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
+        }
+
+        private void onToggleAutoRename(object sender, MouseButtonEventArgs e)
+        {
+            TagGlobals.autoRename = !TagGlobals.autoRename;
+            TagGlobals.SaveSettings();
+            RefreshStatusBar();
+        }
+
+        private void onToggleAutoLayer(object sender, MouseButtonEventArgs e)
+        {
+            TagGlobals.autoLayer = !TagGlobals.autoLayer;
+            TagGlobals.SaveSettings();
+            RefreshStatusBar();
         }
 
         public void LoadSource()

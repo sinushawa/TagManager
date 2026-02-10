@@ -181,6 +181,16 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#FF333333" Height="20">
+            <TextBlock x:Name="tbAutoRename" Text="Rename" Margin="6,2,4,2" FontSize="10" Foreground="#FF888888" Cursor="Hand" MouseLeftButtonDown="onToggleAutoRename"/>
+            <TextBlock Text="|" Foreground="#FF555555" Margin="0,2" FontSize="10"/>
+            <TextBlock x:Name="tbAutoLayer" Text="Layer" Margin="4,2,6,2" FontSize="10" Foreground="#FF888888" Cursor="Hand" MouseLeftButtonDown="onToggleAutoLayer"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
         <Grid.Resources>
             <ResourceDictionary>
                 <Style TargetType="{x:Type Controls:TreeViewExItem}">
@@ -280,5 +290,6 @@
         </Grid.Resources>
         <Controls:TreeViewEx HorizontalContentAlignment="Stretch" Name="TV" AutomationProperties.Name="AutomationTV" InsertionMarkerBrush="DarkGray" ItemsSource="{Binding Path=Children}" DragTemplate="{DynamicResource dragTemplate}" ItemTemplate="{DynamicResource ItemTemplate_Node}" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" Drop="onDrop" MouseLeftButtonUp="onMouseUp" MouseRightButtonDown="OnRightMouseDown" Background="#FF404040" BorderBrush="#FF404040" BorderBrushSelectionRectangle="#FF404040" Foreground="White" >
         </Controls:TreeViewEx>
+        </Grid>
     </Grid>
 </UserControl>

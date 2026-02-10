@@ -1,0 +1,208 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\00_JL\\Git\\TagManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\tagcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\tagcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\fastwpftag.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\fastwpftag.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|TagManager||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\consolestringselelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\consolestringselelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\consolecontainerelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\consolecontainerelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\consoleelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\consoleelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\tagmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\tagmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\customextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\customextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\maxpluginutilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\maxpluginutilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|C:\\00_JL\\Git\\TagManager\\tagmanager\\tagcenteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|solutionrelative:tagmanager\\tagcenteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D277C3B-6463-486C-906E-E02C575EECCA}|TagManager\\TagManager.csproj|c:\\00_jl\\git\\tagmanager\\tagmanager\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TagManager",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagManager.csproj",
+              "RelativeDocumentMoniker": "TagManager\\TagManager.csproj",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagManager.csproj",
+              "RelativeToolTip": "TagManager\\TagManager.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-01-20T10:53:28.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FastWPFTag.xaml.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\FastWPFTag.xaml.cs",
+              "RelativeDocumentMoniker": "TagManager\\FastWPFTag.xaml.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\FastWPFTag.xaml.cs",
+              "RelativeToolTip": "TagManager\\FastWPFTag.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T11:47:39.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConsoleContainerElement.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\ConsoleContainerElement.cs",
+              "RelativeDocumentMoniker": "TagManager\\ConsoleContainerElement.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\ConsoleContainerElement.cs",
+              "RelativeToolTip": "TagManager\\ConsoleContainerElement.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T11:47:14.178Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ConsoleElement.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\ConsoleElement.cs",
+              "RelativeDocumentMoniker": "TagManager\\ConsoleElement.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\ConsoleElement.cs",
+              "RelativeToolTip": "TagManager\\ConsoleElement.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T11:46:14.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CustomExtension.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\CustomExtension.cs",
+              "RelativeDocumentMoniker": "TagManager\\CustomExtension.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\CustomExtension.cs",
+              "RelativeToolTip": "TagManager\\CustomExtension.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T12:54:01.032Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TagMethods.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagMethods.cs",
+              "RelativeDocumentMoniker": "TagManager\\TagMethods.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagMethods.cs",
+              "RelativeToolTip": "TagManager\\TagMethods.cs",
+              "ViewState": "AgIAABsBAAAAAAAAAAAAADQBAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T12:54:01.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TagCenter.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagCenter.cs",
+              "RelativeDocumentMoniker": "TagManager\\TagCenter.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagCenter.cs",
+              "RelativeToolTip": "TagManager\\TagCenter.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAAAKEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T12:31:53.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ConsoleStringSelElement.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\ConsoleStringSelElement.cs",
+              "RelativeDocumentMoniker": "TagManager\\ConsoleStringSelElement.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\ConsoleStringSelElement.cs",
+              "RelativeToolTip": "TagManager\\ConsoleStringSelElement.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T11:47:28.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MaxPluginUtilities.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\MaxPluginUtilities.cs",
+              "RelativeDocumentMoniker": "TagManager\\MaxPluginUtilities.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\MaxPluginUtilities.cs",
+              "RelativeToolTip": "TagManager\\MaxPluginUtilities.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAAAHAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T12:31:21.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TagCenterAction.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagCenterAction.cs",
+              "RelativeDocumentMoniker": "TagManager\\TagCenterAction.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\TagCenterAction.cs",
+              "RelativeToolTip": "TagManager\\TagCenterAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANYBAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T12:33:29.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Layer.cs",
+              "DocumentMoniker": "C:\\00_JL\\Git\\TagManager\\TagManager\\Layer.cs",
+              "RelativeDocumentMoniker": "TagManager\\Layer.cs",
+              "ToolTip": "C:\\00_JL\\Git\\TagManager\\TagManager\\Layer.cs",
+              "RelativeToolTip": "TagManager\\Layer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T12:30:43.63Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

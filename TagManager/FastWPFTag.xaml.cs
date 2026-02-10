@@ -29,7 +29,7 @@ namespace TagManager
         public FastWPFTag()
         {
             this.InitializeComponent();
-            
+
         }
 
 
@@ -45,7 +45,7 @@ namespace TagManager
                     string _branchName = _entity.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames);
                     branchNames.Add(_branchName);
                 }
-                
+
             }
             actbFastBox.AutoCompleteManager.DataProvider = new DataProviderContains(branchNames);
             actbFastBox.AutoCompleteManager.AutoAppend = false;
@@ -81,7 +81,7 @@ namespace TagManager
             }
 
             // + key
-            if (e.Key == Key.Add)
+            if (e.Key == Key.Add || e.Key == Key.OemPlus)
             {
                 FastPop.IsOpen = true;
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
@@ -99,7 +99,7 @@ namespace TagManager
             }
 
             // - key
-            if (e.Key == Key.Subtract)
+            if (e.Key == Key.Subtract || e.Key == Key.OemMinus && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)))
             {
                 FastPop.IsOpen = true;
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
@@ -194,7 +194,7 @@ namespace TagManager
             }
 
             // * key
-            if (e.Key == Key.Multiply)
+            if (e.Key == Key.Multiply || (e.Key == Key.D8 && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))))
             {
                 FastPop.IsOpen = true;
                 TagNode entity = TagHelperMethods.RetrieveEntityFromTag(autoCompleteBox.Text);
