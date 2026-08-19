@@ -177,18 +177,19 @@ namespace TagManager
                     {
                         openingRoot.ReParent(false);
                         TagGlobals.root = openingRoot;
-                        if (TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault() == null)
+                        TagGlobals.project = TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault();
+                        if (TagGlobals.project == null)
                         {
                             TagGlobals.root = new TagNode("Root");
-                            TagNode firstchild = new TagNode("Project");
-                            TagGlobals.root.Children.Add(firstchild);
+                            TagGlobals.project = new TagNode("Project");
+                            TagGlobals.root.Children.Add(TagGlobals.project);
                         }
                         // created to remove objects getting tagged with projects because of merging longuest match returns project in case of null
                         else
                         {
-                            TagGlobals.root.Children.Where(x => x.Name == "Project").FirstOrDefault().Nodes = new SortableObservableCollection<uint>();
+                            TagGlobals.project.Nodes = new SortableObservableCollection<uint>();
                         }
-                        TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.root.Children[0];
+                        TagGlobals.tagCenter.fastPan.DataContext = TagGlobals.project;
                     }
                     return base.Load(iload);
                 }

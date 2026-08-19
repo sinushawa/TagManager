@@ -221,3 +221,5 @@ TagManager/max_2016_dlls/TreeViewEx.dll
 *.vsidx
 *.vsidx
 *.vsidx
+
+.vs/
