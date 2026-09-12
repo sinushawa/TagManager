@@ -22,9 +22,9 @@ namespace TagManager
     ///   api.Evidence "1943,1950"
     ///   api.Apply "Building_Floor1_Kitchen" "1943" true true
     /// </summary>
-    public static class TagApi
+    public static partial class TagApi
     {
-        public const string ApiVersion = "1.0";
+        public const string ApiVersion = "1.2";
 
         /// <summary>Candidates kept per object in Evidence().</summary>
         public static int MaxCandidates = 6;
@@ -34,6 +34,7 @@ namespace TagManager
         public static double BoxCacheMaxAgeMs = 5000;
         /// <summary>Present() applies a top candidate directly at or above this confidence.</summary>
         public static double AutoApplyThreshold = 0.9;
+        public static bool AutoApplyEnabled = false;
         /// <summary>Minimum extent used when an object or entity box is flat, so volumes never reach zero.</summary>
         public static float MinExtent = 0.001f;
 
@@ -45,6 +46,8 @@ namespace TagManager
             {
                 var sb = new StringBuilder();
                 sb.Append("{\"ok\":true,\"apiVersion\":\"").Append(ApiVersion).Append('"');
+                sb.Append(",\"session\":").Append(Str(_session));
+                sb.Append(",\"autoApplyEnabled\":").Append(AutoApplyEnabled ? "true" : "false");
                 sb.Append(",\"initialized\":").Append(IsReady() ? "true" : "false");
                 sb.Append(",\"autoRename\":").Append(TagGlobals.autoRename ? "true" : "false");
                 sb.Append(",\"autoLayer\":").Append(TagGlobals.autoLayer ? "true" : "false");
@@ -123,6 +126,7 @@ namespace TagManager
             {
                 RequireReady();
                 var sw = Stopwatch.StartNew();
+                _nodeBoxes.Clear();
                 Dictionary<Guid, Box> boxes = EntityBoxes(Entities(), null);
                 var sb = new StringBuilder(4096);
                 sb.Append("{\"ok\":true,\"entities\":[");
@@ -151,6 +155,9 @@ namespace TagManager
                 RequireReady();
                 var sw = Stopwatch.StartNew();
                 List<uint> handles = ParseHandles(handlesCsv);
+                // Evidence must reflect the current time and transforms, including edits made
+                // through other plugins. Reuse boxes within this batch only.
+                _nodeBoxes.Clear();
                 var exclude = new HashSet<uint>(handles);
                 List<TagNode> entities = Entities();
                 Dictionary<uint, List<TagNode>> index = ReverseIndex(entities);
@@ -182,6 +189,10 @@ namespace TagManager
                     sb.Append(",\"parent\":").Append(Str(ParentNameOf(node)));
                     sb.Append(",\"bbox\":").Append(nb.ToJson());
                     sb.Append(",\"size\":").Append(nb.SizeJson());
+                    double metres = MaxPluginUtilities.Global.GetSystemUnitScale(5); // UNITS_METERS
+                    sb.Append(",\"sizeMeters\":[").Append(Num((nb.X1 - nb.X0) * metres)).Append(',')
+                        .Append(Num((nb.Y1 - nb.Y0) * metres)).Append(',').Append(Num((nb.Z1 - nb.Z0) * metres)).Append(']');
+                    sb.Append(",\"boundsVolumeM3\":").Append(Num(nb.Valid ? nb.Volume() * metres * metres * metres : 0));
                     sb.Append(",\"entities\":[");
                     List<TagNode> owners;
                     if (index.TryGetValue(h, out owners))
@@ -194,6 +205,21 @@ namespace TagManager
                     }
                     sb.Append("],\"candidates\":[");
                     List<Candidate> cands = Containment(nb, entities, entityBoxes, entityDepth);
+                    if (nb.Valid) foreach (var guess in ArchitecturalSuggestions.FromDimensions(
+                        (nb.X1 - nb.X0) * metres, (nb.Y1 - nb.Y0) * metres, (nb.Z1 - nb.Z0) * metres))
+                    {
+                        string leaf = guess.Path.Split('_').Last();
+                        var existing = entities.Where(e => e.Name.Equals(leaf, StringComparison.OrdinalIgnoreCase) && !e.IsShortcut).ToList();
+                        var paths = existing.Count > 0 ? existing.Select(e => e.LongName) : new[] { guess.Path };
+                        foreach (string path in paths)
+                        {
+                            var candidate = cands.FirstOrDefault(c => c.Path == path);
+                            if (candidate == null) { candidate = new Candidate { Path = path }; cands.Add(candidate); }
+                            candidate.GeometryScore = guess.Score;
+                            candidate.Reason = guess.Reason;
+                            candidate.ProposedHierarchy = !entities.Any(e => e.LongName == path);
+                        }
+                    }
                     for (int i = 0; i < cands.Count; i++)
                     {
                         if (i > 0) sb.Append(',');
@@ -203,6 +229,9 @@ namespace TagManager
                         sb.Append(",\"depth\":").Append(c.Depth);
                         sb.Append(",\"sizeRatio\":").Append(Num(c.SizeRatio));
                         sb.Append(",\"centerInside\":").Append(c.CenterInside ? "true" : "false");
+                        sb.Append(",\"geometryScore\":").Append(Num(c.GeometryScore));
+                        sb.Append(",\"reason\":").Append(Str(c.Reason));
+                        sb.Append(",\"proposedHierarchy\":").Append(c.ProposedHierarchy ? "true" : "false");
                         sb.Append('}');
                     }
                     sb.Append("]}");
@@ -227,6 +256,8 @@ namespace TagManager
                 double threshold = AutoApplyThreshold;
                 object proposalsObj = root;
                 var rootDict = root as Dictionary<string, object>;
+                if (rootDict == null || Convert.ToString(Get(rootDict, "session")) != _session)
+                    throw new ArgumentException("stale or missing proposal session");
                 if (rootDict != null)
                 {
                     object th;
@@ -238,6 +269,7 @@ namespace TagManager
 
                 var applied = new List<string>();
                 int queued = 0;
+                int rejected = 0;
                 foreach (object p in proposals)
                 {
                     var pd = p as Dictionary<string, object>;
@@ -245,25 +277,40 @@ namespace TagManager
                     uint handle = (uint)ToDouble(Get(pd, "handle"), 0);
                     var ranked = Get(pd, "ranked") as object[];
                     if (handle == 0 || ranked == null || ranked.Length == 0) continue;
-                    var prop = new Proposal { Handle = handle, Ranked = new List<Candidate>() };
+                    string token = Convert.ToString(Get(pd, "token"));
+                    ProposalTicket ticket;
+                    if (!TryTicket(handle, token, out ticket))
+                    {
+                        rejected++;
+                        if (ticket != null && ticket.Token == token) _created[handle] = _clock.ElapsedMilliseconds;
+                        continue;
+                    }
+                    var prop = new Proposal { Handle = handle, Token = token, Ranked = new List<Candidate>() };
                     foreach (object r in ranked)
                     {
                         var rd = r as Dictionary<string, object>;
                         if (rd == null) continue;
+                        string candidatePath = Convert.ToString(Get(rd, "path")) ?? "";
+                        TagNode candidateEntity = TagHelperMethods.RetrieveEntityFromTag(candidatePath);
+                        if (candidateEntity == null && !TicketAllowsPath(ticket, candidatePath)) continue;
+                        if (candidateEntity != null && (candidateEntity.IsShortcut || TagGlobals.baseNames.Contains(candidateEntity.Name))) continue;
+                        double confidence = ToDouble(Get(rd, "confidence"), 0);
+                        if (double.IsNaN(confidence) || double.IsInfinity(confidence) || confidence < 0 || confidence > 1) continue;
                         prop.Ranked.Add(new Candidate
                         {
-                            Path = Convert.ToString(Get(rd, "path")) ?? "",
-                            Confidence = ToDouble(Get(rd, "confidence"), 0),
+                            Path = candidatePath,
+                            Confidence = confidence,
                             Reason = Convert.ToString(Get(rd, "reason")) ?? "",
                         });
                     }
                     if (prop.Ranked.Count == 0) continue;
                     Candidate top = prop.Ranked[0];
-                    if (top.Confidence >= threshold && top.Path.Length > 0)
+                    if (AutoApplyEnabled && top.Confidence >= threshold && TagHelperMethods.RetrieveEntityFromTag(top.Path) != null)
                     {
                         ApplyCore(top.Path, new List<uint> { handle }, TagGlobals.autoLayer, TagGlobals.autoRename);
                         LogDecision(handle, top.Path, top.Path, "auto: " + top.Reason);
                         applied.Add(handle.ToString(CultureInfo.InvariantCulture));
+                        _pending.Remove(handle);
                     }
                     else
                     {
@@ -271,9 +318,11 @@ namespace TagManager
                         queued++;
                     }
                 }
+                RefreshProposalReview();
                 var sb = new StringBuilder();
                 sb.Append("{\"ok\":true,\"applied\":[").Append(string.Join(",", applied.ToArray())).Append(']');
                 sb.Append(",\"queued\":").Append(queued).Append(",\"pending\":").Append(_pending.Count).Append('}');
+                if (rejected > 0) return sb.ToString().TrimEnd('}') + ",\"rejected\":" + rejected + "}";
                 return sb.ToString();
             });
         }
@@ -316,11 +365,19 @@ namespace TagManager
                 RequireReady();
                 Proposal p;
                 if (!_pending.TryGetValue(handle, out p)) throw new ArgumentException("no pending proposal for handle " + handle);
+                ProposalTicket ticket;
+                if (!TryTicket(handle, p.Token, out ticket))
+                {
+                    RequestEvidence(handle.ToString());
+                    throw new ArgumentException("proposal changed; fresh suggestions requested");
+                }
                 if (index < 0 || index >= p.Ranked.Count) throw new ArgumentException("candidate index out of range");
                 Candidate chosen = p.Ranked[index];
                 string result = ApplyCore(chosen.Path, new List<uint> { handle }, TagGlobals.autoLayer, TagGlobals.autoRename);
                 LogDecision(handle, chosen.Path, p.Ranked[0].Path, "confirmed: " + chosen.Reason);
                 _pending.Remove(handle);
+                _tickets.Remove(handle);
+                RefreshProposalReview();
                 return result;
             });
         }
@@ -330,8 +387,9 @@ namespace TagManager
         {
             return Guard(() =>
             {
-                if (string.IsNullOrWhiteSpace(handlesCsv)) _pending.Clear();
-                else foreach (uint h in ParseHandles(handlesCsv)) _pending.Remove(h);
+                var drop = string.IsNullOrWhiteSpace(handlesCsv) ? _pending.Keys.ToList() : ParseHandles(handlesCsv);
+                foreach (uint h in drop) { LogDecision(h, "", "", "ignored:"); _pending.Remove(h); _tickets.Remove(h); _outbox.Remove(h); }
+                RefreshProposalReview();
                 return "{\"ok\":true,\"pending\":" + _pending.Count + "}";
             });
         }
@@ -443,21 +501,23 @@ namespace TagManager
 
             TagNode entity = TagHelperMethods.RetrieveEntityFromTag(path);
             bool created = false;
-            if (entity == null)
-            {
-                entity = TagHelperMethods.GetLonguestMatchingTag(path, true, null);
-                created = true;
-            }
-            if (entity == null || TagGlobals.baseNames.Contains(entity.Name)) throw new ArgumentException("could not resolve entity path: " + path);
-            if (entity.IsShortcut) throw new ArgumentException("entity is a shortcut: " + path);
-
-            var added = valid.Where(h => !entity.Nodes.Contains(h)).ToList();
+            if (entity != null && entity.IsShortcut) throw new ArgumentException("entity is a shortcut: " + path);
             IHold hold = MaxPluginUtilities.Global.TheHold;
             bool holding = false;
             try
             {
                 hold.Begin();
                 holding = true;
+                if (entity == null)
+                {
+                    var previous = new HashSet<Guid>(Entities().Select(e => e.ID));
+                    entity = TagHelperMethods.GetLonguestMatchingTag(path, true, null);
+                    var branches = Entities().Where(e => !previous.Contains(e.ID)).ToList();
+                    if (branches.Count > 0) hold.Put(new BranchRestore(branches));
+                    created = true;
+                }
+                if (entity == null || TagGlobals.baseNames.Contains(entity.Name)) throw new ArgumentException("could not resolve entity path: " + path);
+                var added = valid.Where(h => !entity.Nodes.Contains(h)).ToList();
                 if (added.Count > 0) hold.Put(new MembershipRestore(entity, added, new List<uint>()));
                 TagMethods.ApplyEntities(new List<TagNode> { entity }, valid, layer);
                 if (rename && entity.IsNameable) TagMethods.RenameUsingStructure(valid);
@@ -506,7 +566,7 @@ namespace TagManager
             result.Sort((a, b) =>
             {
                 int c = b.Overlap.CompareTo(a.Overlap);
-                if (c != 0 && Math.Abs(a.Overlap - b.Overlap) > 0.05f) return c;
+                if (c != 0) return c;
                 c = b.Depth.CompareTo(a.Depth);
                 if (c != 0) return c;
                 return a.SizeRatio.CompareTo(b.SizeRatio);
@@ -647,6 +707,16 @@ namespace TagManager
             }
             var branch = new Dictionary<Guid, Box>(entities.Count);
             foreach (TagNode e in entities) BranchBox(e, own, branch);
+            foreach (var zone in _zones)
+            {
+                Box b = Box.Invalid;
+                foreach (uint h in zone.Value)
+                {
+                    var node = MaxPluginUtilities.GetNodeByHandle(h);
+                    if (node != null) b.Include(NodeBox(node, t));
+                }
+                if (b.Valid) branch[zone.Key] = b;
+            }
             return branch;
         }
 
@@ -774,6 +844,7 @@ namespace TagManager
             {
                 if (_added.Count > 0) _entity.Nodes.RemoveRange(_added);
                 if (_removed.Count > 0) _entity.Nodes.AddRange(_removed, true);
+                if (isUndo) foreach (uint h in _added) LogDecision(h, "", "", "retracted:");
             }
 
             public override void Redo()
@@ -791,6 +862,8 @@ namespace TagManager
 
         private class Candidate
         {
+            public double GeometryScore;
+            public bool ProposedHierarchy;
             public string Path;
             public float Overlap;
             public int Depth;
@@ -803,6 +876,7 @@ namespace TagManager
         private class Proposal
         {
             public uint Handle;
+            public string Token;
             public List<Candidate> Ranked;
         }
 
@@ -821,6 +895,14 @@ namespace TagManager
                 sb.Append(",\"chosen\":").Append(Str(chosen ?? ""));
                 sb.Append(",\"proposed\":").Append(Str(proposed ?? ""));
                 sb.Append(",\"reason\":").Append(Str(reason ?? ""));
+                ProposalTicket ticket;
+                if (_tickets.TryGetValue(handle, out ticket))
+                    sb.Append(",\"evidence\":").Append(ticket.EvidenceJson);
+                sb.Append(",\"session\":").Append(Str(_session));
+                string kind = reason != null && reason.StartsWith("auto:") ? "automatic" :
+                    reason != null && reason.StartsWith("ignored:") ? "ignored" :
+                    reason != null && reason.StartsWith("retracted:") ? "retracted" : "confirmed";
+                sb.Append(",\"kind\":").Append(Str(kind));
                 sb.Append('}');
                 File.AppendAllText(DecisionLogPath, sb.ToString() + Environment.NewLine, new UTF8Encoding(false));
             }

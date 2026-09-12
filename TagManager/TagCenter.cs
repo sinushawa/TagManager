@@ -249,6 +249,7 @@ namespace TagManager
 
         public void Cleanup()
         {
+            TagApi.StopProposalTimer();
             TagGlobals.SaveSettings();
             AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
         }
@@ -267,6 +268,7 @@ namespace TagManager
             fastPan.RefreshStatusBar();
             TagGlobals.selectionChain = new Stack<List<TagNode>>();
             InitializeTree();
+            TagApi.StartProposalTimer();
             TagGlobals.addToSelection = false;
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(TagCenter.CurrentDomain_AssemblyResolve);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(MaxStartup)), null, (SystemNotificationCode)80);
@@ -287,6 +289,7 @@ namespace TagManager
         }
         public void InitializeTree()
         {
+            TagApi.ResetProposals();
             TagGlobals.root = new TagNode("Root");
             TagNode firstchild = new TagNode("Project");
             TagGlobals.project = firstchild;
@@ -337,6 +340,7 @@ namespace TagManager
         }
         private void NodeCreated(IntPtr obj, INotifyInfo param)
         {
+            TagApi.QueueCreated(param.CallParam as IINode);
             if (TagGlobals.autoCloneTag)
             {
                 fastPan.Selection = MaxPluginUtilities.Selection.ToSOC();
@@ -345,6 +349,7 @@ namespace TagManager
         }
         private void SceneAddedNode(IntPtr obj, INotifyInfo param)
         {
+            TagApi.QueueCreated(param.CallParam as IINode);
             if (TagGlobals.autoCloneTag)
             {
                 IINode _node = param.CallParam as IINode;
@@ -409,6 +414,8 @@ namespace TagManager
         private void NodeDeleted(IntPtr obj, INotifyInfo param)
         {
             IINode _node = param.CallParam as IINode;
+            if (_node == null) return;
+            TagApi.ForgetProposal(_node.Handle);
             TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
         }
 

@@ -29,6 +29,8 @@ namespace TagManager
         public FastWPFTag()
         {
             this.InitializeComponent();
+            Loaded += SuggestionsLoaded;
+            PreviewKeyDown += SuggestionsPreviewKeyDown;
 
         }
 
@@ -56,6 +58,7 @@ namespace TagManager
         private void FastBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             dragonz.actb.control.AutoCompleteTextBox autoCompleteBox = (dragonz.actb.control.AutoCompleteTextBox)sender;
+            if (e.Handled) return;
 
             // open bracket [
             if (e.Key == Key.Oem4)

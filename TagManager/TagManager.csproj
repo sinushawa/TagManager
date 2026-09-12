@@ -113,6 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="TagApi.cs" />
+    <Compile Include="TagProposalFlow.cs" />
+    <Compile Include="ArchitecturalSuggestions.cs" />
+    <Compile Include="FastTagAutocomplete.cs" />
     <Compile Include="TagCenter.cs" />
     <Compile Include="TagCenterAction.cs" />
     <Compile Include="TagGlobals.cs" />

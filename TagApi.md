@@ -1,4 +1,36 @@
-# TagApi — string facade for MAXScript and the MCP bridge
+# TagApi - string facade for MAXScript and the MCP bridge
+
+## API 1.2 inline architectural suggestions
+
+Suggestions now require confirmation by default (`AutoApplyEnabled=false`). `Present`
+requires `session` and a `token` on each proposal. Obtain them with
+`RequestEvidence(handlesCsv)` or `ProposalBatch()`; old unversioned requests are rejected.
+Tickets expire after two minutes and are checked against fresh evidence and the entity tree.
+
+Creation callbacks queue new objects. A background-priority dispatcher collects provisional
+shape/spatial suggestions after a 750 ms settling delay. FastTag shows them directly in its
+existing autocomplete dropdown before typing: no button and no separate suggestions window.
+`ReviewProposals()` now opens FastTag for the current selection. Down/Up then Enter or slash
+accepts a suggestion; untouched Enter accepts the first. Typing preserves legacy filtering
+and Enter-to-select behaviour. Escape dismisses. No selected objects shows architectural
+starter paths, and the first untagged object works without any existing entities.
+
+`Evidence` adds `sizeMeters`, `boundsVolumeM3` (world AABB volume, not mesh volume), and
+architectural candidates with `geometryScore`, `reason` and `proposedHierarchy`. New paths
+are accepted by `Present` only when issued in the object's evidence ticket. They cannot be
+auto-applied even with opt-in: confirmation creates the hierarchy in one undo step.
+`AcceptFastTag(handlesCsv,path)` checks all tickets and the current selection before applying.
+Architectural guesses cover structural/envelope/interior elements, furniture, museum display
+elements, station spaces and site hardscape. They are uncertain shape priors, not recognition.
+`ProposalBatch()` provides bounded queued work and the decision-log path to an external
+ranker. The Python MCP worker adds semantic neighbours and local LLM ranking.
+
+`SetEntityZone(path, handlesCsv)` overrides inferred bounds with explicit volume nodes for
+the current session. Empty handles removes the binding. These bindings are not persisted.
+
+Scene resets clear proposals, tickets and boxes. Evidence refreshes boxes each batch,
+including changes made outside TagManager. Accepted decisions retain original evidence;
+undo retracts the learning example. New branches now participate in the apply undo step.
 
 `TagManager.TagApi` is a static class that exposes the entity tree to scripts and to the
 3dsmax-mcp server without any .NET collection types crossing the boundary. Handles go in as a
@@ -24,7 +56,7 @@ through the MCP bridge, already do.
 | `GetEntities(handles)` | `{"objects":{"1943":["A_B"], ...}}` | One pass over the tree; unknown handles map to `[]`. |
 | `EntityBounds()` | world bbox per entity over its whole branch | Uses the node box cache. |
 | `Evidence(handles)` | per handle: name, class, material, layer, parent, bbox, size, current entities, containment `candidates` | The plugin's half of the evidence stage. |
-| `Present(rankedJson)` | `{"applied":[...],"queued":n,"pending":n}` | Top candidate at or above `AutoApplyThreshold` applies at once; the rest go to the pending list. |
+| `Present(rankedJson)` | `{"applied":[...],"queued":n,"pending":n}` | Requires session/tokens. Review-only unless `AutoApplyEnabled` is explicitly enabled. |
 | `Pending()` | pending proposals with their ranked candidates | For the FastTag confirm flow. |
 | `AcceptPending(handle, index)` | apply result | Applies candidate `index` (0 = top) and logs the decision. |
 | `ClearPending(handles)` | pending count | Empty string clears all. |
@@ -37,8 +69,8 @@ through the MCP bridge, already do.
 `Present` accepts:
 
 ```json
-{"threshold":0.9,
- "proposals":[{"handle":1943,"ranked":[{"path":"Building_Floor1_Kitchen","confidence":0.93,"reason":"..."}]}]}
+{"session":"from RequestEvidence", "threshold":0.9,
+ "proposals":[{"handle":1943,"token":"from RequestEvidence","ranked":[{"path":"Building_Floor1_Kitchen","confidence":0.93,"reason":"..."}]}]}
 ```
 
 ## Evidence record
