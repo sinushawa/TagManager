@@ -68,9 +68,18 @@ namespace TagManager
                 }
                 public override void Proc(IILoad iload)
                 {
-                    if (iload != null)
+                    try
                     {
-                        ApplyMergedEntities(iload.RootNode);
+                        if (iload != null)
+                        {
+                            ApplyMergedEntities(iload.RootNode);
+                        }
+                    }
+                    finally
+                    {
+                        // The merge's own load is done; do not wait on FilePostMerge to clear it.
+                        TagGlobals.isMerging = false;
+                        TagGlobals.mergedRoot = null;
                     }
                 }
                 // Walks the whole hierarchy: grouped and linked objects carry their own chunk.
@@ -93,7 +102,8 @@ namespace TagManager
                                         TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
                                         if (entity.Name != "Project")
                                         {
-                                            TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
+                                            // Merged objects keep the layer they came in with.
+                                            TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle }, false);
                                         }
                                     }
                                 }
@@ -287,7 +297,11 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaving)), null, SystemNotificationCode.FilePreSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileSaved)), null, SystemNotificationCode.FilePostSave);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FilePreMerging)), null, SystemNotificationCode.FilePreMerge);
+            // FilePostMerge alone has been seen not to reach FileMerged (left isMerging stuck after
+            // getMAXFileObjectNames); the later merge notifications clear it as well.
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge3);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMergeProcessFinalized);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.FilePreOpen);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileOpened)), null, SystemNotificationCode.FilePostOpen);
@@ -363,6 +377,8 @@ namespace TagManager
         }
         private void FileReset(IntPtr obj, INotifyInfo param)
         {
+            // Also runs before an open: a merge flag left set would make Load treat the file as a merge.
+            TagGlobals.isMerging = false;
             InitializeTree();
             fastPan.UpdateSource();
             if (fastTag != null)
@@ -462,7 +478,8 @@ namespace TagManager
             System.Windows.Window dialog = new System.Windows.Window();
 
             // Name the window
-            dialog.Title = "Entity Manager v1.2 Feb 26";
+            Version _version = Assembly.GetExecutingAssembly().GetName().Version;
+            dialog.Title = "Entity Manager v" + _version.ToString(3);
 
             // Example of setup size and location
             // ...

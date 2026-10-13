@@ -117,7 +117,9 @@ namespace TagManager
         }
         void TagNode_ChangedLongName(object sender, EventArgs e)
         {
-            if (TagGlobals.autoRename && !TagGlobals.isMerging && IsNameable)
+            // No isMerging guard: a merged tree has its objects cleared before it is parented
+            // (ReParent(true)), and the merge callback only adds objects, so nothing is renamed then.
+            if (TagGlobals.autoRename && IsNameable)
             {
                 foreach (uint _nodeHandle in Nodes)
                 {

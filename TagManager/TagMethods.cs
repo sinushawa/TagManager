@@ -98,7 +98,9 @@ namespace TagManager
             {
                 // Check to make sure there is no double.
                 _entity.Nodes.AddRange(_objects, true);
-                if(TagGlobals.autoLayer && !TagGlobals.isMerging)
+                // Not tied to isMerging: the merge callback asks for no layering itself, and a merge
+                // flag left set must not silently stop layering for the user's own tagging.
+                if(TagGlobals.autoLayer)
                 {
                     LayOutObjects(_entity, _objects);
                 }
