@@ -12,7 +12,6 @@ using System.Xml.Linq;
 using System.IO;
 using System.Diagnostics;
 using System.ComponentModel;
-using Force.DeepCloner;
 
 namespace TagManager
 {
@@ -71,31 +70,38 @@ namespace TagManager
                 {
                     if (iload != null)
                     {
-                        for (int i = 0; i < iload.RootNode.NumChildren; i++)
+                        ApplyMergedEntities(iload.RootNode);
+                    }
+                }
+                // Walks the whole hierarchy: grouped and linked objects carry their own chunk.
+                private static void ApplyMergedEntities(IINode _parent)
+                {
+                    for (int i = 0; i < _parent.NumChildren; i++)
+                    {
+                        IINode _node = _parent.GetChildNode(i);
+                        IAppDataChunk chunk = _node.GetAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
+                        if (chunk != null)
                         {
-                            IINode _node = iload.RootNode.GetChildNode(i);
-                            uint handle = _node.Handle;
-                            IAppDataChunk chunk = _node.GetAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
-                            if (chunk != null)
+                            ObjectDataChunk odc = ObjectDataChunk.ByteArrayToObjectDataChunk(chunk.Data);
+                            foreach (string ID in odc.entitiesIDs)
                             {
-                                ObjectDataChunk odc = ObjectDataChunk.ByteArrayToObjectDataChunk(chunk.Data);
-                                foreach (string ID in odc.entitiesIDs)
+                                if (TagGlobals.mergedRoot != null)
                                 {
-                                    if (TagGlobals.mergedRoot != null)
+                                    TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID == Guid.Parse(ID));
+                                    if (_nodeMerged != null)
                                     {
-                                        TagNode _nodeMerged = TagGlobals.mergedRoot.GetNodeList().FirstOrDefault(x => x.ID == Guid.Parse(ID));
-                                        if (_nodeMerged != null)
+                                        TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
+                                        if (entity.Name != "Project")
                                         {
-                                            TagNode entity = TagHelperMethods.GetLonguestMatchingTag(_nodeMerged.GetNodeBranchName(TagGlobals.delimiter, TagGlobals.baseNames), true, _nodeMerged.IsNameable);
-                                            if (entity.Name != "Project")
-                                            {
-                                                TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
-                                            }
+                                            TagMethods.ApplyEntities(new List<TagNode>() { entity }, new List<uint>() { _node.Handle });
                                         }
                                     }
                                 }
                             }
+                            // Read once; FileSaving writes a fresh chunk, so a stale one must not linger.
+                            _node.RemoveAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
                         }
+                        ApplyMergedEntities(_node);
                     }
                 }
             }
@@ -158,9 +164,8 @@ namespace TagManager
             {
                 if (TagGlobals.root != null && TagGlobals.project.Children.Count>0)
                 {
-                    TagNode _copied = TagGlobals.root.DeepClone();
-                    TagMethods.RecursivePruneEntities(_copied);
-                    IOResult result = isave.Save(_copied);
+                    // Empty branches are pruned while serializing (TagNode.SavedChildren).
+                    IOResult result = isave.Save(TagGlobals.root);
                     return result;
                 }
                 else
@@ -276,7 +281,6 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.SelectionsetChanged);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeCreated)), null, SystemNotificationCode.NodeCreated);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(PostNodeCloned)), null, SystemNotificationCode.PostNodesCloned);
-            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SelChanged)), null, SystemNotificationCode.NodeRenamed);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(NodeDeleted)), null, SystemNotificationCode.ScenePreDeletedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPostReset);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.SystemPostNew);
@@ -374,6 +378,7 @@ namespace TagManager
                 if (_node != null)
                 {
                     ObjectDataChunk odc = new ObjectDataChunk(_nodeHandle.Value);
+                    RemoveTagChunk(_node);
                     _node.AddAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0, odc.ToByteArray());
                 }
             }
@@ -386,7 +391,7 @@ namespace TagManager
                 IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
                 if (_node != null)
                 {
-                    _node.ClearAllAppData();
+                    RemoveTagChunk(_node);
                 }
             }
         }
@@ -401,7 +406,7 @@ namespace TagManager
                     IINode _node = MaxPluginUtilities.GetNodeByHandle(_nodeHandle.Key);
                     if (_node != null)
                     {
-                        _node.ClearAllAppData();
+                        RemoveTagChunk(_node);
                     }
                 }
                 TagGlobals.isMerging = true;
@@ -417,7 +422,17 @@ namespace TagManager
             IINode _node = param.CallParam as IINode;
             if (_node == null) return;
             TagApi.ForgetProposal(_node.Handle);
-            TagMethods.RemoveObjects(TagGlobals.root.GetNodeList(), new List<uint>() { _node.Handle});
+            // The object is going away: only the entities holding it change, and it is not renamed.
+            List<uint> _handle = new List<uint>() { _node.Handle };
+            foreach (TagNode _entity in TagMethods.GetEntitiesContainingObjects(_handle))
+            {
+                _entity.Nodes.RemoveRange(_handle);
+            }
+        }
+        // Only TagManager's chunk: ClearAllAppData also wiped other plugins' and scripts' data.
+        private static void RemoveTagChunk(IINode _node)
+        {
+            _node.RemoveAppDataChunk(TagGlobals.tagCenter._descriptor.ClassID, TagGlobals.tagCenter._descriptor.SuperClassID, 0);
         }
 
         private void FilePreOpen(IntPtr obj, INotifyInfo param)

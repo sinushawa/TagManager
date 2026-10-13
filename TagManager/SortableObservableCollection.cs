@@ -48,14 +48,19 @@ namespace TagManager
         }
         public void RemoveRange(IEnumerable<T> collection)
         {
+            // Notify only for what was actually removed: each notification re-evaluates bound tree rows.
+            List<T> removed = new List<T>();
             foreach (var i in collection)
             {
-                if (Items.Contains(i))
+                if (Items.Remove(i))
                 {
-                    Items.Remove(i);
+                    removed.Add(i);
                 }
             }
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, collection.ToList()));
+            if (removed.Count > 0)
+            {
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removed));
+            }
         }
         public void RaiseNotificationRemoved(IEnumerable<T> collection)
         {

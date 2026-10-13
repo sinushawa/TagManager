@@ -50,10 +50,12 @@ namespace TagManager
         }
         private static List<IINode> GetSelection()
         {
-            List<IINode> selectedNodes = new List<IINode>();
-            for (int i = 0; i < Interface.SelNodeCount; i++)
+            IInterface14 ip = Interface;
+            int count = ip.SelNodeCount;
+            List<IINode> selectedNodes = new List<IINode>(count);
+            for (int i = 0; i < count; i++)
             {
-                selectedNodes.Add(Interface.GetSelNode(i));
+                selectedNodes.Add(ip.GetSelNode(i));
             }
             return selectedNodes;
         }

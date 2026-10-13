@@ -24,19 +24,23 @@ namespace TagManager
             return _converter;
         }
 
+        // Every tree row runs this on each selection change: build one set per selection
+        // snapshot (EntityPan.Selection) instead of re-reading the Max selection per row.
+        private static SortableObservableCollection<uint> _lastSelection;
+        private static HashSet<uint> _lastSelectionSet = new HashSet<uint>();
+
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            SortableObservableCollection<uint> NodesInEntity = (SortableObservableCollection<uint>)values[0];
-            SortableObservableCollection<uint> NodesInSelection = (SortableObservableCollection<uint>)values[1];
+            SortableObservableCollection<uint> NodesInEntity = values[0] as SortableObservableCollection<uint>;
+            SortableObservableCollection<uint> NodesInSelection = values[1] as SortableObservableCollection<uint>;
             if (NodesInEntity == null) return null;
-            if (NodesInEntity.Intersect(MaxPluginUtilities.Selection.ToListHandles()).Count() > 0)
+            if (NodesInSelection == null) return false;
+            if (!ReferenceEquals(NodesInSelection, _lastSelection))
             {
-                return true;
+                _lastSelection = NodesInSelection;
+                _lastSelectionSet = new HashSet<uint>(NodesInSelection);
             }
-            else
-            {
-                return false;
-            }
+            return NodesInEntity.Any(_lastSelectionSet.Contains);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

@@ -113,7 +113,14 @@ namespace TagManager
         // Invoked when we exit edit mode.
         void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            // After Enter/Escape edit mode is already off. Clicking away keeps the typed name
+            // (the binding pushes every keystroke), so it completes the edit like Enter.
+            if (!this.IsInEditMode) return;
             this.IsInEditMode = false;
+            if (Text != "" && Text != oldText)
+            {
+                NotifyTextEditionCompleted?.Invoke(this, new EventArgs());
+            }
         }
 
         // Invoked when the user edits the annotation.
@@ -124,7 +131,8 @@ namespace TagManager
                 if (Text != "")
                 {
                     this.IsInEditMode = false;
-                    NotifyTextEditionCompleted.Invoke(this, new EventArgs());
+                    // New "untitled" entities are edited without a subscriber.
+                    NotifyTextEditionCompleted?.Invoke(this, new EventArgs());
                     e.Handled = true;
                 }
                 else

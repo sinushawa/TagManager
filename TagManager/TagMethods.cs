@@ -33,6 +33,17 @@ namespace TagManager
             }
         }
 
+        // Descendants' paths contain the entity's name, which changes on every keystroke while it is
+        // edited. Refresh them once the rename is confirmed; with Rename on their objects follow
+        // (TagNode_ChangedLongName), the same as when a branch is moved by drag and drop.
+        public static void RefreshDescendantPaths(TagNode _entity)
+        {
+            foreach (TagNode _child in _entity.Children)
+            {
+                _child.DDNode_ChangedParent(_entity, null);
+            }
+        }
+
         public static void LayOutEntity(TagNode _entity)
         {
             IILayer _layer;
@@ -142,18 +153,21 @@ namespace TagManager
         }
         public static void DeleteEntities(List<TagNode> _entities)
         {
+            // Objects of the whole deleted branches lose their tags, not only the entities' own objects.
+            List<uint> _objects = _entities.SelectMany(x => x.GetNodeList()).Where(x => x.IsNameable).SelectMany(x => x.Nodes).Distinct().ToList();
             for (int i = 0; i < _entities.Count; i++)
             {
                 _entities[i].Parent.Children.Remove(_entities[i]);
-                if (TagGlobals.autoRename)
+            }
+            if (TagGlobals.autoRename)
+            {
+                // One object at a time: RenameUsingStructure builds a single name from the entities of
+                // every object it is given. Objects left without a nameable entity keep their name.
+                foreach (uint _object in _objects)
                 {
-                    if (_entities[i].IsNameable)
-                    {
-                        RenameUsingStructure(_entities[i].Nodes.ToList());
-                    }
+                    RenameUsingStructure(new List<uint>() { _object });
                 }
             }
-            
         }
         public static void MergeEntities(TagNode _toMerge, TagNode _target)
         {
@@ -180,7 +194,7 @@ namespace TagManager
                 foreach (uint _nodeHandle in _objects)
                 {
                     IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
-                    if (_object.Name.Length > 4)
+                    if (_object != null && _object.Name.Length > 4)
                     {
                         string _objectPrefix = _object.Name.Substring(0, _object.Name.Length - 4);
                         if (_objectPrefix != _namePrefix)
@@ -314,20 +328,6 @@ namespace TagManager
         {
             TagGlobals.lastUsedNode = GetEntitiesContainingObjects(MaxPluginUtilities.Selection.ToListHandles()).ToList();
             
-        }
-        public static void RecursivePruneEntities(TagNode _start)
-        {
-            while (PruneEmptyEntities(_start)) ;
-        }
-        public static bool PruneEmptyEntities(TagNode _start)
-        {
-            List<TagNode> emptyNodes = _start.GetNodeList().Where<TagNode>(x=> x.Nodes.Count==0 && x.Children.Count==0).ToList();
-            if (emptyNodes.Count==0 || emptyNodes[0] == TagGlobals.project || emptyNodes[0] == TagGlobals.root)
-            {
-                return false;
-            }
-            DeleteEntities(emptyNodes);
-            return true;
         }
         public static void PruneEmptyEntities()
         {

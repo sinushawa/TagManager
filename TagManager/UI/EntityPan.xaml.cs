@@ -203,6 +203,8 @@ namespace TagManager
             Keyboard.Focus(textblock);
             textblock.oldText = textblock.Text;
             textblock.IsInEditMode = true;
+            // An edit cancelled with Escape never unsubscribed; avoid stacking handlers.
+            textblock.NotifyTextEditionCompleted -= Textblock_NotifyTextEditionCompleted;
             textblock.NotifyTextEditionCompleted += Textblock_NotifyTextEditionCompleted;
         }
 
@@ -211,6 +213,10 @@ namespace TagManager
             EditableTextBlock textblock = sender as EditableTextBlock;
             TagNode _currentTagNode = (textblock.TryFindParent<TreeViewExItem>().DataContext) as TagNode;
             TagMethods.LayOutEntity(_currentTagNode);
+            if (_currentTagNode.Name != textblock.oldText)
+            {
+                TagMethods.RefreshDescendantPaths(_currentTagNode);
+            }
             textblock.NotifyTextEditionCompleted -= Textblock_NotifyTextEditionCompleted;
         }
 

@@ -184,12 +184,25 @@ namespace TagManager
         {
             info.AddValue("ID", ID, typeof(Guid));
             info.AddValue("Name", Name, typeof(string));
-            info.AddValue("Children", Children, typeof(SortableObservableCollection<TagNode>));
+            info.AddValue("Children", SavedChildren(), typeof(SortableObservableCollection<TagNode>));
             info.AddValue("Nodes", Nodes, typeof(SortableObservableCollection<uint>));
             info.AddValue("IsNameable", IsNameable, typeof(bool));
             info.AddValue("IsShortcut", IsShortcut, typeof(bool));
             info.AddValue("Shortcut", Shortcut, typeof(ConsoleContainerElement));
             info.AddValue("wireColor", wireColor, typeof(System.Drawing.Color));
+        }
+        // Empty branches are left out of the file only; the live tree keeps them. Pruning here
+        // replaces the DeepClone + prune copy, which also cloned the WPF/Max objects listening
+        // to the tree's events. Root, Project and shortcuts (saved queries, no objects) are always written.
+        private SortableObservableCollection<TagNode> SavedChildren()
+        {
+            SortableObservableCollection<TagNode> kept = new SortableObservableCollection<TagNode>();
+            kept.AddRange(Children.Where(x => TagGlobals.baseNames.Contains(x.Name) || x.HoldsObjects()));
+            return kept;
+        }
+        private bool HoldsObjects()
+        {
+            return IsShortcut || Nodes.Count > 0 || Children.Any(x => x.HoldsObjects());
         }
         internal void ReParent(bool clearObjects)
         {
