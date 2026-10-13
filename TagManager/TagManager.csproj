@@ -47,10 +47,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>max_2025_dlls\Autodesk.Max.Wrappers.dll</HintPath>
     </Reference>
-    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>max_2025_dlls\DeepCloner.dll</HintPath>
-    </Reference>
     <Reference Include="dragonz.actb, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>max_2025_dlls\dragonz.actb.dll</HintPath>

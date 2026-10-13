@@ -10,7 +10,7 @@
 	local stamp = (dotNetClass "System.DateTime").Now.ToString "yyyyMMdd_HHmmss"
 	local dst = (getDir #temp) + @"\TagManager_dev_" + stamp + @"\"
 	makeDir dst all:true
-	for f in #("TagManager.dll", "TagManager.pdb", "dragonz.actb.dll", "TreeViewEx.dll", "WPFToolkit.dll", "DeepCloner.dll") do
+	for f in #("TagManager.dll", "TagManager.pdb", "dragonz.actb.dll", "TreeViewEx.dll", "WPFToolkit.dll") do
 		if doesFileExist (src + f) do copyFile (src + f) (dst + f)
 	local asm = (dotNetClass "System.Reflection.Assembly").LoadFrom (dst + "TagManager.dll")
 	format "TagManager loaded from %\n" asm.Location

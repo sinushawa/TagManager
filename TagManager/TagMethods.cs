@@ -142,13 +142,16 @@ namespace TagManager
         }
         public static void RemoveObjects(List<TagNode> _entities, List<uint> _objects)
         {
+            bool _nameableChanged = false;
             foreach (TagNode _entity in _entities)
             {
                 _entity.Nodes.RemoveRange(_objects);
-                if (TagGlobals.autoRename && _entity.IsNameable)
-                {
-                    RenameUsingStructure(_objects);
-                }
+                _nameableChanged |= _entity.IsNameable;
+            }
+            // Once, after every entity let go: renaming inside the loop renamed the objects once per entity.
+            if (TagGlobals.autoRename && _nameableChanged)
+            {
+                RenameUsingStructure(_objects);
             }
         }
         public static void DeleteEntities(List<TagNode> _entities)
@@ -161,12 +164,8 @@ namespace TagManager
             }
             if (TagGlobals.autoRename)
             {
-                // One object at a time: RenameUsingStructure builds a single name from the entities of
-                // every object it is given. Objects left without a nameable entity keep their name.
-                foreach (uint _object in _objects)
-                {
-                    RenameUsingStructure(new List<uint>() { _object });
-                }
+                // Objects left without a nameable entity keep their name.
+                RenameUsingStructure(_objects);
             }
         }
         public static void MergeEntities(TagNode _toMerge, TagNode _target)
@@ -176,33 +175,40 @@ namespace TagManager
         }
         public static void RenameUsingStructure(List<uint> _objects)
         {
-            SortableObservableCollection<TagNode> entitiesContainingObjects = GetEntitiesContainingObjects(_objects);
-
-            // !!!!!!! Retrieving The entities Of all the objects even if the particular object doesn't use the entity
-
-            SortableObservableCollection<TagNode> nameableEntitiesContainingObjects = entitiesContainingObjects.Where(x => x.IsNameable == true).ToSortableObservableCollection();
-            SortableObservableCollection<List<string>> branchesElementsNames = new SortableObservableCollection<List<string>>();
-            foreach (TagNode _entity in nameableEntitiesContainingObjects)
+            // Each object is named from its own nameable entities only; one pass over the tree
+            // collects them for all the objects instead of one tree walk per object.
+            HashSet<uint> _wanted = new HashSet<uint>(_objects);
+            Dictionary<uint, List<List<string>>> _branchesByObject = new Dictionary<uint, List<List<string>>>();
+            foreach (TagNode _entity in TagGlobals.root.GetNodeList().Where(x => x.IsNameable))
             {
-                branchesElementsNames.Add(_entity.GetNodeBranchElementsNames(true));
-            }
-            branchesElementsNames.Sort(x => x.Count);
-            List<List<string>> _listBranchElements = branchesElementsNames.Reverse().ToList();
-            string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_listBranchElements.SelectMany(x=> x).ToList());
-            if (_namePrefix != "")
-            {
-                foreach (uint _nodeHandle in _objects)
+                List<string> _branch = null;
+                foreach (uint _nodeHandle in _entity.Nodes.Distinct())
                 {
-                    IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
-                    if (_object != null && _object.Name.Length > 4)
+                    if (!_wanted.Contains(_nodeHandle)) continue;
+                    if (_branch == null) _branch = _entity.GetNodeBranchElementsNames(true);
+                    if (!_branchesByObject.TryGetValue(_nodeHandle, out List<List<string>> _branches))
                     {
-                        string _objectPrefix = _object.Name.Substring(0, _object.Name.Length - 4);
-                        if (_objectPrefix != _namePrefix)
-                        {
-                            string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix + TagGlobals.delimiter);
-                            _object.Name = finalName;
-                            _object.NotifyNameChanged();
-                        }
+                        _branches = new List<List<string>>();
+                        _branchesByObject[_nodeHandle] = _branches;
+                    }
+                    _branches.Add(_branch);
+                }
+            }
+            foreach (uint _nodeHandle in _objects.Distinct())
+            {
+                if (!_branchesByObject.TryGetValue(_nodeHandle, out List<List<string>> _branches)) continue;
+                // Deepest branch first.
+                string _namePrefix = TagHelperMethods.ConcateneNameFromElements(_branches.OrderBy(x => x.Count).Reverse().SelectMany(x => x).ToList());
+                if (_namePrefix == "") continue;
+                IINode _object = MaxPluginUtilities.GetNodeByHandle(_nodeHandle);
+                if (_object != null && _object.Name.Length > 4)
+                {
+                    string _objectPrefix = _object.Name.Substring(0, _object.Name.Length - 4);
+                    if (_objectPrefix != _namePrefix)
+                    {
+                        string finalName = MaxPluginUtilities.MakeNameUnique(_namePrefix + TagGlobals.delimiter);
+                        _object.Name = finalName;
+                        _object.NotifyNameChanged();
                     }
                 }
             }

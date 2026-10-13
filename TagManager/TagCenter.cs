@@ -290,6 +290,7 @@ namespace TagManager
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileMerged)), null, SystemNotificationCode.FilePostMerge);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(SceneAddedNode)), null, SystemNotificationCode.SceneAddedNode);
             GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileReset)), null, SystemNotificationCode.FilePreOpen);
+            GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(FileOpened)), null, SystemNotificationCode.FilePostOpen);
             //GlobalInterface.Instance.RegisterNotification((new GlobalDelegates.Delegate5(ViewportChanged)), null, SystemNotificationCode.ViewportChange);
         }
         public void InitializeTree()
@@ -427,6 +428,21 @@ namespace TagManager
             foreach (TagNode _entity in TagMethods.GetEntitiesContainingObjects(_handle))
             {
                 _entity.Nodes.RemoveRange(_handle);
+            }
+        }
+        // Chunks are only read when merging. An opened file's chunks would otherwise stay on objects
+        // untagged before the next save (FileSaved only cleans tagged ones) and re-tag them on a later merge.
+        private void FileOpened(IntPtr obj, INotifyInfo param)
+        {
+            RemoveTagChunks(MaxPluginUtilities.Interface.RootNode);
+        }
+        private static void RemoveTagChunks(IINode _parent)
+        {
+            for (int i = 0; i < _parent.NumChildren; i++)
+            {
+                IINode _node = _parent.GetChildNode(i);
+                RemoveTagChunk(_node);
+                RemoveTagChunks(_node);
             }
         }
         // Only TagManager's chunk: ClearAllAppData also wiped other plugins' and scripts' data.
